@@ -1,0 +1,22 @@
+{
+  "name": "notelst",
+  "version": "1.0.0",
+  "description": "database driven webapp",
+  "main": "index.js",
+  "author": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XianAquino/NoteLst.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/XianAquino/NoteLst/issues"
+  },
+  "homepage": "https://github.com/XianAquino/NoteLst#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
