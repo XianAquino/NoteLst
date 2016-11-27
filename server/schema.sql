@@ -40,6 +40,22 @@ CREATE TABLE friends (
   FOREIGN KEY(user_id) REFERENCES users(id)
 );
 
+CREATE TABLE groups (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  name VARCHAR(45) NOT NULL,
+  PRIMARY KEY(id)
+);
+
+CREATE TABLE group_members (
+  id INT(11) NOT NULL AUTO_INCREMENT,
+  user_id INT(11) NOT NULL,
+  group_id INT(11) NOT NULL,
+  position VARCHAR(15) DEFAULT 'admin',
+  PRIMARY KEY (id),
+  FOREIGN KEY (user_id) REFERENCES users(id),
+  FOREIGN KEY (group_id) REFERENCES groups(id)
+);
+
 CREATE TABLE notes (
   id INT(11) NOT NULL AUTO_INCREMENT,
   title VARCHAR(45) NULL,
@@ -49,12 +65,6 @@ CREATE TABLE notes (
   user_id INT(11) NOT NULL,
   PRIMARY KEY(id),
   FOREIGN KEY(user_id) REFERENCES users(id)
-);
-
-CREATE TABLE groups (
-  id INT(11) NOT NULL AUTO_INCREMENT,
-  name VARCHAR(45) NOT NULL,
-  PRIMARY KEY(id)
 );
 
 CREATE TABLE group_notes (
