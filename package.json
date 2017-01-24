@@ -5,7 +5,8 @@
   "main": "index.js",
   "author": "",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./server/server.js"
   },
   "repository": {
     "type": "git",
@@ -17,7 +18,10 @@
   },
   "homepage": "https://github.com/XianAquino/NoteLst#readme",
   "dependencies": {
+    "body-parser": "^1.15.2",
     "express": "^4.14.0",
-    "mysql": "^2.12.0"
+    "mysql": "^2.12.0",
+    "nodemon": "^1.11.0",
+    "underscore": "^1.8.3"
   }
 }
