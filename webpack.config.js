@@ -1,12 +1,10 @@
-var webpack = require('webpack');
 var path = require('path');
 
-var compiler = webpack({
-  entry: "./src/index.js",
+module.exports = {
+  entry: "./src/index.jsx",
   output: {
-    path: __dirname,
+    path: path.join(__dirname, 'static'),
     filename: "bundle.js",
-    publicPath: "/static"
   },
   resolve: {
     extensions: ['', '.js', '.jsx']
@@ -17,6 +15,4 @@ var compiler = webpack({
       loader: 'babel'
     }]
   }
-});
-
-module.exports = compiler;
+}
