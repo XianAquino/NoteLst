@@ -9,9 +9,9 @@ var port = 3030;
 var ip = '127.0.0.1';
 
 var app = new WebpackDevServer(webpack(config), {
-  contentBase: "public",
   publicPath: "/static",
-  stats: {color: true}
+  stats: {color: true},
+  historyApiFallback: true
 });
 
 app.use(parser.json());

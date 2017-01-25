@@ -1,11 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
-class App extends Component {
-  render() {
-    return (
-      <p>Test</p>
-    )
-  }
+import Dashboard from './pages/Dashboard.jsx';
+import Login from './pages/Login.jsx';
+import SignIn from './pages/SignIn.jsx';
+import NotFound from './pages/NotFound.jsx';
+
+const App = () => {
+  return (
+    <Router history={browserHistory}>
+        <Route path='/' component={Dashboard} />
+        <Route path='/login' component={Login} />
+        <Route path='/signin' component={SignIn} />
+        <Route path='/*' component={NotFound} />
+    </Router>
+  );
 };
 
 export default App;
