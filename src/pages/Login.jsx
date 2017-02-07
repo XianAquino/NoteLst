@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import login from '../util/login.js';
+import { browserHistory } from 'react-router';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as loginActions from '../actions/loginActions.jsx';
 
 class Login extends Component {
   constructor(props) {
@@ -18,7 +22,23 @@ class Login extends Component {
     });
   }
   handleSubmit (event) {
-    login(this.state);
+    login(this.state,(response)=>{
+      const userInfo = response.data;
+      if (userInfo.userExist === false) {
+        this.props.actions.updateLoginStatus({
+          userExist: false,
+          passwordMatch: true
+        });
+      } else if (userInfo.passwordMatch === false) {
+        this.props.actions.updateLoginStatus({
+          passwordMatch: false,
+          userExist: true
+        });
+      } else {
+        this.props.actions.updateLoginStatus({isLoggedIn: true});
+        browserHistory.push('/');
+      }
+    });
     event.preventDefault();
   }
 
@@ -33,12 +53,19 @@ class Login extends Component {
             type='text'
             onChange={this.handleInputChange}
           />
+          {
+            this.props.login.userExist ? null : <span>username doesn't exist</span>
+          }
+          <br />
           <label>Password:</label>
           <input
             name='pwd'
             type='password'
             onChange={this.handleInputChange}
           />
+          {
+            this.props.login.passwordMatch ? null : <span>password didn't match</span>
+          }
           <input
             type='submit'
             value='Login'
@@ -50,4 +77,11 @@ class Login extends Component {
   }
 };
 
-export default Login;
+const mapStateToProps = (state) => ({login: state.login});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators(loginActions, dispatch)
+  }
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

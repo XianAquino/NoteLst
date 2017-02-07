@@ -3,7 +3,7 @@ import axios from 'axios';
 const login = (credentials, callback) => {
   axios.post('api/login', credentials)
   .then((reponse) => {
-    console.log(reponse);
+    callback(reponse);
   })
   .catch((error) => {
     console.log("Error: ", error);
