@@ -11,9 +11,19 @@ module.exports = {
   },
   create: (req, res) => {
     const params = req.body;
-    console.log(params);
-    users.createUser(params);
-    res.send("Created!");
+    users.createUser(params, (err, response) => {
+      if(response.insertId) {
+        const sessionId = uuid();
+        const userInfo = {
+          isLoggedIn: true,
+          id: response.insertId,
+          username: params.username,
+          email: params.email,
+          name: params.name
+        };
+        createSession(req, res, sessionId, userInfo);
+      }
+    });
   },
   login: (req, res) => {
     const params = req.body;
@@ -34,6 +44,7 @@ module.exports = {
         const userInfo = Object.assign(loginInfo, {
           isLoggedIn: true,
           id: info.id,
+          username: info.username,
           name: info.name,
           email: info.email
         });

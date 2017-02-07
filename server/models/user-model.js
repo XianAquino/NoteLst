@@ -14,9 +14,10 @@ module.exports =  {
     }
   },
 
-  createUser : (params) => {
+  createUser : (params, callback) => {
     db.query('INSERT INTO users SET ?' , params, function(err, res) {
       if(err)console.log("Error",err);
+      callback(err, res);
     });
   },
 

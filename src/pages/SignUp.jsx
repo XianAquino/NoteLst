@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import signUp from '../util/signUp.js';
+import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
+import { bindActionCreators } from 'redux';
+import * as loginActions from '../actions/loginActions.jsx';
+import * as userInfoActions from '../actions/userInfoActions.jsx';
 
 class SignUp extends Component {
   constructor(props) {
@@ -20,7 +25,18 @@ class SignUp extends Component {
     });
   }
   handleSubmit (event) {
-    signUp(this.state);
+    signUp(this.state, (response) => {
+      const user = response.data;
+      const userInfo = {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        name: user.name
+      };
+      this.props.actions.updateLoginStatus({isLoggedIn: true});
+      this.props.actions.updateUserInfo(userInfo);
+      browserHistory.push('/');
+    });
     event.preventDefault();
   }
   render () {
@@ -45,4 +61,15 @@ class SignUp extends Component {
   }
 };
 
-export default SignUp;
+const mapStateToProps = (state) => ({login: state.login});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators(
+      Object.assign({}, loginActions, userInfoActions),
+      dispatch
+    )
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
