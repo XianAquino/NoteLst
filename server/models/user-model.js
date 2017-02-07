@@ -2,7 +2,7 @@ var db = require('../db');
 var _ = require('underscore');
 
 module.exports =  {
-  getAllUsers : function(params,callback) {
+  getAllUsers : (params,callback) => {
     if(_.isEmpty(params)){
       db.query('SELECT * FROM USERS', function(err,res) {
         callback(res);
@@ -14,28 +14,26 @@ module.exports =  {
     }
   },
 
-  createUser : function(params) {
+  createUser : (params) => {
     db.query('INSERT INTO users SET ?' , params, function(err, res) {
       if(err)console.log("Error",err);
-      console.log("result",res);
     });
   },
 
-  getUser : function(id,callback) {
-    db.query('SELECT * FROM USERS WHERE ID = ? ', id ,function(err, res){
-      console.log("res",res);
+  getUser : (username, callback) => {
+    db.query('SELECT * FROM USERS WHERE USERNAME = ? ', username ,function(err, res){
       callback(err,res[0]);
     });
   },
 
-  update : function(id,values) {
+  update : (id,values) => {
     db.query('UPDATE users SET ? WHERE ?',[values,{id:id}],function(err,res){
       if(err)console.log("Error",err);
       console.log("result",res);
     });
   },
 
-  delete : function(id) {
+  delete : (id) => {
     db.query('DELETE FROM USERS WHERE ID = ?', id, function(err,res){
       if(err)console.log("error",err);
     })
