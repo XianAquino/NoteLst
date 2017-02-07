@@ -9,6 +9,7 @@ module.exports = {
   },
   create: function(req, res) {
     var params = req.body;
+    console.log(params);
     users.createUser(params);
     res.send("Created!");
   },

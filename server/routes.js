@@ -5,7 +5,7 @@ var notes = require('./controller/note-controller.js');
 
 
 router.get('/users', users.get);
-router.post('/users', users.create);
+router.post('/signUp', users.create);
 router.get('/users/:user_id', users.getUser);
 router.put('/users/:user_id', users.update);
 router.delete('/users/:user_id', users.delete);
