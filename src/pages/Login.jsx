@@ -4,6 +4,7 @@ import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as loginActions from '../actions/loginActions.jsx';
+import * as userInfoActions from '../actions/userInfoActions.jsx';
 
 class Login extends Component {
   constructor(props) {
@@ -36,6 +37,7 @@ class Login extends Component {
         });
       } else {
         this.props.actions.updateLoginStatus({isLoggedIn: true});
+        this.props.actions.updateUserInfo(userInfo);
         browserHistory.push('/');
       }
     });
@@ -77,11 +79,19 @@ class Login extends Component {
   }
 };
 
+Login.propTypes = {
+  login: React.PropTypes.object,
+  actions: React.PropTypes.object
+}
+
 const mapStateToProps = (state) => ({login: state.login});
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators(loginActions, dispatch)
-  }
+    actions: bindActionCreators(
+      Object.assign({}, loginActions, userInfoActions),
+      dispatch
+    )
+  };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
