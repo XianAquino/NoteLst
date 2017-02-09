@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import login from '../util/login.js';
-import { browserHistory } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as loginActions from '../actions/loginActions.jsx';
@@ -74,6 +74,7 @@ class Login extends Component {
             onClick={this.handleSubmit}
           />
         </form>
+        <Link to='/signup'>Sign up</Link>
       </div>
     );
   }

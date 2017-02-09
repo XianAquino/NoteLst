@@ -1,6 +1,8 @@
 const users = require('../models/user-model.js');
 const createSession = require('../util/createSession.js');
 const uuid = require('uuid/v1');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 module.exports = {
   get: (req, res) => {
@@ -10,7 +12,10 @@ module.exports = {
     })
   },
   create: (req, res) => {
-    const params = req.body;
+    let params = req.body;
+    const salt = bcrypt.genSaltSync(saltRounds);
+    const hashPwd = bcrypt.hashSync(params.pwd, salt);
+    params.pwd = hashPwd;
     users.createUser(params, (err, response) => {
       if(response.insertId) {
         const sessionId = uuid();
@@ -36,7 +41,7 @@ module.exports = {
         res.json(Object.assign(loginInfo,
           { userExist: false }
         ));
-      } else if (info.pwd !== pwd) {
+      } else if (!bcrypt.compareSync(pwd, info.pwd)) {
         res.json(Object.assign(loginInfo,
           { passwordMatch: false }
         ));
