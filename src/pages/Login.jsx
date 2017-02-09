@@ -36,7 +36,11 @@ class Login extends Component {
           userExist: true
         });
       } else {
-        this.props.actions.updateLoginStatus({isLoggedIn: true});
+        this.props.actions.updateLoginStatus({
+          isLoggedIn: true,
+          passwordMatch: true,
+          userExist: true,
+        });
         this.props.actions.updateUserInfo(userInfo);
         browserHistory.push('/');
       }

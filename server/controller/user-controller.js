@@ -34,7 +34,6 @@ module.exports = {
     const params = req.body;
     const username = params.username;
     const pwd = params.pwd;
-    const sessionId = uuid();
     let loginInfo = { isLoggedIn: false }
     users.getUser(username, (err,info) => {
       if (!info) {
@@ -53,9 +52,17 @@ module.exports = {
           name: info.name,
           email: info.email
         });
+        const sessionId = uuid();
         createSession(req, res, sessionId, userInfo);
       }
     });
+  },
+  checkAuth: (req, res) => {
+    if (req.session.token) {
+      res.json({isAuthenticated: true});
+    } else {
+      res.json({isAuthenticated: false});
+    }
   },
   getUser: (req, res) => {
     const id = req.params.user_id;
