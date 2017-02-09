@@ -1,5 +1,5 @@
 const defaultState = {
-  isLoggedIn: false,
+  isLoggedIn: undefined,
   passwordMatch: true,
   userExist: true,
 }

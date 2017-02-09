@@ -6,6 +6,7 @@ var notes = require('./controller/note-controller.js');
 
 router.post('/signUp', users.create);
 router.post('/login', users.login);
+router.get('/isAuthenticated', users.checkAuth);
 router.get('/users', users.get);
 router.get('/users/:username', users.getUser);
 router.put('/users/:user_id', users.update);
