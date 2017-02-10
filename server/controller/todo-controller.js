@@ -4,7 +4,7 @@ const _ = require('underscore');
 module.exports = {
   get: (req,res) => {
     const userId = req.params.user_id
-    todos.getUserTodos(userId,function(todos){
+    todos.getUserTodos(userId, (todos)=> {
       res.json(todos);
     });
   },
@@ -15,7 +15,7 @@ module.exports = {
   },
   getTodo: (req,res) => {
     const todoId = req.params.todo_id;
-    todos.getTodo(todoId, function(todo){
+    todos.getTodo(todoId, (todo) => {
       res.json(todo);
     });
   },
