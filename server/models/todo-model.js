@@ -1,36 +1,37 @@
-var db = require('../db');
+const db = require('../db');
 
 module.exports = {
-  getUserTodos: function(user, callback){
-      db.query('SELECT * FROM todos WHERE user_id = ?',user, function(err,res) {
-        if(err)throw err;
-        callback(res);
-      });
+  getUserTodos: (user, callback) => {
+    db.query('SELECT * FROM todos WHERE user_id = ?',user, (err, res) => {
+      if(err)throw err;
+      console.log(res);
+      callback(res);
+    });
   },
 
-  create: function(params){
-    db.query('INSERT INTO todos SET ?', params, function(err,res) {
+  create: (params) => {
+    db.query('INSERT INTO todos SET ?', params, (err, res) => {
       if(err)throw err;
       console.log(res);
     });
   },
 
-  getTodo: function(id, callback){
-    db.query('SELECT * FROM todos WHERE id = ?', id, function(err,res) {
+  getTodo: (id, callback) => {
+    db.query('SELECT * FROM todos WHERE id = ?', id, (err, res) => {
       if(err)throw err;
       callback(res[0]);
     });
   },
 
-  update: function(id,values) {
-    db.query('UPDATE todos SET ? WHERE ?',[values,{id:id}], function(err,res) {
+  update: (id,values) => {
+    db.query('UPDATE todos SET ? WHERE ?',[values, {id: id}], (err, res) => {
       if(err)throw err;
       console.log(res);
     });
   },
 
-  delete: function(id) {
-    db.query('DELETE from todos WHERE id = ?', id, function(err,res) {
+  delete: (id) => {
+    db.query('DELETE from todos WHERE id = ?', id, (err, res) => {
       if(err)throw err;
       console.log(res);
     });
