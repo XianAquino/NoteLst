@@ -24,9 +24,10 @@ class TaskForm extends Component {
   }
   handleSubmit(event) {
     event.preventDefault();
-    createTask(this.props.userId, this.state, (task) => {
+    const { userId, actions } = this.props;
+    createTask(userId, this.state, (task) => {
       const taskId = task.data.insertId;
-      this.props.actions.addTask(Object.assign(this.state, {id: taskId}));
+      actions.addTask(Object.assign(this.state, {id: taskId}));
     })
     this.props.toggleTaskForm(false);
   }
