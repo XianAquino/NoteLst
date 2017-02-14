@@ -25,7 +25,6 @@ class TaskForm extends Component {
   handleSubmit(event) {
     event.preventDefault();
     createTask(this.props.userId, this.state, (task) => {
-      console.log(task.data.insertId);
       const taskId = task.data.insertId;
       this.props.actions.addTask(Object.assign(this.state, {id: taskId}));
     })
@@ -33,7 +32,6 @@ class TaskForm extends Component {
   }
 
   render() {
-    console.log(this.props);
     return(
       <div>
         <h2>Taskform</h2>

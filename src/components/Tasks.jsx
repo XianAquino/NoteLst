@@ -3,14 +3,25 @@ import getTasks from '../util/getTasks';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as taskActions from '../actions/taskActions.jsx';
+import deleteTask from '../util/deleteTask';
+import Task from './Task';
 
 class Tasks extends Component {
+  constructor(props){
+    super(props);
+    this.remove = this.remove.bind(this);
+  }
   componentWillMount() {
     const { userId, actions } = this.props;
     getTasks(this.props.userId, (response) => {
-      console.log(response);
       actions.loadTasks(response.data);
     });
+  }
+
+  remove(taskId) {
+    const { actions } = this.props;
+    deleteTask(taskId);
+    actions.deleteTask(taskId);
   }
 
   render() {
@@ -21,12 +32,13 @@ class Tasks extends Component {
         <ul>
           {
             tasks.map((task, i) =>
-              <li key={i}>
-                <div>
-                  <p>{task.title}</p>
-                  <p>{task.todo}</p>
-                </div>
-              </li>
+              <Task
+                key={i}
+                remove={this.remove}
+                id={task.id}
+                title={task.title}
+                desc={task.todo}
+              />
             )
           }
         </ul>
@@ -36,7 +48,8 @@ class Tasks extends Component {
 };
 
 Tasks.propTypes = {
-  userId: React.PropTypes.number
+  userId: React.PropTypes.number,
+  actions: React.PropTypes.object
 };
 
 const mapStateToProps = (state) => {

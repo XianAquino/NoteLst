@@ -4,7 +4,6 @@ module.exports = {
   getUserTodos: (user, callback) => {
     db.query('SELECT * FROM todos WHERE user_id = ?',user, (err, res) => {
       if(err)throw err;
-      console.log(res);
       callback(res);
     });
   },
