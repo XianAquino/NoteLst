@@ -11,6 +11,9 @@ let store = createStore(
   autoRehydrate()
 );
 
-persistStore(store);
+persistStore(store, {
+  whitelist: ['login', 'userInfo'],
+  debounce: 50
+});
 
 export default store;
