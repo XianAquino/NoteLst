@@ -7,6 +7,7 @@ import * as loginActions from '../actions/loginActions.jsx';
 import checkAuth from '../util/checkAuth';
 import TaskForm from '../components/TaskForm';
 import Task from '../components/Tasks';
+import Navbar from '../components/Navbar';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -40,6 +41,7 @@ class Dashboard extends Component {
     if(isLoggedIn && userInfo.id) {
       return(
         <div>
+          <Navbar/>
           <p>Dashboard</p>
           <p> {userInfo.name}</p>
           <div className='task-container'>
