@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import * as loginActions from '../actions/loginActions.jsx';
+
 import checkAuth from '../util/checkAuth';
 import TaskForm from '../components/TaskForm';
 import Task from '../components/Tasks';
@@ -70,7 +71,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators(loginActions,dispatch)
+    actions: bindActionCreators(loginActions, dispatch)
   };
 };
 

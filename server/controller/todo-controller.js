@@ -10,8 +10,9 @@ module.exports = {
   },
   create: (req,res) => {
     const params = _.extend({user_id:req.params.user_id}, req.body);
-    todos.create(params);
-    res.send('Created');
+    todos.create(params, (todo) => {
+      res.send(todo);
+    });
   },
   getTodo: (req,res) => {
     const todoId = req.params.todo_id;
