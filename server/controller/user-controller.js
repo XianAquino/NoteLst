@@ -57,6 +57,11 @@ module.exports = {
       }
     });
   },
+  logout: (req, res) => {
+    req.session.destroy( () => {
+      res.json({ isLoggedIn: false });
+    })
+  },
   checkAuth: (req, res) => {
     if (req.session.token) {
       res.json({isAuthenticated: true});
