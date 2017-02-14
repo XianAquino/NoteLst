@@ -9,10 +9,10 @@ module.exports = {
     });
   },
 
-  create: (params) => {
+  create: (params, callback) => {
     db.query('INSERT INTO todos SET ?', params, (err, res) => {
       if(err)throw err;
-      console.log(res);
+      callback(res);
     });
   },
 

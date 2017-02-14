@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import createTask from '../util/createTask';
-
+import * as taskActions from '../actions/taskActions.jsx';
 
 class TaskForm extends Component {
 
@@ -22,12 +23,17 @@ class TaskForm extends Component {
     event.preventDefault();
   }
   handleSubmit(event) {
-    createTask(this.props.userId, this.state);
     event.preventDefault();
+    createTask(this.props.userId, this.state, (task) => {
+      console.log(task.data.insertId);
+      const taskId = task.data.insertId;
+      this.props.actions.addTask(Object.assign(this.state, {id: taskId}));
+    })
     this.props.toggleTaskForm(false);
   }
 
   render() {
+    console.log(this.props);
     return(
       <div>
         <h2>Taskform</h2>
@@ -55,4 +61,7 @@ TaskForm.propTypes = {
 
 const mapStateToProps = (state) => ({userId: state.userInfo.id});
 
-export default connect(mapStateToProps)(TaskForm);
+const mapDispatchToProps = (dispatch) => {
+  return { actions : bindActionCreators(taskActions, dispatch) };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(TaskForm);
