@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const login = (credentials, callback) => {
-  axios.post('api/login', credentials)
+  axios.post('/api/login', credentials)
   .then((reponse) => {
     callback(reponse);
   })

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const createNote = (userId, callback) => {
-  axios.post(`/api/users/${userId}/notes`)
+  axios.post(`/api/users/${userId}/notes`, {title: '', note: ''})
   .then(response => {
     callback(response.data);
   })

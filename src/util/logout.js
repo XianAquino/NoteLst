@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const logout = (callback) => {
-  axios.get('api/logout')
+  axios.get('/api/logout')
   .then(response => {
     callback(response);
   })
