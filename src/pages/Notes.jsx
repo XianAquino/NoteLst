@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import createNote from '../util/createNote';
+import getNotes from '../util/getNotes';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 
 class Notes extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.create = this.create.bind(this);
+  }
+  componentWillMount() {
+    const { userId } = this.props;
+    getNotes(userId, (response) => console.log(response));
   }
 
   create() {
