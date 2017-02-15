@@ -9,7 +9,7 @@ const Navbar = ({userInfo}) => {
       <p>Home</p>
       <Link to='/'>Home</Link>
       <Link to='/messages'>messages</Link>
-      <Link to={`${userInfo.username}/notes`}>notes</Link>
+      <Link to={`/${userInfo.username}/notes`}>notes</Link>
       <Link to='/groups'>groups</Link>
       <p>{userInfo.name}</p>
       <LogoutButton/>

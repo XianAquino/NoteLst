@@ -19,7 +19,7 @@ module.exports = {
       callback(res[0]);
     })
   },
-  update: (id,values) => {
+  update: (id, values) => {
     db.query('UPDATE notes SET ? WHERE ?',[values, {id: id}], (err, res) => {
       if(err)throw err;
       console.log(res);

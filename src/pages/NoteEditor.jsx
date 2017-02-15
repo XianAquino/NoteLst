@@ -1,20 +1,36 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import updateNote from '../util/updateNote';
+import getNote from '../util/getNote';
+import _ from 'underscore';
+
+const debounceUpdate = _.debounce(updateNote,500);
 
 class NoteEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: undefined,
-      note: undefined
+      title: '',
+      note: ''
     }
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
+  componentWillMount() {
+    const { userId, params } = this.props;
+    getNote(userId, params.noteId, (result) => {
+      this.setState({
+        title: result.title,
+        note: result.note
+      });
+    });
+  }
+
   handleInputChange(event) {
     const target = event.target;
-    this.setState({ [target.name]: target.value });
-    console.log(this.state);
+    this.setState({ [target.name]: target.value }, () => {
+      debounceUpdate(this.props.params.noteId, this.state);
+    });
   }
 
   render() {
@@ -24,12 +40,12 @@ class NoteEditor extends Component {
         <input
           onChange={this.handleInputChange}
           name='title'
-          value={this.state.title || note.title}
+          value={this.state.title}
         />
         <textarea
           onChange={this.handleInputChange}
           name='note'
-          value={this.state.note || note.note}
+          value={this.state.note}
         ></textarea>
       </div>
     )
@@ -38,12 +54,12 @@ class NoteEditor extends Component {
 
 NoteEditor.propTypes = {
   params: React.PropTypes.object,
-  note: React.PropTypes.object
+  userId: React.PropTypes.number
 };
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state) => {
   return {
-    note: state.notes.filter( note => note.id == ownProps.params.noteId )[0]
+    userId: state.userInfo.id
   };
 };
 
