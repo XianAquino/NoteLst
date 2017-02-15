@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import createNote from '../util/createNote';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 class Notes extends Component {
   constructor(props){
@@ -11,7 +12,8 @@ class Notes extends Component {
   create() {
     const { userId } = this.props;
     createNote(userId, (response) => {
-      console.log(response.insertId);
+      const noteId = response.insertId;
+      browserHistory.push(`/notes/${noteId}`);
     });
   }
 
