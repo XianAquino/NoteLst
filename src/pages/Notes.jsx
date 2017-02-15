@@ -22,9 +22,10 @@ class Notes extends Component {
   }
 
   create() {
-    const { userId } = this.props;
+    const { userId, actions } = this.props;
     createNote(userId, (response) => {
       const noteId = response.insertId;
+      actions.addNote({id: noteId, title: undefined, note: undefined});
       browserHistory.push(`/notes/${noteId}`);
     });
   }
