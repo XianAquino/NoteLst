@@ -3,6 +3,9 @@ import createNote from '../util/createNote';
 import getNotes from '../util/getNotes';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
+import { bindActionCreators } from 'redux';
+import * as notesActions from '../actions/notesActions';
+import Note from '../components/Note.jsx';
 
 class Notes extends Component {
   constructor(props) {
@@ -10,8 +13,10 @@ class Notes extends Component {
     this.create = this.create.bind(this);
   }
   componentWillMount() {
-    const { userId } = this.props;
-    getNotes(userId, (response) => console.log(response));
+    const { userId, actions } = this.props;
+    getNotes(userId, (response) => {
+      actions.loadNotes(response.data)
+    });
   }
 
   create() {
@@ -23,12 +28,18 @@ class Notes extends Component {
   }
 
   render() {
-    const { params, userId } = this.props;
-    console.log("username",params, userId);
+    const { params, userId, notes } = this.props;
     return(
       <div>
         <h1>Notes</h1>
         <button onClick={this.create}>Create Note</button>
+        <ul>
+        {
+          notes.map((note, i) =>
+            <Note key={i} title={note.title} id={note.id} />
+          )
+        }
+        </ul>
       </div>
     )
   }
@@ -36,13 +47,21 @@ class Notes extends Component {
 
 Notes.propTypes = {
   params: React.PropTypes.object,
-  userId: React.PropTypes.number
-}
+  userId: React.PropTypes.number,
+  notes: React.PropTypes.array,
+  actions: React.PropTypes.object
+};
 
 const mapStateToProps = (state) => {
   return {
-    userId: state.userInfo.id
-  }
-}
+    userId: state.userInfo.id,
+    notes: state.notes
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators(notesActions, dispatch)
+  };
+};
 
-export default connect(mapStateToProps)(Notes);
+export default connect(mapStateToProps, mapDispatchToProps)(Notes);
