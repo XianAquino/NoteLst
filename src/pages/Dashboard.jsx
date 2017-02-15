@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
-import { bindActionCreators } from 'redux';
-import * as loginActions from '../actions/loginActions.jsx';
 
-import checkAuth from '../util/checkAuth';
 import TaskForm from '../components/TaskForm';
 import Task from '../components/Tasks';
-import Navbar from '../components/Navbar';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -22,26 +17,11 @@ class Dashboard extends Component {
     this.setState({showForm: toggle});
   }
 
-  componentWillMount() {
-    const { isLoggedIn, actions  } = this.props;
-    if( isLoggedIn === undefined ) {
-      checkAuth((isAuthenticated) => {
-        actions.updateLoginStatus({isLoggedIn: isAuthenticated})
-        if (!isAuthenticated) {
-          browserHistory.push('/login');
-        }
-      })
-    } else if ( isLoggedIn === false) {
-      browserHistory.push('/login');
-    }
-  }
-
   render() {
-    const { userInfo, isLoggedIn } = this.props;
-    if(isLoggedIn && userInfo.id) {
+    const { userInfo } = this.props;
+    if(userInfo.id) {
       return(
         <div>
-          <Navbar/>
           <p>Dashboard</p>
           <p> {userInfo.name}</p>
           <div className='task-container'>
@@ -59,22 +39,9 @@ class Dashboard extends Component {
 };
 
 Dashboard.propTypes = {
-  isLoggedIn: React.PropTypes.bool,
   userInfo: React.PropTypes.object,
-  actions: React.PropTypes.object
 };
 
-const mapStateToProps = (state) => {
-  return {
-    isLoggedIn: state.login.isLoggedIn,
-    userInfo: state.userInfo
-  };
-};
+const mapStateToProps = (state) => ({userInfo: state.userInfo});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    actions: bindActionCreators(loginActions, dispatch)
-  };
-};
-
-export default connect(mapStateToProps,mapDispatchToProps)(Dashboard);
+export default connect(mapStateToProps)(Dashboard);
