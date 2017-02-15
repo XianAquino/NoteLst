@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import createNote from '../util/createNote';
 import getNotes from '../util/getNotes';
+import deleteNote from '../util/deleteNote';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
@@ -11,6 +12,7 @@ class Notes extends Component {
   constructor(props) {
     super(props);
     this.create = this.create.bind(this);
+    this.remove = this.remove.bind(this);
   }
   componentWillMount() {
     const { userId, actions } = this.props;
@@ -27,6 +29,12 @@ class Notes extends Component {
     });
   }
 
+  remove(noteId) {
+    const { actions } = this.props;
+    actions.deleteNote(noteId);
+    deleteNote(noteId);
+  }
+
   render() {
     const { params, userId, notes } = this.props;
     return(
@@ -36,7 +44,7 @@ class Notes extends Component {
         <ul>
         {
           notes.map((note, i) =>
-            <Note key={i} title={note.title} id={note.id} />
+            <Note key={i} title={note.title} id={note.id} remove={this.remove}/>
           )
         }
         </ul>
