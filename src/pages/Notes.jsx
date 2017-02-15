@@ -1,24 +1,16 @@
 import React, { Component } from 'react';
 import createNote from '../util/createNote';
-import getNotes from '../util/getNotes';
-import deleteNote from '../util/deleteNote';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import * as notesActions from '../actions/notesActions';
-import Note from '../components/Note.jsx';
+import NotesContainer from '../components/NotesContainer';
+
 
 class Notes extends Component {
   constructor(props) {
     super(props);
     this.create = this.create.bind(this);
-    this.remove = this.remove.bind(this);
-  }
-  componentWillMount() {
-    const { userId, actions } = this.props;
-    getNotes(userId, (response) => {
-      actions.loadNotes(response.data)
-    });
   }
 
   create() {
@@ -30,41 +22,30 @@ class Notes extends Component {
     });
   }
 
-  remove(noteId) {
-    const { actions } = this.props;
-    actions.deleteNote(noteId);
-    deleteNote(noteId);
-  }
-
   render() {
-    const { params, userId, notes } = this.props;
-    return(
-      <div>
-        <h1>Notes</h1>
-        <button onClick={this.create}>Create Note</button>
-        <ul>
-        {
-          notes.map((note, i) =>
-            <Note key={i} title={note.title} id={note.id} remove={this.remove}/>
-          )
-        }
-        </ul>
-      </div>
-    )
+    const { params, userId } = this.props;
+    if (userId) {
+      return(
+        <div>
+          <h1>Notes</h1>
+          <button onClick={this.create}>Create Note</button>
+          <NotesContainer userId={userId} />
+        </div>
+      )
+    }
+    return null;
   }
 };
 
 Notes.propTypes = {
   params: React.PropTypes.object,
   userId: React.PropTypes.number,
-  notes: React.PropTypes.array,
   actions: React.PropTypes.object
 };
 
 const mapStateToProps = (state) => {
   return {
     userId: state.userInfo.id,
-    notes: state.notes
   };
 };
 const mapDispatchToProps = (dispatch) => {
