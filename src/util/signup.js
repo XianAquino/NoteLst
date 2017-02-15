@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const signUp = (params, callback) => {
-  axios.post('api/signUp', params)
+  axios.post('/api/signUp', params)
   .then((response) => {
     callback(response);
   })

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const getTasks = (userId, callback) => {
-  axios.get(`api/users/${userId}/todos`)
+  axios.get(`/api/users/${userId}/todos`)
   .then( response => {
     callback(response);
   })
