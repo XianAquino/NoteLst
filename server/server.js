@@ -6,14 +6,17 @@ const WebpackDevServer = require('webpack-dev-server');
 const config = require('../webpack.config.js');
 const session = require('express-session');
 const path = require('path');
+const socket = require('./socket');
 
 const port = 3030;
 const ip = '127.0.0.1';
+const socketPort = 3010;
 
 const app = new WebpackDevServer(webpack(config), {
   publicPath: '/static',
   stats: {color: true},
-  historyApiFallback: true
+  historyApiFallback: true,
+  proxy: {"/socket": `http://localhost:${socketPort}`},
 });
 
 app.use(session({
@@ -26,5 +29,9 @@ app.use(parser.json());
 app.use('/api', router);
 app.use(express.static('static'));
 
-app.listen(port,ip);
-console.log(`Listening on port: ${port}`);
+app.listen(port, ip);
+console.log(`Listening on port: ${socketPort}`);
+
+socket.listen(socketPort, () => {
+  console.log(`Sockets Listening on port: ${socketPort}`);
+});
