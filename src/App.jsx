@@ -9,6 +9,8 @@ import Notes from './pages/Notes.jsx';
 import NoteEditor from './pages/NoteEditor.jsx';
 import Layout from './components/Layout.jsx';
 import Messages from './pages/Messages.jsx';
+import DirectMessages from './components/DirectMessages.jsx';
+
 
 const App = () => {
   return (
@@ -17,7 +19,9 @@ const App = () => {
           <IndexRoute component={Dashboard} />
           <Route path=':username/notes' component={Notes} />
           <Route path='notes/:noteId' component={NoteEditor} />
-          <Route path='/messages' component={Messages}/>
+          <Route path='messages' component={Messages}>
+            <Route path=':messageId' component ={DirectMessages} />
+          </Route>
         </Route>
         <Route path='/login' component={Login} />
         <Route path='/signup' component={SignUp} />

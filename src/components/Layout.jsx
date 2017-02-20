@@ -7,6 +7,9 @@ import { connect } from 'react-redux';
 import checkAuth from '../util/checkAuth';
 import Navbar from '../components/Navbar';
 
+const socket = io('/socket');
+import io from 'socket.io-client';
+
 class Layout extends Component {
   componentWillMount() {
     const { isLoggedIn, actions  } = this.props;

@@ -1,11 +1,10 @@
 import React from 'react';
-import io from 'socket.io-client';
-
-const socket = io('/socket');
+import DirectMessages from '../components/DirectMessages.jsx';
 
 const Messages = () => {
   return(
-    <div>connected</div>
+    <div>connected
+    </div>
   )
 };
 
