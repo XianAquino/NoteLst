@@ -28,8 +28,9 @@ class Layout extends Component {
   }
 
   render() {
-    const { children, isLoggedIn } = this.props;
-    if(isLoggedIn) {
+    const { children, isLoggedIn, socket } = this.props;
+    //check if the user is logged in and connected to socketServer
+    if(isLoggedIn, socket) {
       return(
         <div>
           <Navbar/>
@@ -47,12 +48,13 @@ Layout.propTypes = {
   children: React.PropTypes.node
 }
 
-const mapStateToProps = (state) => ({isLoggedIn: state.login.isLoggedIn});
+const mapStateToProps = (state) => ({
+  isLoggedIn: state.login.isLoggedIn,
+  socket: state.socket
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    actions: bindActionCreators(Object.assign(loginActions, socketActions), dispatch)
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(Object.assign(loginActions, socketActions), dispatch)
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Layout);
