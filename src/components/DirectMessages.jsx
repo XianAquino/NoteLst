@@ -26,9 +26,14 @@ class DirectMessages extends Component {
   }
 
   handleSubmit(event) {
-    const { socket, params } = this.props;
+    const { socket, params, userId } = this.props;
+    const message = {
+      conversation_id: params.messageId,
+      sender: userId,
+      message: this.state.message
+    };
     event.preventDefault();
-    socket.emit('sendMessage', params.messageId, this.state);
+    socket.emit('sendMessage', params.messageId, message);
   }
 
   render() {
@@ -58,11 +63,13 @@ class DirectMessages extends Component {
 DirectMessages.propTypes = {
   params: React.PropTypes.object,
   socket: React.PropTypes.object,
-  messages: React.PropTypes.array
+  messages: React.PropTypes.array,
+  userId: React.PropTypes.number
 };
 
 const mapStateToProps = (state) => {
   return {
+    userId: state.userInfo.id,
     socket: state.socket,
     messages: state.messages
   };
