@@ -8,8 +8,6 @@ import { connect } from 'react-redux';
 import checkAuth from '../util/checkAuth';
 import Navbar from '../components/Navbar';
 
-import io from 'socket.io-client';
-
 class Layout extends Component {
   componentWillMount() {
     const { isLoggedIn, actions  } = this.props;
@@ -18,13 +16,14 @@ class Layout extends Component {
         actions.updateLoginStatus({isLoggedIn: isAuthenticated})
         if (!isAuthenticated) {
           browserHistory.push('/login');
+        } else {
+          actions.initializeSocket();
         }
       })
     } else if ( isLoggedIn === false) {
       browserHistory.push('/login');
     } else {
-      const socket = io('/socket');
-      actions.initializeSocket(socket);
+      actions.initializeSocket();
     }
   }
 
@@ -44,7 +43,7 @@ class Layout extends Component {
 
 Layout.propTypes = {
   isLoggedIn: React.PropTypes.bool,
-  actions: React.PropTypes.object,s
+  actions: React.PropTypes.object,
   children: React.PropTypes.node
 }
 

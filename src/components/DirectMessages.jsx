@@ -1,12 +1,77 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as messagesActions from '../actions/messagesActions';
 
-const DirectMessages = ({params}) => {
-  return(
-    <div>
-      <p>{params.messageId}</p>
-      <p>Test</p>
-    </div>
-  )
+class DirectMessages extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      message: ''
+    }
+    this.handleInput = this.handleInput.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    const { params, socket, actions } = this.props;
+    socket.emit('enterDirectMessage', params.messageId);
+    socket.on('receiveMessage', (message) => {
+      actions.addMessage(message);
+    });
+  }
+
+  handleInput(event) {
+    this.setState({message: event.target.value})
+  }
+
+  handleSubmit(event) {
+    const { socket, params } = this.props;
+    event.preventDefault();
+    socket.emit('sendMessage', params.messageId, this.state);
+  }
+
+  render() {
+    return(
+      <div>
+        <p>{this.props.params.messageId}</p>
+        <ul>
+        {
+          this.props.messages.map((context, i) =>
+            <li key={i}>{context.message}</li>
+          )
+        }
+        </ul>
+        <p>Message</p>
+        <input
+          onChange={this.handleInput}
+          name='message'
+          placeholder='Enter Message'
+          value={this.state.message}
+        />
+        <button onClick={this.handleSubmit}>Send</button>
+      </div>
+    )
+  }
 };
 
-export default DirectMessages;
+DirectMessages.propTypes = {
+  params: React.PropTypes.object,
+  socket: React.PropTypes.object,
+  messages: React.PropTypes.array
+};
+
+const mapStateToProps = (state) => {
+  return {
+    socket: state.socket,
+    messages: state.messages
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators(messagesActions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DirectMessages);

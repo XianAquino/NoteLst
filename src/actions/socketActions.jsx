@@ -1,6 +1,9 @@
-export const initializeSocket = (socket) => {
+import io from 'socket.io-client';
+
+export const initializeSocket = () => {
+  const socket = io();
   return {
-    type: 'UPDATE_LOGIN_STATE',
+    type: 'INITIALIZE_SOCKET',
     payload: socket
   };
 };

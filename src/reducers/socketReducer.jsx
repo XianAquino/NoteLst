@@ -1,5 +1,5 @@
 const socketReducer = (state = {}, action) => {
-  switch (action) {
+  switch (action.type) {
     case 'INITIALIZE_SOCKET':
       return action.payload;
     default:
