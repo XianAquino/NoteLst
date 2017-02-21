@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import * as messagesActions from '../actions/messagesActions';
 import getMessages from '../util/getMessages';
 
-class DirectMessages extends Component {
+class Conversation extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,7 +37,10 @@ class DirectMessages extends Component {
       message: this.state.message
     };
     event.preventDefault();
-    socket.emit('sendMessage', params.messageId, message);
+    if(this.state.message) {
+      socket.emit('sendMessage', params.messageId, message);
+    }
+    this.setState({message: ''})
   }
 
   render() {
@@ -64,7 +67,7 @@ class DirectMessages extends Component {
   }
 };
 
-DirectMessages.propTypes = {
+Conversation.propTypes = {
   params: React.PropTypes.object,
   socket: React.PropTypes.object,
   messages: React.PropTypes.array,
@@ -85,4 +88,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DirectMessages);
+export default connect(mapStateToProps, mapDispatchToProps)(Conversation);
