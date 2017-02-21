@@ -11,7 +11,7 @@ io.on('connection', (socket) => {
     console.log('user disconnected');
   });
 
-  socket.on('enterDirectMessage', (messageRoomId) => {
+  socket.on('startConversation', (messageRoomId) => {
     messageDB.startConverstation({id: messageRoomId});
     socket.join(messageRoomId);
   });

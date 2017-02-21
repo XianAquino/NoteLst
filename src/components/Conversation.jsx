@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as messagesActions from '../actions/messagesActions';
+import getMessages from '../util/getMessages';
 
 class DirectMessages extends Component {
   constructor(props) {
@@ -15,7 +16,10 @@ class DirectMessages extends Component {
 
   componentDidMount() {
     const { params, socket, actions } = this.props;
-    socket.emit('enterDirectMessage', params.messageId);
+    socket.emit('startConversation', params.messageId);
+    getMessages(params.messageId, (messages) => {
+      actions.loadMessages(messages);
+    });
     socket.on('receiveMessage', (message) => {
       actions.addMessage(message);
     });

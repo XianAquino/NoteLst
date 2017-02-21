@@ -2,6 +2,7 @@ var router = require('express').Router();
 var users = require('./controller/user-controller.js');
 var todos = require('./controller/todo-controller.js');
 var notes = require('./controller/note-controller.js');
+var messsages = require('./controller/message-controller.js');
 
 
 router.post('/signUp', users.create);
@@ -25,5 +26,7 @@ router.post('/users/:user_id/notes', notes.create);
 router.get('/users/:user_id/notes/:note_id', notes.getNote);
 router.put('/notes/:note_id', notes.update);
 router.delete('/notes/:note_id', notes.delete);
+
+router.get('/conversations/:conversation_id', messsages.getMessages);
 
 module.exports = router;

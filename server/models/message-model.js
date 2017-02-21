@@ -9,7 +9,10 @@ module.exports = {
   },
 
   retrieveMessages: (conversationId, callback) => {
-
+    db.query('SELECT * FROM  messages WHERE conversation_id = ?' , conversationId, (err, res) => {
+      if(err) console.log(err);
+      callback(res);
+    });
   },
 
   saveMessage: (params) => {
