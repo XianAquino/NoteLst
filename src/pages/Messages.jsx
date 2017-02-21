@@ -1,5 +1,4 @@
 import React from 'react';
-import DirectMessages from '../components/DirectMessages.jsx';
 import { Link } from 'react-router';
 
 const Messages = ({children}) => {

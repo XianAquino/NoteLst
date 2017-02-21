@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as messagesActions from '../actions/messagesActions';
+import getMessages from '../util/getMessages';
 
-class DirectMessages extends Component {
+class Conversation extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,7 +16,10 @@ class DirectMessages extends Component {
 
   componentDidMount() {
     const { params, socket, actions } = this.props;
-    socket.emit('enterDirectMessage', params.messageId);
+    socket.emit('startConversation', params.messageId);
+    getMessages(params.messageId, (messages) => {
+      actions.loadMessages(messages);
+    });
     socket.on('receiveMessage', (message) => {
       actions.addMessage(message);
     });
@@ -26,9 +30,17 @@ class DirectMessages extends Component {
   }
 
   handleSubmit(event) {
-    const { socket, params } = this.props;
+    const { socket, params, userId } = this.props;
+    const message = {
+      conversation_id: params.messageId,
+      sender: userId,
+      message: this.state.message
+    };
     event.preventDefault();
-    socket.emit('sendMessage', params.messageId, this.state);
+    if(this.state.message) {
+      socket.emit('sendMessage', params.messageId, message);
+    }
+    this.setState({message: ''})
   }
 
   render() {
@@ -55,14 +67,16 @@ class DirectMessages extends Component {
   }
 };
 
-DirectMessages.propTypes = {
+Conversation.propTypes = {
   params: React.PropTypes.object,
   socket: React.PropTypes.object,
-  messages: React.PropTypes.array
+  messages: React.PropTypes.array,
+  userId: React.PropTypes.number
 };
 
 const mapStateToProps = (state) => {
   return {
+    userId: state.userInfo.id,
     socket: state.socket,
     messages: state.messages
   };
@@ -74,4 +88,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DirectMessages);
+export default connect(mapStateToProps, mapDispatchToProps)(Conversation);

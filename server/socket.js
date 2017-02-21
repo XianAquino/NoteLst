@@ -2,6 +2,7 @@ const express = require('express');
 const socketServer = express();
 const http = require('http').Server(socketServer);
 const io = require('socket.io')(http);
+const messageDB = require('./models/message-model');
 
 io.on('connection', (socket) => {
   console.log('user connected');
@@ -10,11 +11,13 @@ io.on('connection', (socket) => {
     console.log('user disconnected');
   });
 
-  socket.on('enterDirectMessage', (messageRoomId) => {
+  socket.on('startConversation', (messageRoomId) => {
+    messageDB.startConverstation({id: messageRoomId});
     socket.join(messageRoomId);
   });
 
   socket.on('sendMessage', (messageRoomId, message) => {
+    messageDB.saveMessage(message);
     io.to(messageRoomId).emit('receiveMessage', message);
   });
 
