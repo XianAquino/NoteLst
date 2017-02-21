@@ -8,8 +8,6 @@ import { connect } from 'react-redux';
 import checkAuth from '../util/checkAuth';
 import Navbar from '../components/Navbar';
 
-import io from 'socket.io-client';
-
 class Layout extends Component {
   componentWillMount() {
     const { isLoggedIn, actions  } = this.props;
@@ -18,19 +16,21 @@ class Layout extends Component {
         actions.updateLoginStatus({isLoggedIn: isAuthenticated})
         if (!isAuthenticated) {
           browserHistory.push('/login');
+        } else {
+          actions.initializeSocket();
         }
       })
     } else if ( isLoggedIn === false) {
       browserHistory.push('/login');
     } else {
-      const socket = io('/socket');
-      actions.initializeSocket(socket);
+      actions.initializeSocket();
     }
   }
 
   render() {
-    const { children, isLoggedIn } = this.props;
-    if(isLoggedIn) {
+    const { children, isLoggedIn, socket } = this.props;
+    //check if the user is logged in and connected to socketServer
+    if(isLoggedIn, socket) {
       return(
         <div>
           <Navbar/>
@@ -44,16 +44,17 @@ class Layout extends Component {
 
 Layout.propTypes = {
   isLoggedIn: React.PropTypes.bool,
-  actions: React.PropTypes.object,s
+  actions: React.PropTypes.object,
   children: React.PropTypes.node
 }
 
-const mapStateToProps = (state) => ({isLoggedIn: state.login.isLoggedIn});
+const mapStateToProps = (state) => ({
+  isLoggedIn: state.login.isLoggedIn,
+  socket: state.socket
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    actions: bindActionCreators(Object.assign(loginActions, socketActions), dispatch)
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(Object.assign(loginActions, socketActions), dispatch)
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Layout);
