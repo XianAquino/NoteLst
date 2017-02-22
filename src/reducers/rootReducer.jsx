@@ -5,6 +5,7 @@ import tasks from './tasksReducer.jsx';
 import notes from './notesReducer.jsx';
 import socket from './socketReducer.jsx';
 import messages from './messagesReducer.jsx';
+import userSearch from './userSearch.jsx';
 
 const rootReducer = combineReducers({
   login,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   tasks,
   notes,
   socket,
-  messages
+  messages,
+  userSearch
 });
 
 export default rootReducer;
