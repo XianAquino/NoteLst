@@ -4,3 +4,9 @@ export const loadSearchResult = (users) => {
     payload: users
   };
 };
+
+export const clearResult = () => {
+  return {
+    type: 'CLEAR_SEARCH_RESULTS',
+  };
+};

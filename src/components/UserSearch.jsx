@@ -17,6 +17,11 @@ class UserSearch extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
+  componentWillMount() {
+    this.setState({name: ''});
+    this.props.actions.clearResult();
+  }
+
   handleInputChange(event) {
     const {actions} = this.props;
     this.setState({name: event.target.value}, () => {
