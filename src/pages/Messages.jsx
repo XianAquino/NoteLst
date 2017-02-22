@@ -1,18 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router';
 import UserSearch from '../components/UserSearch';
 
-class Messages extends Component {
+const Messages = ({children}) => {
+  return(
+    <div>
+      <UserSearch/>
+      <Link to='/messages/123'>Chat</Link>
+      {children}
+    </div>
+  )
+};
 
-  render() {
-    return(
-      <div>
-        <UserSearch/>
-        <Link to='/messages/123'>Chat</Link>
-        {this.props.children}
-      </div>
-    )
-  }
+Messages.propTypes = {
+  children: React.PropTypes.node
 };
 
 export default Messages;

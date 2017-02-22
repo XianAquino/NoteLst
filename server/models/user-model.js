@@ -4,11 +4,12 @@ var _ = require('underscore');
 module.exports =  {
   getUsers: (query, callback) => {
     if(_.isEmpty(query)){
-      db.query('SELECT * FROM users', (err, res) => {
+      db.query('SELECT username, name, status FROM users', (err, res) => {
         callback(res);
       });
     }else{
-      db.query(`SELECT * FROM users WHERE name LIKE '%${query.name}%'`, (err, res) => {
+      db.query(`SELECT username, name, status FROM users WHERE name LIKE '%${query.name}%'`,
+      (err, res) => {
         callback(res);
       });
     }

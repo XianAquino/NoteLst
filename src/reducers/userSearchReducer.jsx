@@ -1,4 +1,4 @@
-const userSearchReducer = (state = [], action) {
+const userSearchReducer = (state = [], action) => {
   switch (action.type) {
     case 'LOAD_SEARCH_RESULTS':
       return action.payload;

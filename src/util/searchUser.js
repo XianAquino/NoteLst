@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const searchUser = (name) => {
+const searchUser = (name, callback) => {
   axios.get(`/api/users?name=${name}`)
-  .then(response => console.log(response))
+  .then(response => callback(response.data))
   .catch(err => console.log("Error:", err));
 };
 
