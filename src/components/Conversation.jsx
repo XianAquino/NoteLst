@@ -1,8 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, createFactory } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as messagesActions from '../actions/messagesActions';
 import getMessages from '../util/getMessages';
+import {RouteHandler} from 'react-router';
+
+const handler = createFactory(RouteHandler);
 
 class Conversation extends Component {
   constructor(props) {
@@ -14,15 +17,22 @@ class Conversation extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount() {
-    const { params, socket, actions } = this.props;
+  initializeConversation(props) {
+    const { params, socket, actions } = props;
     socket.emit('startConversation', params.messageId);
     getMessages(params.messageId, (messages) => {
       actions.loadMessages(messages);
     });
-    socket.on('receiveMessage', (message) => {
-      actions.addMessage(message);
-    });
+  }
+
+  componentWillMount() {
+    this.initializeConversation(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if(this.props.params.messageId !== nextProps.params.messageId) {
+      this.initializeConversation(nextProps);
+    }
   }
 
   handleInput(event) {
