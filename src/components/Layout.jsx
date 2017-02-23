@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 import * as loginActions from '../actions/loginActions.jsx';
 import * as socketActions from '../actions/socketActions.jsx';
+import * as messagesActions from '../actions/messagesActions.jsx';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -10,7 +11,7 @@ import Navbar from '../components/Navbar';
 
 class Layout extends Component {
   componentWillMount() {
-    const { isLoggedIn, actions  } = this.props;
+    const { isLoggedIn, actions } = this.props;
     if( isLoggedIn === undefined ) {
       checkAuth((isAuthenticated) => {
         actions.updateLoginStatus({isLoggedIn: isAuthenticated})
@@ -18,12 +19,19 @@ class Layout extends Component {
           browserHistory.push('/login');
         } else {
           actions.initializeSocket();
+          //initialize this socket listener only once when the app loads to fix duplicate messages
+          this.props.socket.on('receiveMessage', (message) => {
+            actions.addMessage(message);
+          });
         }
       })
     } else if ( isLoggedIn === false) {
       browserHistory.push('/login');
     } else {
       actions.initializeSocket();
+      this.props.socket.on('receiveMessage', (message) => {
+        actions.addMessage(message);
+      });
     }
   }
 
@@ -54,7 +62,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators(Object.assign(loginActions, socketActions), dispatch)
+  actions: bindActionCreators(
+    Object.assign(loginActions, socketActions, messagesActions),
+    dispatch
+  )
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Layout);
