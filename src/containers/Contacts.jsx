@@ -3,29 +3,33 @@ import User from '../components/User';
 import getContacts from '../util/getContacts';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 import * as contactsActions from '../actions/contactsActions';
+import Contact from '../components/User';
 
 class Contacts extends Component {
 
   componentWillMount() {
     const { username, actions } = this.props;
     getContacts(username, (users) => {
-      console.log(users);
       actions.loadContacts(users);
     });
   }
 
   render() {
-    const { contacts } = this.props;
+    const { contacts, username } = this.props;
     return(
-      <ul>
-        {
-          contacts.map((user, i) =>
-          <li>{user.name}</li>
+      <div>
+      {
+        contacts.map((user, i) =>
+          <Contact
+            key={i}
+            username={user.username}
+            name={user.name}
+            sender={username}
+          />
         )
-        }
-      </ul>
+      }
+      </div>
     );
   }
 };

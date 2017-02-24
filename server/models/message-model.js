@@ -22,9 +22,9 @@ module.exports = {
   },
 
   getContacts: (username, callback) => {
-    const queryStatement = `SELECT user2, name FROM conversations JOIN
+    const queryStatement = `SELECT user2 AS username, name FROM conversations JOIN
       users ON username = user2 WHERE user1 = ${username} AND no_of_msgs > 0
-      UNION SELECT user1, name FROM conversations JOIN users
+      UNION SELECT user1 AS username, name FROM conversations JOIN users
       ON username = user1 WHERE user2 = ${username} AND no_of_msgs > 0`;
     db.query(queryStatement, (err, res) => {
       if (err) console.log(err);

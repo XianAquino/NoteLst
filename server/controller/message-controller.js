@@ -8,7 +8,6 @@ module.exports = {
   },
 
   getContacts: (req, res) => {
-    console.log(req.params.username)
     const username = JSON.stringify(req.params.username)
     message.getContacts(username, (users) => {
       res.json(users);
