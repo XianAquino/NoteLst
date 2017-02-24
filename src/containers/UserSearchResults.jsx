@@ -1,12 +1,12 @@
 import React from 'react';
-import UserSearchResult from '../components/UserSearchResult';
+import User from '../components/User';
 
 const UserSearchResults = ({users, sender}) => {
   return(
     <ul>
       {
         users.map((user, i) =>
-          <UserSearchResult
+          <User
             key={i}
             username={user.username}
             name={user.name}

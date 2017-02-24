@@ -2,7 +2,7 @@ import React, { Component }from 'react';
 import { browserHistory } from 'react-router';
 import crypto from 'crypto';
 
-class UserSearchResult extends Component {
+class User extends Component {
 
   constructor(props) {
     super(props);
@@ -33,10 +33,10 @@ class UserSearchResult extends Component {
   }
 };
 
-UserSearchResult.propTypes = {
+User.propTypes = {
   username: React.PropTypes.string,
   sender: React.PropTypes.string,
   name: React.PropTypes.string,
 }
 
-export default UserSearchResult;
+export default User;
