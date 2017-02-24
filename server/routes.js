@@ -28,5 +28,6 @@ router.put('/notes/:note_id', notes.update);
 router.delete('/notes/:note_id', notes.delete);
 
 router.get('/conversations/:conversation_id', messsages.getMessages);
+router.get('/contacts/:username', messsages.getContacts);
 
 module.exports = router;

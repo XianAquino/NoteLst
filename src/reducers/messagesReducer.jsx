@@ -4,6 +4,8 @@ const messagesReducer = (state = [{message: 'test'}], action) => {
       return action.payload;
     case 'ADD_MESSAGE':
       return [...state, action.payload];
+    case 'CLEAR_MESSAGES':
+      return [];
     default:
       return state;
   }

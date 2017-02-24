@@ -7,9 +7,13 @@ const saltRounds = 10;
 module.exports = {
   get: (req, res) => {
     const query = req.query;
-    users.getAllUsers(query,function(users){
-      res.json(users);
-    })
+    if(!query.name) {
+      res.send([]);
+    } else {
+      users.getUsers(query, (users) => {
+        res.json(users);
+      });
+    }
   },
   create: (req, res) => {
     let params = req.body;
