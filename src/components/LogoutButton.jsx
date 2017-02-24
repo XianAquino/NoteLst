@@ -4,6 +4,7 @@ import logout from '../util/logout';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as loginActions from '../actions/loginActions';
+import * as socketActions from '../actions/socketActions';
 
 class LogoutButton extends Component {
   constructor(props){
@@ -12,8 +13,10 @@ class LogoutButton extends Component {
   }
 
   logout() {
+    const { actions } = this.props;
     logout(response => {
-      this.props.actions.updateLoginStatus(response.data);
+      actions.updateLoginStatus(response.data);
+      actions.removeSocket();
       browserHistory.push('/login');
     });
   }
@@ -27,8 +30,9 @@ class LogoutButton extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators(loginActions, dispatch)
+    actions: bindActionCreators(Object.assign(loginActions, socketActions), dispatch)
   };
 };
+
 
 export default connect(null,mapDispatchToProps)(LogoutButton);

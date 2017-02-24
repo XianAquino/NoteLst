@@ -7,3 +7,9 @@ export const initializeSocket = () => {
     payload: socket
   };
 };
+
+export const removeSocket = () => {
+  return {
+    type: 'REMOVE_SOCKET'
+  };
+};
