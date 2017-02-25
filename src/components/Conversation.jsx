@@ -2,6 +2,7 @@ import React, { Component, createFactory } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as messagesActions from '../actions/messagesActions';
+import * as socketActions from '../actions/socketActions';
 import getMessages from '../util/getMessages';
 import {RouteHandler} from 'react-router';
 
@@ -26,6 +27,14 @@ class Conversation extends Component {
   }
 
   componentWillMount() {
+    const { socketConnected, socket, actions } = this.props;
+    if ( !socketConnected ) {
+      console.log("passs");
+      actions.setSocketConnection();
+      socket.on('receiveMessage', (message) => {
+        actions.addMessage(message);
+      });
+    }
     this.initializeConversation(this.props);
   }
 
@@ -81,21 +90,19 @@ Conversation.propTypes = {
   params: React.PropTypes.object,
   socket: React.PropTypes.object,
   messages: React.PropTypes.array,
-  userId: React.PropTypes.number
+  userId: React.PropTypes.number,
+  socketConnected: React.PropTypes.bool
 };
 
-const mapStateToProps = (state) => {
-  return {
-    userId: state.userInfo.id,
-    socket: state.socket,
-    messages: state.messages
-  };
-};
+const mapStateToProps = (state) => ({
+  userId: state.userInfo.id,
+  socket: state.socket,
+  messages: state.messages,
+  socketConnected: state.socketConnected
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    actions: bindActionCreators(messagesActions, dispatch)
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(Object.assign(messagesActions, socketActions), dispatch)
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Conversation);

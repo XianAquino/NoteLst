@@ -18,7 +18,6 @@ io.on('connection', (socket) => {
 
   socket.on('sendMessage', (messageRoomId, message) => {
     messageDB.saveMessage(message);
-    console.log("receive");
     io.to(messageRoomId).emit('receiveMessage', message);
   });
 

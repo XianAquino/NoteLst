@@ -4,6 +4,7 @@ import userInfo from './userInfoReducer.jsx';
 import tasks from './tasksReducer.jsx';
 import notes from './notesReducer.jsx';
 import socket from './socketReducer.jsx';
+import socketConnected from './socketConnectionReducer.jsx';
 import messages from './messagesReducer.jsx';
 import searchedUsers from './userSearchReducer.jsx';
 import contacts from './contactsReducer.jsx';
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
   socket,
   messages,
   searchedUsers,
-  contacts
+  contacts,
+  socketConnected
 });
 
 export default rootReducer;

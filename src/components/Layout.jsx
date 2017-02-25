@@ -19,19 +19,12 @@ class Layout extends Component {
           browserHistory.push('/login');
         } else {
           actions.initializeSocket();
-          //initialize this socket listener only once when the app loads to fix duplicate messages
-          this.props.socket.on('receiveMessage', (message) => {
-            actions.addMessage(message);
-          });
         }
       })
     } else if ( isLoggedIn === false) {
       browserHistory.push('/login');
     } else {
       actions.initializeSocket();
-      this.props.socket.on('receiveMessage', (message) => {
-        actions.addMessage(message);
-      });
     }
   }
 
