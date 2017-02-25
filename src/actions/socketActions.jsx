@@ -13,3 +13,9 @@ export const removeSocket = () => {
     type: 'REMOVE_SOCKET'
   };
 };
+
+export const setSocketConnection = () => {
+  return {
+    type: 'SET_TRUE'
+  };
+};
