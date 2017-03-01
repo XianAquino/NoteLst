@@ -17,7 +17,11 @@ module.exports = {
 
   saveMessage: (params) => {
     db.query('INSERT INTO messages SET ?', params, (err, res) => {
-      if(err) console.log(err);
+      if (err) console.log(err);
+      db.query('UPDATE conversations SET no_of_msgs = no_of_msgs + 1 WHERE id = ?',
+        params.conversation_id, (err, res) => {
+          if (err) console.log(err);
+        });
     });
   },
 
