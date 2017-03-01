@@ -2,7 +2,7 @@ const db = require('../db');
 
 module.exports = {
 
-  startConverstation: (params) => {
+  startConversation: (params) => {
     db.query('SELECT * FROM conversations WHERE id = ? ', params.id, (err, res) => {
       if(!res.length) db.query('INSERT INTO conversations SET ?', params)
     });

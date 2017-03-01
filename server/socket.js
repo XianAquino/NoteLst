@@ -12,7 +12,6 @@ io.on('connection', (socket) => {
   });
 
   socket.on('startConversation', (messageRoomId) => {
-    messageDB.startConverstation({id: messageRoomId});
     socket.join(messageRoomId);
   });
 
