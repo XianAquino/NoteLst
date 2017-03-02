@@ -12,12 +12,12 @@ io.on('connection', (socket) => {
   });
 
   socket.on('startConversation', (messageRoomId) => {
-    messageDB.startConverstation({id: messageRoomId});
     socket.join(messageRoomId);
   });
 
   socket.on('sendMessage', (messageRoomId, message) => {
     messageDB.saveMessage(message);
+    io.emit('updateContacts');
     io.to(messageRoomId).emit('receiveMessage', message);
   });
 
