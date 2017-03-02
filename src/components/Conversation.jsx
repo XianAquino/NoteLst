@@ -27,12 +27,14 @@ class Conversation extends Component {
   }
 
   componentWillMount() {
-    const { socketConnected, socket, actions } = this.props;
+    const { socketConnected, socket, actions, messages, params } = this.props;
     if ( !socketConnected ) {
       console.log("passs");
       actions.setSocketConnection();
       socket.on('receiveMessage', (message) => {
-        actions.addMessage(message);
+        if (params.messageId === message.conversation_id) {
+          actions.addMessage(message);
+        }
       });
     }
     this.initializeConversation(this.props);
@@ -96,6 +98,7 @@ Conversation.propTypes = {
 
 const mapStateToProps = (state) => ({
   userId: state.userInfo.id,
+  username: state.userInfo.username,
   socket: state.socket,
   messages: state.messages,
   socketConnected: state.socketConnected
