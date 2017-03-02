@@ -17,6 +17,7 @@ io.on('connection', (socket) => {
 
   socket.on('sendMessage', (messageRoomId, message) => {
     messageDB.saveMessage(message);
+    io.emit('updateContacts');
     io.to(messageRoomId).emit('receiveMessage', message);
   });
 

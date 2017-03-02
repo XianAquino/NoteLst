@@ -8,11 +8,20 @@ import Contact from '../components/User';
 
 class Contacts extends Component {
 
-  componentWillMount() {
+  updateContacts() {
     const { username, actions } = this.props;
     getContacts(username, (users) => {
       actions.loadContacts(users);
     });
+  }
+
+  componentWillMount() {
+    const { socket } = this.props;
+    this.updateContacts();
+    socket.on('updateContacts', () => {
+      this.updateContacts();
+    })
+
   }
 
   render() {
@@ -44,7 +53,8 @@ Contacts.propTypes = {
 const mapStateToProps = (state) => {
   return {
     username: state.userInfo.username,
-    contacts: state.contacts
+    contacts: state.contacts,
+    socket: state.socket
   };
 };
 
