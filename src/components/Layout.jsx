@@ -5,6 +5,8 @@ import * as socketActions from '../actions/socketActions.jsx';
 import * as messagesActions from '../actions/messagesActions.jsx';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 
 import checkAuth from '../util/checkAuth';
 import Navbar from '../components/Navbar';
@@ -33,10 +35,12 @@ class Layout extends Component {
     //check if the user is logged in and connected to socketServer
     if(isLoggedIn, socket) {
       return(
-        <div>
-          <Navbar/>
-          {children}
-        </div>
+        <MuiThemeProvider>
+          <div>
+            <Navbar/>
+            {children}
+          </div>
+        </MuiThemeProvider>
       );
     }
     return null;
