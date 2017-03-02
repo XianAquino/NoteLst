@@ -1,13 +1,16 @@
 import React from 'react';
+import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
+import DeleteIcon from 'material-ui/svg-icons/action/delete'
 
 const Task = ({id, title, desc, remove}) => {
   return(
     <li>
-      <div>
-        <p>{title}</p>
-        <p>{desc}</p>
-        <button onClick={() => (remove(id))}>Delete</button>
-      </div>
+      <Card>
+        <CardHeader title={title}>
+          <DeleteIcon onClick={() => (remove(id))}/>
+        </CardHeader>
+        <CardText>{desc}</CardText>
+      </Card>
     </li>
   )
 };

@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as loginActions from '../actions/loginActions';
 import * as socketActions from '../actions/socketActions';
+import RaisedButton from 'material-ui/RaisedButton'
 
 class LogoutButton extends Component {
   constructor(props){
@@ -23,7 +24,9 @@ class LogoutButton extends Component {
 
   render() {
     return(
-      <button onClick={this.logout}>Logout</button>
+      <div>
+        <RaisedButton label='Logout' onClick={this.logout}/>
+      </div>
     );
   }
 };

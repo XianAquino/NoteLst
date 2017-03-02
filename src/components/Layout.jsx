@@ -5,9 +5,19 @@ import * as socketActions from '../actions/socketActions.jsx';
 import * as messagesActions from '../actions/messagesActions.jsx';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { MuiThemeProvider, getMuiTheme } from 'material-ui/styles';
+import { teal400, teal300 } from 'material-ui/styles/colors';
 
 import checkAuth from '../util/checkAuth';
 import Navbar from '../components/Navbar';
+
+const muiTheme = getMuiTheme({
+  palette: {
+    primary1Color: teal300,
+    primary2Color: teal400,
+    pickerHeaderColor: teal300
+  }
+})
 
 class Layout extends Component {
   componentWillMount() {
@@ -33,10 +43,12 @@ class Layout extends Component {
     //check if the user is logged in and connected to socketServer
     if(isLoggedIn, socket) {
       return(
-        <div>
-          <Navbar/>
-          {children}
-        </div>
+        <MuiThemeProvider muiTheme={muiTheme}>
+          <div>
+            <Navbar/>
+            {children}
+          </div>
+        </MuiThemeProvider>
       );
     }
     return null;
