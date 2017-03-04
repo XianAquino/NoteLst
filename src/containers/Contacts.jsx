@@ -21,7 +21,6 @@ class Contacts extends Component {
     socket.on('updateContacts', () => {
       this.updateContacts();
     })
-
   }
 
   render() {
@@ -50,18 +49,14 @@ Contacts.propTypes = {
   contacts: React.PropTypes.array
 };
 
-const mapStateToProps = (state) => {
-  return {
-    username: state.userInfo.username,
-    contacts: state.contacts,
-    socket: state.socket
-  };
-};
+const mapStateToProps = (state) => ({
+  username: state.userInfo.username,
+  contacts: state.contacts,
+  socket: state.socket
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    actions: bindActionCreators(contactsActions, dispatch)
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(contactsActions, dispatch)
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Contacts);

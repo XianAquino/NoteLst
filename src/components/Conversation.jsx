@@ -19,29 +19,28 @@ class Conversation extends Component {
   }
 
   initializeConversation(props) {
-    const { params, socket, actions } = props;
+    const { socketConnected, params, messages, socket, actions } = props;
     socket.emit('startConversation', params.messageId);
     getMessages(params.messageId, (messages) => {
       actions.loadMessages(messages);
     });
+    actions.setSocketConnection();
+    socket.on('receiveMessage', (message) => {
+      actions.addMessage(message);
+    });
   }
 
   componentWillMount() {
-    const { socketConnected, socket, actions, messages, params } = this.props;
-    if ( !socketConnected ) {
-      console.log("passs");
-      actions.setSocketConnection();
-      socket.on('receiveMessage', (message) => {
-        if (params.messageId === message.conversation_id) {
-          actions.addMessage(message);
-        }
-      });
-    }
     this.initializeConversation(this.props);
+  }
+
+  componentWillUnmount() {
+    delete this.props.socket.json._callbacks.$receiveMessage
   }
 
   componentWillReceiveProps(nextProps) {
     if(this.props.params.messageId !== nextProps.params.messageId) {
+      delete this.props.socket.json._callbacks.$receiveMessage
       this.initializeConversation(nextProps);
     }
   }

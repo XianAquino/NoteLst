@@ -4,14 +4,14 @@ import DeleteIcon from 'material-ui/svg-icons/action/delete'
 
 const Task = ({id, title, desc, remove}) => {
   return(
-    <li>
+    <div className='task col-xs-12 col-sm-12 col-md-6 col-lg-6'>
       <Card>
         <CardHeader title={title}>
           <DeleteIcon onClick={() => (remove(id))}/>
         </CardHeader>
         <CardText>{desc}</CardText>
       </Card>
-    </li>
+    </div>
   )
 };
 

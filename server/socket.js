@@ -15,6 +15,10 @@ io.on('connection', (socket) => {
     socket.join(messageRoomId);
   });
 
+  socket.on('leaveConversation', (messageRoomId) => {
+    socket.leave(messageRoomId);
+  })
+
   socket.on('sendMessage', (messageRoomId, message) => {
     messageDB.saveMessage(message);
     io.emit('updateContacts');

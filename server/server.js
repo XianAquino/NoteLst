@@ -29,7 +29,7 @@ app.use(parser.json());
 app.use('/api', router);
 app.use(express.static('static'));
 
-app.listen(port, ip);
+app.listen(port);
 console.log(`Listening on port: ${socketPort}`);
 
 socket.listen(socketPort, () => {

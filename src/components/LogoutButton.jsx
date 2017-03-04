@@ -25,7 +25,10 @@ class LogoutButton extends Component {
   render() {
     return(
       <div>
-        <RaisedButton label='Logout' onClick={this.logout}/>
+        <RaisedButton
+          backgroundColor='#3F51B5'
+          label='Logout'
+          onClick={this.logout}/>
       </div>
     );
   }

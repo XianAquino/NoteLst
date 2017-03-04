@@ -8,6 +8,8 @@ import socketConnected from './socketConnectionReducer.jsx';
 import messages from './messagesReducer.jsx';
 import searchedUsers from './userSearchReducer.jsx';
 import contacts from './contactsReducer.jsx';
+import currentConversationID from './currentConversationReducer.jsx';
+
 
 const rootReducer = combineReducers({
   login,
@@ -18,7 +20,8 @@ const rootReducer = combineReducers({
   messages,
   searchedUsers,
   contacts,
-  socketConnected
+  socketConnected,
+  currentConversationID
 });
 
 export default rootReducer;
