@@ -27,21 +27,18 @@ class Tasks extends Component {
   render() {
     const { tasks } = this.props;
     return(
-      <div>
-        <h2>Todos</h2>
-        <ul>
-          {
-            tasks.map((task, i) =>
-              <Task
-                key={i}
-                remove={this.remove}
-                id={task.id}
-                title={task.title}
-                desc={task.todo}
-              />
-            )
-          }
-        </ul>
+      <div className='tasks'>
+        {
+          tasks.map((task, i) =>
+            <Task
+              key={i}
+              remove={this.remove}
+              id={task.id}
+              title={task.title}
+              desc={task.todo}
+            />
+          )
+        }
       </div>
     )
   }
