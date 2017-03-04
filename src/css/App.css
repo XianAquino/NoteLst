@@ -9,15 +9,22 @@ asside {
   height: 120vh;
   max-height: 200vh;
 }
+
+.container {
+  padding: 0;
+  margin: 0;
+}
+
 .navbar {
   margin: 0;
 }
 
 .navbar a {
-  margin: 2px 20px;
+  margin: 2px 20px 2px 12px;
   color: #FFF;
   text-align: center
 }
+
 .navbar a:hover {
   text-decoration: none;
   color:#3F51B5;
@@ -29,11 +36,6 @@ asside {
 
 .navbar span {
   font-size: 1em;
-}
-
-.container {
-  padding: 0;
-  margin: 0;
 }
 
 .logout {
