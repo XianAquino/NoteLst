@@ -10,6 +10,7 @@ import NoteEditor from './pages/NoteEditor.jsx';
 import Layout from './components/Layout.jsx';
 import Messages from './pages/Messages.jsx';
 import Conversation from './components/Conversation.jsx';
+import NoUserSelected from './components/NoUserSelected.jsx';
 
 import './css/app.css';
 
@@ -21,6 +22,7 @@ const App = () => {
           <Route path=':username/notes' component={Notes} />
           <Route path='notes/:noteId' component={NoteEditor} />
           <Route path='messages' component={Messages}>
+            <IndexRoute component={NoUserSelected} />
             <Route path=':messageId' component ={Conversation} />
           </Route>
         </Route>
