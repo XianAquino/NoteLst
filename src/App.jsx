@@ -11,6 +11,7 @@ import Layout from './components/Layout.jsx';
 import Messages from './pages/Messages.jsx';
 import Conversation from './components/Conversation.jsx';
 
+import './css/App.css';
 
 const App = () => {
   return (
