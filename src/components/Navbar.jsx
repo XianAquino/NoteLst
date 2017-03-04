@@ -19,9 +19,18 @@ const Navbar = ({userInfo}) => {
       className='navbar'
       title='NoteLst'
       onTitleTouchTap={onClickTitle}>
-      <Link to='/messages'><MessageIcon/></Link>
-      <Link to={`/${userInfo.username}/notes`}><AvNote/></Link>
-      <Link to='/groups'><GroupsIcon/></Link>
+      <Link to='/messages'>
+        <i className="material-icons">message</i>
+        <span>Message</span>
+      </Link>
+      <Link to={`/${userInfo.username}/notes`}>
+        <i className="material-icons">note</i>
+        <span>Notes</span>
+      </Link>
+      <Link to='/groups'>
+        <i className="material-icons">group</i>
+        <span>Groups</span>
+      </Link>
       <LogoutButton/>
     </AppBar>
   );
