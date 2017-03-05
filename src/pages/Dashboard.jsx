@@ -31,7 +31,6 @@ class Dashboard extends Component {
               {/* {insert D3 charts here } */}
             </aside>
             <div className='col-xs-12 col-sm-12 col-md-9 col-lg-9'>
-              <p>Dashboard</p>
               <div className='task-container container-fluid'>
                 <div className='row task-options'>
                   <label>Date</label><DatePicker id='task-date-picker'/>

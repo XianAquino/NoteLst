@@ -1,15 +1,26 @@
 import React from 'react';
 import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
+import { Divider, RaisedButton } from 'material-ui'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
 
 const Task = ({id, title, desc, remove}) => {
   return(
     <div className='task col-xs-12 col-sm-12 col-md-6 col-lg-6'>
       <Card>
-        <CardHeader title={title}>
-          <DeleteIcon onClick={() => (remove(id))}/>
-        </CardHeader>
+        <CardHeader title={title} />
+        <Divider />
         <CardText>{desc}</CardText>
+        <CardActions>
+          <RaisedButton
+            backgroundColor='#00C853'
+            labelColor='#FFF'
+            label='Done' onTouchTap={() => {remove(id)}} />
+          <RaisedButton
+            backgroundColor='#C62828'
+            labelColor='#FFF'
+            label='Delete'
+            onTouchTap={() => (remove(id))} />
+        </CardActions>
       </Card>
     </div>
   )
