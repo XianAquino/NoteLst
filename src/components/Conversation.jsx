@@ -50,6 +50,11 @@ class Conversation extends Component {
     }
   }
 
+  componentDidUpdate() {
+    const overflowScrollElement = document.getElementsByClassName('messages');
+    overflowScrollElement[0].scrollTop = overflowScrollElement[0].scrollHeight;
+  }
+
   handleInput(event) {
     this.setState({message: event.target.value})
   }
