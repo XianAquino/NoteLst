@@ -1,0 +1,28 @@
+.task-form-container {
+  left: 0;
+  top: 0;
+  position: fixed;
+  overflow: hidden;
+  width: 100%;
+  z-index: 10;
+  background-color: #000;
+  height: 100vh;
+  background-color: rgba(0,0,0,.9);
+}
+
+.task-form {
+  width: 40%;
+  margin: 20vh auto;
+  text-align: center;
+}
+.task-form h2{
+  padding-top: 5%;
+  color: #3F51B5;
+}
+
+@media only screen and (max-width: 600px) {
+  .task-form {
+    width: 90%;
+    margin: 12vh auto;
+  }
+}
