@@ -27,9 +27,9 @@ class Dashboard extends Component {
       return(
         <div className='container-fluid'>
           <div className='row'>
-            <asside className='col-md-3 col-lg-3 hidden-sm hidden-xs'>
-              sdfsdf
-            </asside>
+            <aside className='col-md-3 col-lg-3 hidden-sm hidden-xs'>
+              {/* {insert D3 charts here } */}
+            </aside>
             <div className='col-xs-12 col-sm-12 col-md-9 col-lg-9'>
               <p>Dashboard</p>
               <div className='task-container container-fluid'>

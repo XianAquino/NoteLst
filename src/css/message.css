@@ -1,0 +1,47 @@
+.no-user-selected {
+  text-align: center;
+  margin-top: 20%;
+  color: #455A64;
+}
+
+.no-user-selected i {
+  font-size: 10em;
+  margin-bottom: 20px;
+}
+
+.conversation {
+  margin-top: 10px;
+  height: 96vh;
+  padding-bottom: 5px;
+}
+
+.messages {
+  text-align: left;
+  height: 62vh;
+  overflow: auto;
+}
+
+.messages ul {
+  list-style-type: none;
+}
+
+.sent-message {
+  text-align: right;
+}
+.send-message-field {
+  height: 20vh;
+}
+
+.send-message-field {
+  width: 80%;
+}
+
+.send-btn {
+  margin-top: 8%;
+}
+
+@media only screen and (max-width: 380px) {
+  .send-btn {
+    margin-top: 1%;
+  }
+}
