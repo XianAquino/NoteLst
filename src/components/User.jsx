@@ -15,7 +15,10 @@ class User extends Component {
   }
 
   startConversation() {
-    const { username , sender, change, socket, currentConversationID, actions } = this.props;
+    const { username, sender, change, socket, currentConversationID,
+      actions, search, clearResult } = this.props;
+
+    if(search) clearResult();
 
     createConversationId(username, sender, (conversationId) => {
       socket.emit('leaveConversation', currentConversationID);
@@ -27,6 +30,7 @@ class User extends Component {
   render() {
     return(
       <ListItem
+        value={this.props.value}
         primaryText={this.props.name}
         leftAvatar={
           <Avatar
@@ -45,7 +49,9 @@ User.propTypes = {
   name: React.PropTypes.string,
   socket: React.PropTypes.object,
   currentConversationID: React.PropTypes.string,
-  actions: React.PropTypes.object
+  actions: React.PropTypes.object,
+  clearResult: React.PropTypes.func,
+  search: React.PropTypes.bool
 };
 
 const mapStateToProps = (state) => ({

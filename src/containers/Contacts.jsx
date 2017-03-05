@@ -35,6 +35,7 @@ class Contacts extends Component {
             contacts.map((user, i) =>
               <Contact
                 key={i}
+                value={i}
                 username={user.username}
                 name={user.name}
                 sender={username}

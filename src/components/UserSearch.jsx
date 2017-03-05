@@ -17,11 +17,18 @@ class UserSearch extends Component {
       name: ''
     }
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.clearSearchField = this.clearSearchField.bind(this);
   }
 
   componentWillMount() {
     this.setState({name: ''});
     this.props.actions.clearResult();
+  }
+
+  clearSearchField() {
+    this.setState({
+      name: ''
+    })
   }
 
   handleInputChange(event) {
@@ -48,7 +55,13 @@ class UserSearch extends Component {
         </div>
         <Divider/>
         {
-          !name ? <Contacts /> : <UserSearchResults users={searchedUsers} sender={username}/>
+          !name ? <Contacts />
+          : <UserSearchResults
+              search={true}
+              clearResult={this.clearSearchField}
+              users={searchedUsers}
+              sender={username}
+            />
         }
       </div>
     )
