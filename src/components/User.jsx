@@ -4,6 +4,8 @@ import createConversationId from '../util/createConversationId';
 import * as currentConversationActions from '../actions/currentConversationActions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { ListItem } from 'material-ui/List';
+import Avatar from 'material-ui/Avatar';
 
 class User extends Component {
 
@@ -24,7 +26,15 @@ class User extends Component {
 
   render() {
     return(
-      <li onClick={this.startConversation}>{this.props.name}</li>
+      <ListItem
+        primaryText={this.props.name}
+        leftAvatar={
+          <Avatar
+            src='http://res.cloudinary.com/de7lidb1d/image/upload/c_crop,w_443/v1488676774/users/style_icons_product_human_best_do1.png'
+          />
+        }
+        onClick={this.startConversation}
+      />
     )
   }
 };

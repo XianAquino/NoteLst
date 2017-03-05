@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as contactsActions from '../actions/contactsActions';
 import Contact from '../components/User';
+import List from 'material-ui/List';
+import Subheader from 'material-ui/Subheader';
 
 class Contacts extends Component {
 
@@ -26,17 +28,20 @@ class Contacts extends Component {
   render() {
     const { contacts, username } = this.props;
     return(
-      <div>
-      {
-        contacts.map((user, i) =>
-          <Contact
-            key={i}
-            username={user.username}
-            name={user.name}
-            sender={username}
-          />
-        )
-      }
+      <div className='Contacts'>
+        <List>
+          <Subheader>Recent chats</Subheader>
+          {
+            contacts.map((user, i) =>
+              <Contact
+                key={i}
+                username={user.username}
+                name={user.name}
+                sender={username}
+              />
+            )
+          }
+        </List>
       </div>
     );
   }

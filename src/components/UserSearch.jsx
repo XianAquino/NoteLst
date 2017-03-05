@@ -4,7 +4,9 @@ import _ from 'underscore';
 import * as userSearchActions from '../actions/userSearchActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Contacts from '../containers/Contacts';
 import UserSearchResults from '../containers/UserSearchResults';
+import { Divider, TextField } from 'material-ui';
 
 const searchUserDebounce = _.debounce(searchUser, 500);
 
@@ -33,16 +35,21 @@ class UserSearch extends Component {
 
   render() {
     const { searchedUsers, username } = this.props;
+    const { name } = this.state
     return(
       <div>
-        <label>Search User</label>
-        <input
-          onChange={this.handleInputChange}
-          type='text'
-          placeholder='Enter name'
-          value={this.state.name}
-        />
-        <UserSearchResults users={searchedUsers} sender={username}/>
+        <div className='search-user-container'>
+          <TextField
+            hintText='Enter Name'
+            floatingLabelText='Search User'
+            value={name}
+            onChange={this.handleInputChange}
+          />
+        </div>
+        <Divider/>
+        {
+          !name ? <Contacts /> : <UserSearchResults users={searchedUsers} sender={username}/>
+        }
       </div>
     )
   }
