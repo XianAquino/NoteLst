@@ -1,0 +1,101 @@
+.no-user-selected {
+  text-align: center;
+  margin-top: 20%;
+  color: #455A64;
+}
+
+.no-user-selected i {
+  font-size: 10em;
+  margin-bottom: 20px;
+}
+
+/*-----------------Chat Box Container-------------------*/
+.conversation {
+  margin-top: 10px;
+  height: 90vh;
+  padding-bottom: 5px;
+}
+
+.messages {
+  text-align: left;
+  height: 62vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.messages ul {
+  padding: 0 10px 0 40px;
+  list-style-type: none;
+}
+
+.message {
+    background-color: #fffae6;
+    border-radius: 5px;
+    box-shadow: 0 0 6px #B2B2B2;
+    position: relative;
+    display: block;
+    padding: 10px 16px;
+    text-align: left;
+    margin: 20px 0 10px;
+    width: 60%;
+    float: left;
+}
+
+.message::before {
+  background-color: #fffae6;
+  content: '\00a0';
+  display: block;
+  height: 16px;
+  position: absolute;
+  top: 70%;
+  transform:             rotate( 29deg ) skew( -35deg );
+      -moz-transform:    rotate( 29deg ) skew( -35deg );
+      -ms-transform:     rotate( 29deg ) skew( -35deg );
+      -o-transform:      rotate( 29deg ) skew( -35deg );
+      -webkit-transform: rotate( 29deg ) skew( -35deg );
+  width:  20px;
+}
+
+.sent {
+  background-color: #3F51B5;
+  text-align: right;
+  color: #FFF;
+  margin: 20px 45px 10px 20px;
+  float: right;
+}
+
+.sent::before {
+  background-color: #3F51B5;
+  box-shadow: 2px -2px 2px 0 rgba( 178, 178, 178, .4 );
+  right: -9px;
+}
+
+.receive::before {
+  box-shadow: -2px 2px 2px 0 rgba( 178, 178, 178, .4 );
+  left: -9px;
+}
+
+/*-----------------Send Message Container-------------------*/
+.send-message-field {
+  height: 20vh;
+  width: 80%;
+}
+
+.send-btn {
+  margin-top: 8%;
+}
+
+/*----------------Side Bar --------------------------------*/
+
+.search-user-container {
+  text-align: center;
+}
+
+@media only screen and (max-width: 768px) {
+  .conversation {
+    height: 98vh;
+  }
+  .send-btn {
+    margin-top: 1%;
+  }
+}

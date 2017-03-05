@@ -4,6 +4,8 @@ import createConversationId from '../util/createConversationId';
 import * as currentConversationActions from '../actions/currentConversationActions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { ListItem } from 'material-ui/List';
+import Avatar from 'material-ui/Avatar';
 
 class User extends Component {
 
@@ -13,7 +15,10 @@ class User extends Component {
   }
 
   startConversation() {
-    const { username , sender, change, socket, currentConversationID, actions } = this.props;
+    const { username, sender, change, socket, currentConversationID,
+      actions, search, clearResult } = this.props;
+
+    if(search) clearResult();
 
     createConversationId(username, sender, (conversationId) => {
       socket.emit('leaveConversation', currentConversationID);
@@ -24,7 +29,16 @@ class User extends Component {
 
   render() {
     return(
-      <li onClick={this.startConversation}>{this.props.name}</li>
+      <ListItem
+        value={this.props.value}
+        primaryText={this.props.name}
+        leftAvatar={
+          <Avatar
+            src='http://res.cloudinary.com/de7lidb1d/image/upload/c_crop,w_443/v1488676774/users/style_icons_product_human_best_do1.png'
+          />
+        }
+        onClick={this.startConversation}
+      />
     )
   }
 };
@@ -35,7 +49,9 @@ User.propTypes = {
   name: React.PropTypes.string,
   socket: React.PropTypes.object,
   currentConversationID: React.PropTypes.string,
-  actions: React.PropTypes.object
+  actions: React.PropTypes.object,
+  clearResult: React.PropTypes.func,
+  search: React.PropTypes.bool
 };
 
 const mapStateToProps = (state) => ({

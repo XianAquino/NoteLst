@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as loginActions from '../actions/loginActions';
 import * as socketActions from '../actions/socketActions';
-import RaisedButton from 'material-ui/RaisedButton'
+import { MenuItem } from 'material-ui/Menu';
 
 class LogoutButton extends Component {
   constructor(props){
@@ -24,12 +24,11 @@ class LogoutButton extends Component {
 
   render() {
     return(
-      <div>
-        <RaisedButton
-          backgroundColor='#3F51B5'
-          label='Logout'
-          onClick={this.logout}/>
-      </div>
+      <MenuItem
+        primaryText='Sign out'
+        onTouchTap={this.logout}
+        rightIcon={<i className="material-icons">power_settings_new</i>}
+      />
     );
   }
 };
