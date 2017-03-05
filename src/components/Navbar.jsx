@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import LogoutButton from './LogoutButton';
-import AppBar from 'material-ui/AppBar'
+import { AppBar, Avatar } from 'material-ui'
 import { browserHistory } from 'react-router';
 
 const onClickTitle = () => {
@@ -27,6 +27,11 @@ const Navbar = ({userInfo}) => {
         <i className="material-icons">group</i>
         <span>Groups</span>
       </Link>
+      <Avatar
+        src='http://res.cloudinary.com/de7lidb1d/image/upload/c_crop,w_443/v1488676774/users/style_icons_product_human_best_do1.png'
+        size={45}
+        style={{marginTop: '8px'}}
+      />
       <LogoutButton/>
     </AppBar>
   );

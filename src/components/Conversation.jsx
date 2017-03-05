@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import * as messagesActions from '../actions/messagesActions';
 import * as socketActions from '../actions/socketActions';
 import getMessages from '../util/getMessages';
-import { Paper, Divider, RaisedButton, TextField } from 'material-ui';
+import { Paper, Divider, RaisedButton, TextField, Avatar } from 'material-ui';
 import Message from './Message';
 
 const messageField = {
@@ -78,7 +78,11 @@ class Conversation extends Component {
     return(
       <div>
         <Paper className='conversation' zDepth={2} rounded={false}>
-          <p>{this.props.params.messageId}</p>
+          <Avatar
+            src='http://res.cloudinary.com/de7lidb1d/image/upload/c_crop,w_443/v1488676774/users/style_icons_product_human_best_do1.png'
+            size={45}
+            style={{margin: '2px'}}
+          /><span>{this.props.params.messageId}</span>
           <Divider/>
           <div className='messages'>
             <ul>
