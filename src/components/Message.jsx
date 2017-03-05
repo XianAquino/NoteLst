@@ -1,9 +1,9 @@
 import React from 'react';
 
 const Message = ({message, sender, userId, date}) => {
-  let className = 'received-message'
+  let className = 'message receive'
   if (sender === userId) {
-    className = 'sent-message'
+    className = 'message sent'
   }
 
   return (

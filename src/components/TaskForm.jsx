@@ -8,8 +8,8 @@ import '../css/taskform.css';
 
 const style = {
   button: {
-    margin: '5px 20px 10px',
-    width: '50%',
+    margin: '5px 12px 10px',
+    width: '44%',
     color: '#FFF'
   }
 };

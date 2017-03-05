@@ -118,9 +118,10 @@ class Conversation extends Component {
               <div className='send-btn col-md-2 col-lg-2'>
                 <RaisedButton
                   backgroundColor='#3F51B5'
+                  labelColor='#FFF'
+                  label='Send'
                   onClick={this.handleSubmit}
-                >Send
-                </RaisedButton>
+                />
               </div>
             </div>
           </div>

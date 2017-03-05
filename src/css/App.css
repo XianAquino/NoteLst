@@ -17,6 +17,7 @@ aside {
 
 .navbar {
   margin: 0;
+  position: fixed;
 }
 
 .navbar a {
