@@ -77,7 +77,9 @@ class Navbar extends Component {
         onClick={this.handleTouchTap}
       />
       <Popover
+        className='pop-over'
         zDepth={2}
+        style={{overflow: 'none'}}
         open={this.state.open}
         anchorEl={this.state.anchorEl}
         anchorOrigin={this.state.anchorOrigin}

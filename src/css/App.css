@@ -43,6 +43,23 @@ aside {
   font-size: 1em;
 }
 
+.pop-over::before, .pop-over::after {
+  background: #FFF;
+  content: '';
+  left: 87%;
+  display: block;
+  position: absolute;
+  height: 15px;
+  margin: 0 0 0 -6px;
+  transform:             rotate( 45deg );
+      -moz-transform:    rotate( 45deg );
+      -ms-transform:     rotate( 45deg );
+      -o-transform:      rotate( 45deg );
+      -webkit-transform: rotate( 45deg );
+  top: -6px;
+  width: 15px;
+}
+
 .logout {
   background-color: transparent;
 }
