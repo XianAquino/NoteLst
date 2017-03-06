@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import login from '../util/login.js';
-import { browserHistory, Link } from 'react-router';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as loginActions from '../actions/loginActions.jsx';
@@ -27,7 +27,12 @@ class Login extends Component {
     }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.signUpRedirect = this.signUpRedirect.bind(this);
   }
+  signUpRedirect() {
+    browserHistory.push('/signup');
+  }
+
   handleInputChange (event) {
     const target = event.target;
     this.setState({
@@ -101,7 +106,7 @@ class Login extends Component {
               />
               <RaisedButton
                 backgroundColor='#263238'
-                onTouchTap={this.handleSubmit}
+                onTouchTap={this.signUpRedirect}
                 labelColor='#FFF'
                 label='Sign up'
                 icon={<i className="material-icons">person_add</i>}

@@ -53,59 +53,62 @@ class Navbar extends Component {
   render() {
     const { userInfo } = this.props
     return(
-      <AppBar
-        className='navbar'
-        title='NoteLst'
-        onTitleTouchTap={()=>(this.onClickMenu())}>
+      <AppBar className='navbar'>
+        <img
+          className='title'
+          src='/nav-logo.png'
+          alt='notelst-logo-nav'
+          onClick={()=>(this.onClickMenu())}
+        />
         <Link to='/messages'>
-        <i className="material-icons">mail</i>
-        <span>Messages</span>
-      </Link>
-      <Link to={`/${userInfo.username}/notes`}>
-        <i className="material-icons">note</i>
-        <span>Notes</span>
+          <i className="material-icons">mail</i>
+          <span>Messages</span>
         </Link>
-      <Link to='/groups'>
-        <i className="material-icons">group</i>
-        <span>Groups</span>
-      </Link>
-      <div>
-      <Avatar
-        src='http://res.cloudinary.com/de7lidb1d/image/upload/c_crop,w_443/v1488676774/users/style_icons_product_human_best_do1.png'
-        size={45}
-        style={{marginTop: '8px'}}
-        onClick={this.handleTouchTap}
-      />
-      <Popover
-        className='pop-over'
-        zDepth={2}
-        style={{overflow: 'none'}}
-        open={this.state.open}
-        anchorEl={this.state.anchorEl}
-        anchorOrigin={this.state.anchorOrigin}
-        targetOrigin={this.state.targetOrigin}
-        onRequestClose={this.handleRequestClose} >
-        <Menu>
-          <MenuItem
-            primaryText={`Signed in as: ${userInfo.username}`}
-            disabled={true}
-           />
-           <Divider />
-          <MenuItem
-            primaryText='Home'
-            rightIcon={<i className='material-icons'>home</i>}
-            onTouchTap={()=>(this.onClickMenu())}
+        <Link to={`/${userInfo.username}/notes`}>
+          <i className="material-icons">note</i>
+          <span>Notes</span>
+          </Link>
+        <Link to='/groups'>
+          <i className="material-icons">group</i>
+          <span>Groups</span>
+        </Link>
+        <div>
+          <Avatar
+            src='http://res.cloudinary.com/de7lidb1d/image/upload/c_crop,w_443/v1488676774/users/style_icons_product_human_best_do1.png'
+            size={45}
+            style={{marginTop: '8px'}}
+            onClick={this.handleTouchTap}
           />
-          <MenuItem
-            primaryText='Settings'
-            rightIcon={<i className='material-icons'>settings</i>}
-            onTouchTap={()=>(this.onClickMenu('settings'))}
-          />
-          <LogoutButton/>
-        </Menu>
-      </Popover>
-    </div>
-    </AppBar>
+          <Popover
+            className='pop-over'
+            zDepth={2}
+            style={{overflow: 'none'}}
+            open={this.state.open}
+            anchorEl={this.state.anchorEl}
+            anchorOrigin={this.state.anchorOrigin}
+            targetOrigin={this.state.targetOrigin}
+            onRequestClose={this.handleRequestClose} >
+            <Menu>
+              <MenuItem
+                primaryText={`Signed in as: ${userInfo.username}`}
+                disabled={true}
+               />
+               <Divider />
+              <MenuItem
+                primaryText='Home'
+                rightIcon={<i className='material-icons'>home</i>}
+                onTouchTap={()=>(this.onClickMenu())}
+              />
+              <MenuItem
+                primaryText='Settings'
+                rightIcon={<i className='material-icons'>settings</i>}
+                onTouchTap={()=>(this.onClickMenu('settings'))}
+              />
+              <LogoutButton/>
+            </Menu>
+          </Popover>
+        </div>
+      </AppBar>
     )
   }
 };

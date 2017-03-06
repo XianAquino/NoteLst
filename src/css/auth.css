@@ -7,6 +7,7 @@
   background: -moz-linear-gradient(left top, #37474F, #263238);
   background: linear-gradient(left top, #37474F, #263238);
   height: 100vh;
+  max-height: 300vh;
 }
 .login {
   margin: 0 auto;
@@ -18,12 +19,4 @@
   width: 60%;
   height: auto;
   margin: auto;
-}
-
-.banner {
-  z-index: 1;
-  width: 100%;
-  background: white;
-  height: 20vh;
-  position: absolute;
 }
