@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import TaskForm from '../components/TaskForm';
 import Task from '../components/Tasks';
 import { RaisedButton, DatePicker } from 'material-ui';
+import ProgressMeter from '../components/ProgressMeter';
 
 import '../css/dashboard.css';
 
@@ -29,6 +30,7 @@ class Dashboard extends Component {
           <div className='row'>
             <aside className='col-md-3 col-lg-3 hidden-sm hidden-xs'>
               {/* {insert D3 charts here } */}
+              <ProgressMeter/>
             </aside>
             <div className='col-xs-12 col-sm-12 col-md-9 col-lg-9'>
               <div className='task-container container-fluid'>
