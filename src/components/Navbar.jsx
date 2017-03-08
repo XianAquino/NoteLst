@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import LogoutButton from './LogoutButton';
-import { AppBar, Avatar, Popover, Divider } from 'material-ui'
+import { AppBar, Avatar, Popover, Divider, Drawer } from 'material-ui'
 import { Menu, MenuItem } from 'material-ui/Menu';
 import { browserHistory } from 'react-router';
+import UserSearch from '../components/UserSearch';
 
 class Navbar extends Component {
 
@@ -19,10 +20,12 @@ class Navbar extends Component {
       targetOrigin: {
         horizontal: 'right',
         vertical: 'top'
-      }
+      },
+      openDrawer: false
     };
     this.handleTouchTap = this.handleTouchTap.bind(this);
     this.handleRequestClose = this.handleRequestClose.bind(this);
+    this.handleNavigationToggle = this.handleNavigationToggle.bind(this);
   }
 
   onClickMenu (target) {
@@ -34,6 +37,10 @@ class Navbar extends Component {
     this.setState({
       open: false
     })
+  }
+
+  handleNavigationToggle() {
+    this.setState({openDrawer: !this.state.openDrawer});
   }
 
   handleTouchTap(event) {
@@ -53,7 +60,10 @@ class Navbar extends Component {
   render() {
     const { userInfo } = this.props
     return(
-      <AppBar className='navbar'>
+      <div>
+      <AppBar className='navbar'
+        onLeftIconButtonTouchTap={this.handleNavigationToggle}
+      >
         <img
           className='title'
           src='/nav-logo.png'
@@ -109,6 +119,11 @@ class Navbar extends Component {
           </Popover>
         </div>
       </AppBar>
+      <Drawer open={this.state.openDrawer}>
+        <p onClick={this.handleNavigationToggle}>Close</p>
+        <UserSearch />
+      </Drawer>
+      </div>
     )
   }
 };
