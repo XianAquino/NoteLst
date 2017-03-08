@@ -30,7 +30,6 @@ class Dashboard extends Component {
         <div className='container-fluid'>
           <div className='row'>
             <aside className='side-bar col-md-3 col-lg-3 hidden-sm hidden-xs'>
-              {/* {insert D3 charts here } */}
               <ProgressMeter/>
               <TaskChart/>
             </aside>

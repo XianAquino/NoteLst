@@ -35,7 +35,7 @@
   font-size: 2.5em;
   padding: 10px;
 }
-
+/*--------------------Side bar----------------------*/
 .task-chart text{
   font-size: 0.8em;
 }
@@ -48,4 +48,18 @@
 
 .task-chart {
   text-align: center;
+}
+
+.progress-meter {
+  background-color: #3F51B5;
+  text-align: center;
+  color: #FFF;
+}
+
+.meter {
+  fill: #FFF;
+}
+
+.meter:hover {
+  fill: #263238;
 }
