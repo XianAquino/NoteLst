@@ -5,6 +5,7 @@ import TaskForm from '../components/TaskForm';
 import Task from '../components/Tasks';
 import { RaisedButton, DatePicker } from 'material-ui';
 import ProgressMeter from '../components/ProgressMeter';
+import TaskChart from '../components/TaskChart';
 
 import '../css/dashboard.css';
 
@@ -28,9 +29,10 @@ class Dashboard extends Component {
       return(
         <div className='container-fluid'>
           <div className='row'>
-            <aside className='col-md-3 col-lg-3 hidden-sm hidden-xs'>
+            <aside className='side-bar col-md-3 col-lg-3 hidden-sm hidden-xs'>
               {/* {insert D3 charts here } */}
               <ProgressMeter/>
+              <TaskChart/>
             </aside>
             <div className='col-xs-12 col-sm-12 col-md-9 col-lg-9'>
               <div className='task-container container-fluid'>
