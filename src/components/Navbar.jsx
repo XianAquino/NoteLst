@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import LogoutButton from './LogoutButton';
-import { AppBar, Avatar, Popover, Divider, Drawer } from 'material-ui'
+import { AppBar, Avatar, Popover, Divider } from 'material-ui'
 import { Menu, MenuItem } from 'material-ui/Menu';
 import { browserHistory } from 'react-router';
-import UserSearch from '../components/UserSearch';
+import SidebarNavigation from '../components/SidebarNavigation';
 
 class Navbar extends Component {
 
@@ -118,11 +118,11 @@ class Navbar extends Component {
             </Menu>
           </Popover>
         </div>
-      </AppBar>
-      <Drawer open={this.state.openDrawer}>
-        <p onClick={this.handleNavigationToggle}>Close</p>
-        <UserSearch />
-      </Drawer>
+        </AppBar>
+        <SidebarNavigation
+          openDrawer={this.state.openDrawer}
+          handleNavigationToggle={this.handleNavigationToggle}
+        />
       </div>
     )
   }
