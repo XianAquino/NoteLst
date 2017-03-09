@@ -9,7 +9,6 @@ import TaskChart from '../components/TaskChart';
 
 import '../css/dashboard.css';
 
-
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -36,16 +35,19 @@ class Dashboard extends Component {
             <div className='col-xs-12 col-sm-12 col-md-9 col-lg-9'>
               <div className='task-container container-fluid'>
                 <div className='row task-options'>
-                  <label>Date</label><DatePicker id='task-date-picker'/>
-                  <RaisedButton
-                    className='create-btn'
-                    backgroundColor='#3F51B5'
-                    onClick={() => (this.toggleTaskForm(true))}
-                  >Create Task
-                  </RaisedButton>
+                  <label>Date</label>
+                  <DatePicker id='task-date-picker' style={{float: 'left'}}/>
                 </div>
                 <div className='row'>
-                  <h2>Tasks</h2>
+                  <div className='task-header'>
+                    <h2>Tasks
+                      <span>
+                        <i className='material-icons'
+                          onClick={() => (this.toggleTaskForm(true))}
+                        >note_add</i>
+                      </span>
+                    </h2>
+                  </div>
                   <Task userId={userInfo.id}/>
                 </div>
               </div>

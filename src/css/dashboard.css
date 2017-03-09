@@ -3,12 +3,13 @@
   text-align: center;
 }
 
-.task-container input{
-  text-align: center;
-}
-.task-container label{
-  font-size: 2.5em;
+.task-container h2 {
   display: inline;
+  margin-right: 6px;
+}
+
+.create-btn {
+  position: absolute;
 }
 
 #task-date-picker {
@@ -27,14 +28,25 @@
 
 .task-options {
   margin: auto;
-  text-align: center;
+  text-align: left;
 }
 
-.create-btn button {
-  color: white;
-  font-size: 2.5em;
-  padding: 10px;
+.task-options label {
+  margin:8px;
+  float:left;
+  font-size: 1.6em
 }
+
+.task-header i {
+  font-size: 0.9em;
+  color: #3F51B5;
+}
+
+.task-header i:hover {
+  font-size: 0.9em;
+  color: #263238;
+}
+
 /*--------------------Side bar----------------------*/
 .task-chart text{
   font-size: 0.8em;
