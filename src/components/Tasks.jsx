@@ -10,11 +10,12 @@ class Tasks extends Component {
   constructor(props){
     super(props);
     this.remove = this.remove.bind(this);
+    this.updateTask = this.updateTask.bind(this);
   }
   componentWillMount() {
     const { userId, actions } = this.props;
     getTasks(this.props.userId, (response) => {
-      actions.loadTasks(response.data);
+      actions.loadTasks(response);
     });
   }
 
@@ -22,6 +23,11 @@ class Tasks extends Component {
     const { actions } = this.props;
     deleteTask(taskId);
     actions.deleteTask(taskId);
+  }
+
+  updateTask(task) {
+    const { actions } = this.props;
+    actions.updateTask(task)
   }
 
   render() {
@@ -36,6 +42,8 @@ class Tasks extends Component {
               id={task.id}
               title={task.title}
               desc={task.todo}
+              finish={task.finish}
+              updateTask={this.updateTask}
             />
           )
         }

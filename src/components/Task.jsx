@@ -3,7 +3,34 @@ import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import { Divider, RaisedButton } from 'material-ui'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
 
-const Task = ({id, title, desc, remove}) => {
+const Task = ({id, title, desc, remove, finish, updateTask}) => {
+  let updateButton
+  if (finish) {
+    updateButton = (
+      <RaisedButton
+        backgroundColor='#00C853'
+        labelColor='#FFF'
+        label='Revert'
+        onTouchTap={() => {updateTask({
+          finish: 0,
+          id
+        })}}
+      />
+    )
+  } else {
+    updateButton = (
+      <RaisedButton
+        backgroundColor='#00C853'
+        labelColor='#FFF'
+        label='Done'
+        onTouchTap={() => {updateTask({
+          finish: 1,
+          id
+        })}}
+      />
+    )
+  }
+
   return(
     <div className='task col-xs-12 col-sm-12 col-md-6 col-lg-6'>
       <Card>
@@ -11,10 +38,9 @@ const Task = ({id, title, desc, remove}) => {
         <Divider />
         <CardText>{desc}</CardText>
         <CardActions>
-          <RaisedButton
-            backgroundColor='#00C853'
-            labelColor='#FFF'
-            label='Done' onTouchTap={() => {remove(id)}} />
+          {
+            updateButton
+          }
           <RaisedButton
             backgroundColor='#C62828'
             labelColor='#FFF'
@@ -30,7 +56,8 @@ Task.propTypes = {
   id: React.PropTypes.number,
   title: React.PropTypes.string,
   desc: React.PropTypes.string,
-  remove: React.PropTypes.func
+  remove: React.PropTypes.func,
+  updateTask: React.PropTypes.func,
 }
 
 export default Task;
