@@ -1,11 +1,22 @@
 import React from 'react';
 import * as d3 from 'd3';
+import { connect } from 'react-redux';
 
-const ProgressMeter = () => {
+const ProgressMeter = ({tasks}) => {
+  if (!tasks.length) {
+    return (
+      <h2>No Task created</h2>
+    )
+  }
+
+  const finishedTask = tasks.filter(task => task.finish === 1)
+  const tasksPercentage = finishedTask.length / tasks.length * 100;
+  const roundedPercentage = Math.round(tasksPercentage);
+
   const width = 280,
       height = 280,
       fullCircle = 2 * Math.PI,
-      progress = 80/100 * fullCircle;
+      progress = tasksPercentage/100 * fullCircle;
 
   const arc = d3.arc()
     .startAngle(0)
@@ -23,7 +34,7 @@ const ProgressMeter = () => {
               className='path-bg'
               d={arc()}
             />
-            <text textAnchor='middle' dy='0.35em' fontSize='4em'>80%</text>
+            <text textAnchor='middle' dy='0.35em' fontSize='4em'>{`${roundedPercentage}%`}</text>
           </g>
         </g>
       </svg>
@@ -31,4 +42,10 @@ const ProgressMeter = () => {
   )
 };
 
-export default ProgressMeter;
+ProgressMeter.propTypes = {
+  tasks: React.PropTypes.array
+}
+
+const mapStateToProps = (state) => ({tasks: state.tasks});
+
+export default connect(mapStateToProps)(ProgressMeter);
