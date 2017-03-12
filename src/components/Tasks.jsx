@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as taskActions from '../actions/taskActions.jsx';
 import deleteTask from '../util/deleteTask';
+import updateTask from '../util/updateTask';
+
 import Task from './Task';
 
 class Tasks extends Component {
@@ -27,6 +29,7 @@ class Tasks extends Component {
 
   updateTask(task) {
     const { actions } = this.props;
+    updateTask(task);
     actions.updateTask(task)
   }
 

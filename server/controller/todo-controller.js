@@ -22,7 +22,7 @@ module.exports = {
   },
   update: (req,res) => {
     const todoId = req.params.todo_id;
-    todos.update(todoId, req.body )
+    todos.update(todoId, req.body)
     res.send("Updated");
   },
   delete: (req,res) => {
