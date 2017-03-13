@@ -1,8 +1,9 @@
 const db = require('../db');
 
 module.exports = {
-  getUserTodos: (user, callback) => {
-    db.query('SELECT * FROM todos WHERE user_id = ?',user, (err, res) => {
+  getUserTodos: (user, date,  callback) => {
+    const sql = 'SELECT * FROM todos WHERE user_id = ? and date = ?';
+    db.query(sql, [user, date], (err, res) => {
       if(err)throw err;
       callback(res);
     });

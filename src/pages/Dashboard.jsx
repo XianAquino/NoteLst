@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import getTasks from '../util/getTasks';
+import { bindActionCreators } from 'redux';
+import * as taskActions from '../actions/taskActions.jsx';
 
 import TaskForm from '../components/TaskForm';
 import Task from '../components/Tasks';
@@ -12,14 +15,40 @@ import '../css/dashboard.css';
 class Dashboard extends Component {
   constructor(props) {
     super(props);
+    this.currDate = new Date();
     this.state = {
+      date: this.currDate,
       showForm: false
     }
     this.toggleTaskForm = this.toggleTaskForm.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  componentWillMount() {
+    if(this.props.userInfo.id) this.loadTasks();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    //only get tasks if the date was changed or during initial load
+    if (prevState.date !== this.state.date || this.state.date === this.currDate) {
+      this.loadTasks();
+    }
+  }
+
+  loadTasks() {
+    const { userInfo, actions } = this.props;
+    getTasks(userInfo.id, this.state.date, (response) => {
+      actions.loadTasks(response);
+    });
   }
 
   toggleTaskForm(toggle) {
     this.setState({showForm: toggle});
+  }
+
+  handleInputChange(event, value) {
+    this.setState({date: value});
+    console.log(this.state.date);
   }
 
   render() {
@@ -36,7 +65,12 @@ class Dashboard extends Component {
               <div className='task-container container-fluid'>
                 <div className='row task-options'>
                   <label>Date</label>
-                  <DatePicker id='task-date-picker' style={{float: 'left'}}/>
+                  <DatePicker
+                    id='task-date-picker'
+                    value={this.state.date}
+                    style={{float: 'left'}}
+                    onChange={this.handleInputChange}
+                  />
                 </div>
                 <div className='row'>
                   <div className='task-header'>
@@ -48,13 +82,20 @@ class Dashboard extends Component {
                       </span>
                     </h2>
                   </div>
-                  <Task userId={userInfo.id}/>
+                  <Task
+                    selectedDate={this.state.date}
+                    userId={userInfo.id}
+                  />
                 </div>
               </div>
             </div>
           </div>
           {
-            this.state.showForm ? <TaskForm toggleTaskForm={this.toggleTaskForm}/> : null
+            this.state.showForm
+            ? <TaskForm
+              selectedDate={this.state.date}
+              toggleTaskForm={this.toggleTaskForm}
+            /> : null
           }
         </div>
       );
@@ -69,4 +110,8 @@ Dashboard.propTypes = {
 
 const mapStateToProps = (state) => ({userInfo: state.userInfo});
 
-export default connect(mapStateToProps)(Dashboard);
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(taskActions, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
