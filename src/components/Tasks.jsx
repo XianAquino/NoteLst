@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import getTasks from '../util/getTasks';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as taskActions from '../actions/taskActions.jsx';
@@ -13,12 +12,6 @@ class Tasks extends Component {
     super(props);
     this.remove = this.remove.bind(this);
     this.updateTask = this.updateTask.bind(this);
-  }
-  componentWillMount() {
-    const { userId, actions } = this.props;
-    getTasks(this.props.userId, (response) => {
-      actions.loadTasks(response);
-    });
   }
 
   remove(taskId) {
@@ -57,19 +50,13 @@ class Tasks extends Component {
 
 Tasks.propTypes = {
   userId: React.PropTypes.number,
-  actions: React.PropTypes.object
+  actions: React.PropTypes.object,
 };
 
-const mapStateToProps = (state) => {
-  return {
-    tasks: state.tasks
-  };
-};
+const mapStateToProps = (state) => ({tasks: state.tasks});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    actions: bindActionCreators(taskActions, dispatch)
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(taskActions, dispatch)
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Tasks);

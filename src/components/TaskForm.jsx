@@ -47,7 +47,7 @@ class TaskForm extends Component {
   formatDateAndTime() {
     const { date, time } = this.state;
     return {
-      date: `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`,
+      date: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
       time: `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`
     };
   }

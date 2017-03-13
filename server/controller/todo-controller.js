@@ -2,9 +2,10 @@ const todos = require('../models/todo-model.js');
 const _ = require('underscore');
 
 module.exports = {
-  get: (req,res) => {
+  get: (req, res) => {
     const userId = req.params.user_id
-    todos.getUserTodos(userId, (todos)=> {
+    const date = req.query.date;
+    todos.getUserTodos(userId, date, (todos)=> {
       res.json(todos);
     });
   },
