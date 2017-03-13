@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import createTask from '../util/createTask';
 import * as taskActions from '../actions/taskActions.jsx';
 import { DatePicker, TimePicker, TextField, RaisedButton, Paper } from 'material-ui';
+import format from '../util/formatDateTime';
 import '../css/taskform.css';
 
 const style = {
@@ -47,18 +48,19 @@ class TaskForm extends Component {
   formatDateAndTime() {
     const { date, time } = this.state;
     return {
-      date: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
-      time: `${time.getHours()}:${time.getMinutes()}:${time.getSeconds()}`
+      date: format.toDate(date),
+      time: format.toTime(time)
     };
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    const { userId, actions } = this.props;
+    const { userId, actions, selectedDate } = this.props;
     const params = Object.assign({}, this.state, this.formatDateAndTime());
     createTask(userId, params, (task) => {
       const taskId = task.data.insertId;
-      actions.addTask(Object.assign(this.state, {id: taskId}));
+      if(params.date === format.toDate(selectedDate))
+        actions.addTask(Object.assign(this.state, {id: taskId}));
     })
     this.props.toggleTaskForm(false);
   }
@@ -116,7 +118,8 @@ class TaskForm extends Component {
 
 TaskForm.propTypes = {
   userId: React.PropTypes.number,
-  toggleTaskForm: React.PropTypes.func
+  toggleTaskForm: React.PropTypes.func,
+  selectedDate: React.PropTypes.instanceOf(Date)
 }
 
 const mapStateToProps = (state) => ({userId: state.userInfo.id});
