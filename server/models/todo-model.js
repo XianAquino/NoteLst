@@ -23,7 +23,15 @@ module.exports = {
     });
   },
 
-  update: (id,values) => {
+  getByWeek: (userId, callback) => {
+    const sql = 'SELECT * FROM todos WHERE user_id = ? AND (date <= NOW() AND date >= NOW() - INTERVAL 7 DAY)'
+    db.query(sql, userId, (err, res) => {
+      if(err)throw err;
+      callback(res);
+    })
+  },
+
+  update: (id, values) => {
     db.query('UPDATE todos SET ? WHERE ?',[values, {id: id}], (err, res) => {
       if(err)throw err;
       console.log(res);
