@@ -24,14 +24,22 @@ class Dashboard extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
+  componentWillMount() {
+    if(this.props.userInfo.id) this.loadTasks();
+  }
+
   componentDidUpdate(prevProps, prevState) {
     //only get tasks if the date was changed or during initial load
-    if(prevState.date !== this.state.date || this.state.date === this.currDate){
-      const { userInfo, actions } = this.props;
-      getTasks(userInfo.id, this.state.date, (response) => {
-        actions.loadTasks(response);
-      });
+    if (prevState.date !== this.state.date || this.state.date === this.currDate) {
+      this.loadTasks();
     }
+  }
+
+  loadTasks() {
+    const { userInfo, actions } = this.props;
+    getTasks(userInfo.id, this.state.date, (response) => {
+      actions.loadTasks(response);
+    });
   }
 
   toggleTaskForm(toggle) {
@@ -85,7 +93,7 @@ class Dashboard extends Component {
           {
             this.state.showForm
             ? <TaskForm
-              currDate={this.currDate}
+              selectedDate={this.state.date}
               toggleTaskForm={this.toggleTaskForm}
             /> : null
           }
