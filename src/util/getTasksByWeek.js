@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-const getTasksByWeek = (userId) => {
+const getTasksByWeek = (userId, callback) => {
   axios.get(`/api/users/${userId}/todos/weekly`)
-  .then(response => console.log(response))
+  .then(response => callback(response.data))
   .catch(err => console.log(err));
 };
 

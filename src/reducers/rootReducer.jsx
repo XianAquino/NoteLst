@@ -9,6 +9,7 @@ import messages from './messagesReducer.jsx';
 import searchedUsers from './userSearchReducer.jsx';
 import contacts from './contactsReducer.jsx';
 import currentConversationID from './currentConversationReducer.jsx';
+import tasksByWeek from './tasksByWeekReducer.jsx';
 
 
 const rootReducer = combineReducers({
@@ -21,7 +22,8 @@ const rootReducer = combineReducers({
   searchedUsers,
   contacts,
   socketConnected,
-  currentConversationID
+  currentConversationID,
+  tasksByWeek
 });
 
 export default rootReducer;

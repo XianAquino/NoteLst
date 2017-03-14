@@ -24,10 +24,6 @@ class Dashboard extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  componentWillMount() {
-    if(this.props.userInfo.id) this.loadTasks();
-  }
-
   componentDidUpdate(prevProps, prevState) {
     //only get tasks if the date was changed or during initial load
     if (prevState.date !== this.state.date || this.state.date === this.currDate) {
@@ -59,7 +55,7 @@ class Dashboard extends Component {
           <div className='row'>
             <aside className='side-bar col-md-3 col-lg-3 hidden-sm hidden-xs'>
               <ProgressMeter/>
-              <TaskChart/>
+              <TaskChart userId = {userInfo.id}/>
             </aside>
             <div className='col-xs-12 col-sm-12 col-md-9 col-lg-9'>
               <div className='task-container container-fluid'>
