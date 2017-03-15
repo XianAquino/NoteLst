@@ -31,3 +31,10 @@ export const loadTasksByWeek = (tasks) => {
     payload: timeline
   };
 };
+
+export const addTaskByWeek = (date) => {
+  return {
+    type: 'ADD_TASKS_BY_WEEK',
+    payload: dateToMonthandDay(date)
+  };
+}
