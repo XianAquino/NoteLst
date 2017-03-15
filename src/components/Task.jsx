@@ -3,7 +3,7 @@ import { Card, CardActions, CardHeader, CardText } from 'material-ui/Card';
 import { Divider, RaisedButton } from 'material-ui'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
 
-const Task = ({id, title, desc, remove, finish, updateTask}) => {
+const Task = ({id, title, desc, date, remove, finish, updateTask}) => {
   let updateButton
   if (finish) {
     updateButton = (
@@ -11,10 +11,11 @@ const Task = ({id, title, desc, remove, finish, updateTask}) => {
         backgroundColor='#00C853'
         labelColor='#FFF'
         label='Revert'
-        onTouchTap={() => {updateTask({
-          finish: 0,
-          id
-        })}}
+        onTouchTap={() => (updateTask({
+            finish: 0,
+            id,
+          }, date))
+        }
       />
     )
   } else {
@@ -23,10 +24,11 @@ const Task = ({id, title, desc, remove, finish, updateTask}) => {
         backgroundColor='#00C853'
         labelColor='#FFF'
         label='Done'
-        onTouchTap={() => {updateTask({
-          finish: 1,
-          id
-        })}}
+        onTouchTap={() => (updateTask({
+            finish: 1,
+            id,
+          }, date))
+        }
       />
     )
   }
@@ -45,7 +47,14 @@ const Task = ({id, title, desc, remove, finish, updateTask}) => {
             backgroundColor='#C62828'
             labelColor='#FFF'
             label='Delete'
-            onTouchTap={() => (remove(id))} />
+            onTouchTap={() => (
+              remove({
+                id,
+                status: finish ? 'finish' : 'unfinish',
+                date
+              })
+            )}
+          />
         </CardActions>
       </Card>
     </div>

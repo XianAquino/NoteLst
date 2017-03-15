@@ -21,6 +21,12 @@ module.exports = {
       res.json(todo);
     });
   },
+  getByWeek: (req, res) => {
+    const userId = req.params.user_id
+    todos.getByWeek(userId, (todos) => {
+      res.json(todos);
+    })
+  },
   update: (req,res) => {
     const todoId = req.params.todo_id;
     todos.update(todoId, req.body)

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import createTask from '../util/createTask';
 import * as taskActions from '../actions/taskActions.jsx';
+import * as tasksByWeekActions from '../actions/tasksByWeekActions';
 import { DatePicker, TimePicker, TextField, RaisedButton, Paper } from 'material-ui';
 import format from '../util/formatDateTime';
 import '../css/taskform.css';
@@ -62,6 +63,7 @@ class TaskForm extends Component {
       if(params.date === format.toDate(selectedDate))
         actions.addTask(Object.assign(this.state, {id: taskId}));
     })
+    actions.addTaskByWeek(this.state.date);
     this.props.toggleTaskForm(false);
   }
 
@@ -124,7 +126,7 @@ TaskForm.propTypes = {
 
 const mapStateToProps = (state) => ({userId: state.userInfo.id});
 
-const mapDispatchToProps = (dispatch) => {
-  return { actions : bindActionCreators(taskActions, dispatch) };
-};
+const mapDispatchToProps = (dispatch) => ({
+  actions : bindActionCreators(Object.assign(taskActions, tasksByWeekActions), dispatch)
+});
 export default connect(mapStateToProps, mapDispatchToProps)(TaskForm);

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as taskActions from '../actions/taskActions.jsx';
+import * as tasksByWeekActions from '../actions/tasksByWeekActions';
 import deleteTask from '../util/deleteTask';
 import updateTask from '../util/updateTask';
 
@@ -14,16 +15,20 @@ class Tasks extends Component {
     this.updateTask = this.updateTask.bind(this);
   }
 
-  remove(taskId) {
+  remove(task) {
     const { actions } = this.props;
-    deleteTask(taskId);
-    actions.deleteTask(taskId);
+    const { id, status, date } = task
+    deleteTask(id);
+    actions.deleteTask(id);
+    actions.updateTaskByWeek(status, date, true);
   }
 
-  updateTask(task) {
+  updateTask(task, date) {
     const { actions } = this.props;
     updateTask(task);
+    let status = task.finish ? 'finish' : 'unfinish';
     actions.updateTask(task)
+    actions.updateTaskByWeek(status, date);
   }
 
   render() {
@@ -38,6 +43,7 @@ class Tasks extends Component {
               id={task.id}
               title={task.title}
               desc={task.todo}
+              date={task.date}
               finish={task.finish}
               updateTask={this.updateTask}
             />
@@ -56,7 +62,7 @@ Tasks.propTypes = {
 const mapStateToProps = (state) => ({tasks: state.tasks});
 
 const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators(taskActions, dispatch)
+  actions: bindActionCreators(Object.assign(taskActions, tasksByWeekActions), dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Tasks);

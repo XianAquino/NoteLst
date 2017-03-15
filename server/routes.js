@@ -17,6 +17,7 @@ router.delete('/users/:user_id', users.delete);
 
 router.get('/users/:user_id/todos', todos.get);
 router.post('/users/:user_id/todos', todos.create);
+router.get('/users/:user_id/todos/weekly', todos.getByWeek);
 router.get('/users/:user_id/todos/:todo_id', todos.getTodo);
 router.put('/todo/:todo_id', todos.update);
 router.delete('/todo/:todo_id', todos.delete);
