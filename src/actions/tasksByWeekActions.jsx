@@ -11,7 +11,7 @@ export const loadTasksByWeek = (tasks) => {
     unfinishTaskByWeek: {}
   };
 
-  for(let i = 7 ; i >= 0; i--) {
+  for(let i = 6 ; i >= 0; i--) {
     let date = new Date();
     date = date.setDate(date.getDate() - i);
     timeline.finishTaskByWeek[dateToMonthandDay(date)] = 0;
@@ -36,5 +36,12 @@ export const addTaskByWeek = (date) => {
   return {
     type: 'ADD_TASKS_BY_WEEK',
     payload: dateToMonthandDay(date)
+  };
+}
+
+export const updateTaskByWeek = (status, date) => {
+  return {
+    type: 'UPDATE_TASK_BY_WEEK',
+    payload: {status, date: dateToMonthandDay(date)}
   };
 }

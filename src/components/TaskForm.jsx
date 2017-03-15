@@ -63,7 +63,7 @@ class TaskForm extends Component {
       if(params.date === format.toDate(selectedDate))
         actions.addTask(Object.assign(this.state, {id: taskId}));
     })
-    actions.addTaskByWeek(selectedDate);
+    actions.addTaskByWeek(this.state.date);
     this.props.toggleTaskForm(false);
   }
 

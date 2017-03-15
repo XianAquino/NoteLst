@@ -7,10 +7,27 @@ const tasksByWeekReducer = (state = {}, action) => {
         return {
           finishTaskByWeek: state.finishTaskByWeek,
           unfinishTaskByWeek:
-            Object.assign({}, state.unfinishTaskByWeek, {date: ++state.unfinishTaskByWeek[action.payload]})
+            Object.assign({}, state.unfinishTaskByWeek, {[action.payload]: ++state.unfinishTaskByWeek[action.payload]})
         };
       else {
         return state;
+      }
+    case 'UPDATE_TASK_BY_WEEK':
+     const {date, status} = action.payload;
+      if (status === 'finish') {
+        return {
+          finishTaskByWeek:
+            Object.assign({}, state.finishTaskByWeek, {[date]: ++state.finishTaskByWeek[date]}),
+          unfinishTaskByWeek:
+            Object.assign({}, state.unfinishTaskByWeek, {[date]: --state.unfinishTaskByWeek[date]})
+        };
+      } else {
+        return {
+          finishTaskByWeek:
+            Object.assign({}, state.finishTaskByWeek, {[date]: --state.finishTaskByWeek[date]}),
+          unfinishTaskByWeek:
+            Object.assign({}, state.unfinishTaskByWeek, {[date]: ++state.unfinishTaskByWeek[date]})
+        };
       }
     default:
       return state;
