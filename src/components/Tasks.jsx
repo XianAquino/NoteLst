@@ -15,10 +15,12 @@ class Tasks extends Component {
     this.updateTask = this.updateTask.bind(this);
   }
 
-  remove(taskId) {
+  remove(task) {
     const { actions } = this.props;
-    deleteTask(taskId);
-    actions.deleteTask(taskId);
+    const { id, status, date } = task
+    deleteTask(id);
+    actions.deleteTask(id);
+    actions.updateTaskByWeek(status, date, true);
   }
 
   updateTask(task, date) {

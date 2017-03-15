@@ -47,7 +47,14 @@ const Task = ({id, title, desc, date, remove, finish, updateTask}) => {
             backgroundColor='#C62828'
             labelColor='#FFF'
             label='Delete'
-            onTouchTap={() => (remove(id))} />
+            onTouchTap={() => (
+              remove({
+                id,
+                status: finish ? 'finish' : 'unfinish',
+                date
+              })
+            )}
+          />
         </CardActions>
       </Card>
     </div>

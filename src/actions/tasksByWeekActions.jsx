@@ -39,9 +39,13 @@ export const addTaskByWeek = (date) => {
   };
 }
 
-export const updateTaskByWeek = (status, date) => {
+export const updateTaskByWeek = (status, date, remove) => {
   return {
     type: 'UPDATE_TASK_BY_WEEK',
-    payload: {status, date: dateToMonthandDay(date)}
+    payload: {
+      status,
+      date: dateToMonthandDay(date),
+      remove
+    }
   };
 }
