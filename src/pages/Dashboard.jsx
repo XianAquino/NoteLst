@@ -24,6 +24,10 @@ class Dashboard extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
+  componentWillMount() {
+    this.loadTasks();
+  }
+
   componentDidUpdate(prevProps, prevState) {
     //only get tasks if the date was changed or during initial load
     if (prevState.date !== this.state.date || this.state.date === this.currDate) {
