@@ -36,5 +36,12 @@ module.exports = {
       if (err) console.log(err);
       callback(res);
     });
+  },
+
+  getParticipants: (conversationId, callback) => {
+    db.query('SELECT user1, user2 FROM conversations WHERE id = ?', conversationId, (err, res) => {
+      if (err) console.log(err);
+      callback(res[0]);
+    });
   }
 };

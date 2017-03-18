@@ -35,5 +35,12 @@ module.exports = {
     }
     message.startConversation(conversation);
     res.json(conversation.id);
+  },
+
+  getParticipants: (req, res) => {
+    const conversationId = req.params.conversation_id;
+    message.getParticipants(conversationId, (users) => {
+      res.json(users);
+    })
   }
 };

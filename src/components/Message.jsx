@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 
 const Message = ({message, sender, userId, date}) => {
   let className = 'message receive'
@@ -8,7 +9,7 @@ const Message = ({message, sender, userId, date}) => {
 
   return (
     <li className={className}>
-      <p>{date}</p>
+      <p>{moment(date).format('LT')}</p>
       <p>{message}</p>
     </li>
   )
