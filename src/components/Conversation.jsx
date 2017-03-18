@@ -4,20 +4,21 @@ import { bindActionCreators } from 'redux';
 import * as messagesActions from '../actions/messagesActions';
 import * as socketActions from '../actions/socketActions';
 import getMessages from '../util/getMessages';
+import getParticipants from '../util/getParticipants';
 import { Paper, Divider, RaisedButton, TextField, Avatar } from 'material-ui';
 import Message from './Message';
 
 const messageField = {
   width: '100%',
   margin: '5% 1% 1% 1%'
-}
-
+};
 
 class Conversation extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      message: ''
+      message: '',
+      contact: null,
     }
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,6 +33,11 @@ class Conversation extends Component {
     actions.setSocketConnection();
     socket.on('receiveMessage', (message) => {
       actions.addMessage(message);
+    });
+    getParticipants(params.messageId, (participants) => {
+      const contact = this.props.username === participants.user1 ?
+        participants.user2 : participants.user1
+      this.setState({contact});
     });
   }
 
@@ -75,6 +81,7 @@ class Conversation extends Component {
 
   render() {
     const { userId, messages } = this.props;
+    const { contact, message } = this.state;
     return(
       <div>
         <Paper className='conversation' zDepth={2} rounded={false}>
@@ -82,7 +89,7 @@ class Conversation extends Component {
             src='http://res.cloudinary.com/de7lidb1d/image/upload/c_crop,w_443/v1488676774/users/style_icons_product_human_best_do1.png'
             size={45}
             style={{margin: '2px'}}
-          /><span>{this.props.params.messageId}</span>
+          /><span>{contact}</span>
           <Divider/>
           <div className='messages'>
             <ul>
@@ -111,7 +118,7 @@ class Conversation extends Component {
                   rowsMax={2}
                   onChange={this.handleInput}
                   name='message'
-                  value={this.state.message}
+                  value={message}
                   style={messageField}
                 />
               </div>
@@ -140,6 +147,7 @@ Conversation.propTypes = {
 
 const mapStateToProps = (state) => ({
   userId: state.userInfo.id,
+  username: state.userInfo.username,
   socket: state.socket,
   messages: state.messages,
 });
