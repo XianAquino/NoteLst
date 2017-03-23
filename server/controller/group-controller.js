@@ -5,7 +5,9 @@ module.exports = {
     res.send('test')
   },
   create: (req, res) => {
-    res.send('test')
+    const { userId, name } = req.body;
+    groups.create(name, userId);
+    res.send('group_added');
   },
   getGroup: (req, res) => {
     res.send('test')

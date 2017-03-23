@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
-import { TextField, RaisedButton, Divider } from 'material-ui'
+import React, { Component, PropTypes } from 'react';
+import { TextField, RaisedButton, Divider } from 'material-ui';
+import groupRequest from '../util/groupRequest.js';
+import { connect } from 'react-redux';
 
 class CreateGroup extends Component {
   constructor(props) {
@@ -18,8 +20,14 @@ class CreateGroup extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    const params = {
+      name: this.state.name,
+      userId: this.props.userId
+    }
+    groupRequest.createGroup(params);
     this.setState({name: ''});
   }
+
   render() {
     return(
       <div>
@@ -44,4 +52,12 @@ class CreateGroup extends Component {
   }
 }
 
-export default CreateGroup;
+CreateGroup.propTypes = {
+  userId: PropTypes.number
+};
+
+const mapStateToProps = (state) => ({
+  userId: state.userInfo.id
+});
+
+export default connect(mapStateToProps)(CreateGroup);
