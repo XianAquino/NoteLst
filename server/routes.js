@@ -3,7 +3,7 @@ var users = require('./controller/user-controller.js');
 var todos = require('./controller/todo-controller.js');
 var notes = require('./controller/note-controller.js');
 var messsages = require('./controller/message-controller.js');
-
+var groups = require('./controller/group-controller.js');
 
 router.post('/signUp', users.create);
 router.post('/login', users.login);
