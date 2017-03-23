@@ -3,6 +3,7 @@ import groupRequest from '../util/groupRequest';
 import * as groupActions from '../actions/groupActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import JoinedGroups from '../containers/JoinedGroups';
 
 class Groups extends Component{
   constructor(props) {
@@ -17,19 +18,11 @@ class Groups extends Component{
   }
 
   render() {
-    const { groups } = this.props;
+    const { groups, userId } = this.props;
     if(groups.length) {
       return (
         <div className='col-xs-12 col-sm-12 col-md-9 col-lg-9'>
-          <div>
-            <ul>
-              {
-                groups.map(group =>
-                  <li>{group.name}</li>
-                )
-              }
-            </ul>
-          </div>
+          <JoinedGroups groups={groups} userId={userId}/>
         </div>
       )
     }
