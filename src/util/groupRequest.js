@@ -1,9 +1,9 @@
 import axios from 'axios';
 
 const groupRequest = {
-  createGroup: (params) => {
+  createGroup: (params, callback) => {
     axios.post('/api/groups', params)
-      .then(response => console.log(response.data))
+      .then(response => callback(response.data))
       .catch(err => console.log("Error:", err));
   },
   joinedGroups: (userId, callback) => {

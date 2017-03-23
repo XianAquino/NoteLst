@@ -5,7 +5,7 @@ class Group extends Component {
     const { id, name, dateCreated, noOfMembers, userId,
       createdBy, creatorId, dateJoined } = this.props;
 
-    if (userId === creatorId) {
+    if (userId !== creatorId) {
       return(
         <li>
           <p>Group {name}</p>

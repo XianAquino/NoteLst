@@ -9,8 +9,9 @@ module.exports = {
   },
   create: (req, res) => {
     const { userId, name } = req.body;
-    groups.create(name, userId);
-    res.send('group_added');
+    groups.create(name, userId, (insertId) => {
+      res.json({groupId: insertId});
+    });
   },
   getGroup: (req, res) => {
     res.send('test')

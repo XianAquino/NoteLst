@@ -1,10 +1,11 @@
 const db = require('../db');
 
 module.exports = {
-  create: (name, userId) => {
+  create: (name, userId, callback) => {
     const admin = {name, creator: userId};
     db.query('INSERT INTO groups SET ?', admin, (err, res) => {
       if (err) console.log(err);
+      callback(res.insertId);
     });
   },
   get: (userId, callback) => {

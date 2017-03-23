@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { TextField, RaisedButton, Divider } from 'material-ui';
 import groupRequest from '../util/groupRequest.js';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as groupActions from '../actions/groupActions';
 
 class CreateGroup extends Component {
   constructor(props) {
@@ -19,13 +21,23 @@ class CreateGroup extends Component {
   }
 
   handleSubmit(event) {
-    event.preventDefault();
+    const { userId, userName, actions } = this.props;
     const params = {
       name: this.state.name,
-      userId: this.props.userId
+      userId
     }
-    groupRequest.createGroup(params);
-    this.setState({name: ''});
+    groupRequest.createGroup(params, (response) => {
+      const newGroup = {
+        id: response.groupId,
+        name: params.name,
+        creator: userId,
+        date: new Date().toISOString(),
+        creator_name: userName,
+        no_of_members: 1
+      }
+      actions.addGroup(newGroup);
+      this.setState({name: ''});
+    });
   }
 
   render() {
@@ -53,11 +65,17 @@ class CreateGroup extends Component {
 }
 
 CreateGroup.propTypes = {
-  userId: PropTypes.number
+  userId: PropTypes.number,
+  userName: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
-  userId: state.userInfo.id
+  userId: state.userInfo.id,
+  userName: state.userInfo.name
 });
 
-export default connect(mapStateToProps)(CreateGroup);
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(groupActions, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateGroup);
