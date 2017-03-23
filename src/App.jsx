@@ -11,7 +11,7 @@ import Layout from './components/Layout.jsx';
 import Messages from './pages/Messages.jsx';
 import Conversation from './components/Conversation.jsx';
 import NoUserSelected from './components/NoUserSelected.jsx';
-import Groups from './pages/Groups.jsx';
+import GroupsPage from './pages/GroupsPage.jsx';
 
 import './css/app.css';
 
@@ -26,7 +26,7 @@ const App = () => {
             <IndexRoute component={NoUserSelected} />
             <Route path=':messageId' component ={Conversation} />
           </Route>
-          <Route path='groups' component={Groups}/>
+          <Route path='groups' component={GroupsPage}/>
         </Route>
         <Route path='/login' component={Login} />
         <Route path='/signup' component={SignUp} />

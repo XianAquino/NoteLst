@@ -2,7 +2,10 @@ const groups = require('../models/group-model');
 
 module.exports = {
   get: (req, res) => {
-    res.send('test')
+    const { userId } = req.query;
+    groups.get(userId, (groups) => {
+      res.json(groups);
+    });
   },
   create: (req, res) => {
     const { userId, name } = req.body;
