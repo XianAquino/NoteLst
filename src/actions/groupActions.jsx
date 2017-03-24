@@ -11,3 +11,10 @@ export const addGroup = (group) => {
     payload: group
   };
 };
+
+export const deleteGroup = (groupId) => {
+  return {
+    type: 'DELETE_GROUP',
+    payload: groupId
+  };
+};

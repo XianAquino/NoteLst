@@ -4,6 +4,8 @@ const groupsReducer = (state = [], action) => {
       return action.payload;
     case 'ADD_GROUP':
       return [action.payload, ...state];
+    case 'DELETE_GROUP':
+      return state.filter(group => group.group_id !== action.payload);
     default:
       return state;
   }

@@ -20,6 +20,8 @@ module.exports = {
     res.send('test')
   },
   deleteGroup: (req, res) => {
-    res.send('test')
+    const { group_id } = req.params;
+    groups.deleteGroup(group_id);
+    res.send('deleted');
   }
 };

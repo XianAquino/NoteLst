@@ -25,5 +25,10 @@ module.exports = {
         callback([...createdGroups, ...joinedGroups]);
       })
     });
+  },
+  deleteGroup: (groupId) => {
+    db.query('DELETE FROM groups WHERE id = ?', groupId, (err, res) => {
+      if(err) console.log(err);
+    })
   }
 };

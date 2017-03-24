@@ -37,6 +37,6 @@ router.get('/groups', groups.get);
 router.post('/groups', groups.create);
 router.get('/groups/:group_id', groups.getGroup);
 router.put('/groups/:group_id', groups.updateGroup);
-router.delete('groups/:group_id', groups.deleteGroup);
+router.delete('/groups/:group_id', groups.deleteGroup);
 
 module.exports = router;

@@ -10,6 +10,11 @@ const groupRequest = {
     axios.get(`/api/groups?userId=${userId}`)
       .then(response => callback(response.data))
       .catch(err => console.log("Error:", err));
+  },
+  deleteGroup: (groupId) => {
+    axios.delete(`/api/groups/${groupId}`)
+      .then(response => console.log(response))
+      .catch(err => console.log("error", error));
   }
 }
 

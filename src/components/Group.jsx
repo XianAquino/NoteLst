@@ -1,6 +1,21 @@
 import React, { Component, PropTypes } from 'react';
+import groupRequest from '../util/groupRequest';
+import * as groupActions from '../actions/groupActions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 class Group extends Component {
+  constructor(props) {
+    super(props);
+    this.remove = this.remove.bind(this);
+  }
+
+  remove() {
+    const { id, actions } = this.props;
+    groupRequest.deleteGroup(id);
+    actions.deleteGroup(id);
+  }
+
   render() {
     const { id, name, dateCreated, noOfMembers, userId,
       createdBy, creatorId, dateJoined } = this.props;
@@ -21,7 +36,7 @@ class Group extends Component {
         <p>Group {name}</p>
         <p>Created on:<span>{dateCreated}</span></p>
         <p>No. of members: {noOfMembers}</p>
-        <button>Delete</button>
+        <button onClick={this.remove}>Delete</button>
         <button>Enter</button>
       </li>
     )
@@ -36,7 +51,12 @@ Group.propTypes = {
   createdBy: PropTypes.string,
   creatorId: PropTypes.number,
   userId: PropTypes.number,
-  dateJoined: PropTypes.string
+  dateJoined: PropTypes.string,
+  actions: PropTypes.object
 };
 
-export default Group;
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(groupActions, dispatch)
+})
+
+export default connect(null, mapDispatchToProps)(Group);
