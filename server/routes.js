@@ -3,7 +3,7 @@ var users = require('./controller/user-controller.js');
 var todos = require('./controller/todo-controller.js');
 var notes = require('./controller/note-controller.js');
 var messsages = require('./controller/message-controller.js');
-
+var groups = require('./controller/group-controller.js');
 
 router.post('/signUp', users.create);
 router.post('/login', users.login);
@@ -32,5 +32,11 @@ router.get('/conversations/:conversation_id', messsages.getMessages);
 router.get('/conversations/:conversation_id/participants', messsages.getParticipants);
 router.post('/conversations/', messsages.startConverstation);
 router.get('/contacts/:username', messsages.getContacts);
+
+router.get('/groups', groups.get);
+router.post('/groups', groups.create);
+router.get('/groups/:group_id', groups.getGroup);
+router.put('/groups/:group_id', groups.updateGroup);
+router.delete('/groups/:group_id', groups.deleteGroup);
 
 module.exports = router;
