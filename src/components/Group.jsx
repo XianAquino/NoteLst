@@ -3,17 +3,22 @@ import groupRequest from '../util/groupRequest';
 import * as groupActions from '../actions/groupActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { browserHistory } from 'react-router';
 
 class Group extends Component {
   constructor(props) {
     super(props);
     this.remove = this.remove.bind(this);
+    this.enter = this.enter.bind(this);
   }
 
   remove() {
     const { id, actions } = this.props;
     groupRequest.deleteGroup(id);
     actions.deleteGroup(id);
+  }
+  enter() {
+    browserHistory.push(`/groups/${this.props.id}`);
   }
 
   render() {
@@ -27,7 +32,7 @@ class Group extends Component {
           <p>Created By: {createdBy} on<span>{dateCreated}</span></p>
           <p>No. of members: {noOfMembers}</p>
           <p>Joined: {dateJoined}</p>
-          <button>Enter</button>
+          <button onClick={this.enter}>Enter</button>
         </li>
       )
     }
@@ -37,7 +42,7 @@ class Group extends Component {
         <p>Created on:<span>{dateCreated}</span></p>
         <p>No. of members: {noOfMembers}</p>
         <button onClick={this.remove}>Delete</button>
-        <button>Enter</button>
+        <button onClick={this.enter}>Enter</button>
       </li>
     )
   }
