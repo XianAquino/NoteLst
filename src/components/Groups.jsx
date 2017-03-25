@@ -27,10 +27,11 @@ class Groups extends Component{
 
   searchGroup(event) {
     const {loadSearchedGroups} = this.props.actions;
-    this.setState({targetGroup: event.target.value},
-      debounceSearch(this.state.targetGroup, (groups) => {
-        loadSearchedGroups(groups);
-      })
+    this.setState({targetGroup: event.target.value}, () => {
+        debounceSearch(this.state.targetGroup, (groups) => {
+          loadSearchedGroups(groups);
+        });
+      }
     );
   }
 
@@ -46,7 +47,7 @@ class Groups extends Component{
                 <input onChange={this.searchGroup} type='text' placeholder='Search Group'/>
               </div>
             </div>
-            <div>
+            <div className='row'>
               {
                 targetGroup ? <SearchedGroups groups={searchedGroups} userId={userId}/>
                   : <JoinedGroups groups={groups} userId={userId}/>

@@ -10,7 +10,9 @@ module.exports = {
     } else if (search) {
       groups.search(search, (groups) => {
         res.json(groups);
-      })
+      });
+    } else {
+      res.send([]);
     }
   },
   create: (req, res) => {
