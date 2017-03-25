@@ -26,6 +26,28 @@ module.exports = {
       })
     });
   },
+  search: (target, userId, callback) => {
+    const sql = `SELECT g.id AS group_id, g.name, no_of_members, g.created_at AS
+    date, creator, u.name as creator_name, (SELECT COUNT(*) FROM group_members
+    WHERE group_id = g.id AND user_id = ${userId}) as member FROM groups AS g
+    JOIN users AS u ON creator = u.id WHERE creator != ${userId} AND
+    (g.name LIKE '%${target}%' OR u.name like '%${target}%')`;
+    db.query(sql, (err, res) => {
+      if(err) console.log(err);
+      callback(res);
+    });
+  },
+  join: (params) => {
+    const { group_id, user_id } = params;
+    const groupSQL = 'UPDATE groups SET no_of_members = no_of_members + 1 WHERE id = ?';
+    const memberSQL = 'INSERT INTO group_members SET ?';
+    db.query(groupSQL, group_id, (err, res) => {
+      if(err) console.log(err);
+      db.query(memberSQL, {group_id, user_id}, (err, res) => {
+        if(err) console.log(err);
+      });
+    });
+  },
   deleteGroup: (groupId) => {
     db.query('DELETE FROM groups WHERE id = ?', groupId, (err, res) => {
       if(err) console.log(err);
