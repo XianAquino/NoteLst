@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import groupRequest from '../util/groupRequest';
 import * as groupActions from '../actions/groupActions';
+import * as searchedGroupsActions from '../actions/searchedGroupsActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
@@ -23,7 +24,19 @@ class Group extends Component {
   }
 
   joinGroup() {
-    console.log('join');
+    const { id, name, dateCreated, createdBy, noOfMembers,
+            creatorId, actions } = this.props;
+    const newGroup = {
+      id,
+      name,
+      creator: creatorId,
+      date: dateCreated,
+      date_joined: new Date().toISOString(),
+      creator_name: createdBy,
+      no_of_members: noOfMembers + 1
+    }
+    actions.addGroup(newGroup);
+    actions.removeSearchedGroup(id);
   }
 
   render() {
@@ -72,7 +85,7 @@ Group.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators(groupActions, dispatch)
+  actions: bindActionCreators(Object.assign(groupActions, searchedGroupsActions), dispatch)
 })
 
 export default connect(null, mapDispatchToProps)(Group);

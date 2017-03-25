@@ -4,3 +4,10 @@ export const loadSearchedGroups = (groups) => {
     payload: groups
   };
 };
+
+export const removeSearchedGroup = (groupId) => {
+  return {
+    type: 'REMOVE_SEARCH_GROUPS',
+    payload: groupId
+  };
+};
