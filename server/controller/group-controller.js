@@ -2,10 +2,17 @@ const groups = require('../models/group-model');
 
 module.exports = {
   get: (req, res) => {
-    const { userId } = req.query;
-    groups.get(userId, (groups) => {
-      res.json(groups);
-    });
+    const { userId, search } = req.query;
+    if (userId) {
+      groups.get(userId, (groups) => {
+        res.json(groups);
+      });
+    } else if (search) {
+      console.log("serar", search);
+      groups.search(search, (groups) => {
+        res.json(groups);
+      })
+    }
   },
   create: (req, res) => {
     const { userId, name } = req.body;

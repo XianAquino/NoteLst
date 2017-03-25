@@ -26,6 +26,15 @@ module.exports = {
       })
     });
   },
+  search: (target, callback) => {
+    const sql = `SELECT g.id AS group_id, g.name, no_of_members, g.created_at AS
+    date, creator, u.name as creator_name FROM groups AS g JOIN users AS u ON
+    creator = u.id WHERE g.name LIKE '%${target}%' OR u.name like '%${target}%'`;
+    db.query(sql, (err, res) => {
+      if(err) console.log(err);
+      callback(res);
+    });
+  },
   deleteGroup: (groupId) => {
     db.query('DELETE FROM groups WHERE id = ?', groupId, (err, res) => {
       if(err) console.log(err);
