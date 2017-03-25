@@ -8,7 +8,6 @@ module.exports = {
         res.json(groups);
       });
     } else if (search) {
-      console.log("serar", search);
       groups.search(search, (groups) => {
         res.json(groups);
       })

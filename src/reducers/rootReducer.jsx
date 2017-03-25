@@ -11,6 +11,7 @@ import contacts from './contactsReducer.jsx';
 import currentConversationID from './currentConversationReducer.jsx';
 import tasksByWeek from './tasksByWeekReducer.jsx';
 import groups from './groupsReducer.jsx';
+import searchedGroups from './searchedGroupsReducer.jsx';
 
 
 const rootReducer = combineReducers({
@@ -25,7 +26,8 @@ const rootReducer = combineReducers({
   socketConnected,
   currentConversationID,
   tasksByWeek,
-  groups
+  groups,
+  searchedGroups
 });
 
 export default rootReducer;
