@@ -3,12 +3,12 @@ const groups = require('../models/group-model');
 module.exports = {
   get: (req, res) => {
     const { userId, search } = req.query;
-    if (userId) {
-      groups.get(userId, (groups) => {
+    if (search) {
+      groups.search(search, userId,(groups) => {
         res.json(groups);
       });
-    } else if (search) {
-      groups.search(search, (groups) => {
+    } else if (userId) {
+      groups.get(userId, (groups) => {
         res.json(groups);
       });
     } else {

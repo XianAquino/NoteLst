@@ -11,8 +11,8 @@ const groupRequest = {
       .then(response => callback(response.data))
       .catch(err => console.log("Error:", err));
   },
-  searchGroup: (target, callback) => {
-    axios.get(`/api/groups?search=${target}`)
+  searchGroup: (target, userId, callback) => {
+    axios.get(`/api/groups?search=${target}&userId=${userId}`)
       .then(response => callback(response.data))
       .catch(err => console.log("Error:", err));
   },

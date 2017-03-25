@@ -26,10 +26,10 @@ class Groups extends Component{
   }
 
   searchGroup(event) {
-    const {loadSearchedGroups} = this.props.actions;
+    const {userId, actions} = this.props;
     this.setState({targetGroup: event.target.value}, () => {
-        debounceSearch(this.state.targetGroup, (groups) => {
-          loadSearchedGroups(groups);
+        debounceSearch(this.state.targetGroup, userId, (groups) => {
+          actions.loadSearchedGroups(groups);
         });
       }
     );

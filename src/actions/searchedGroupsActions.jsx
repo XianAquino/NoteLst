@@ -1,7 +1,7 @@
 export const loadSearchedGroups = (groups) => {
   return {
     type: 'LOAD_SEARCH_GROUPS',
-    payload: groups
+    payload: groups.filter(group => !group.member)
   };
 };
 

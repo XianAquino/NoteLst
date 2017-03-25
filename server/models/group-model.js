@@ -26,10 +26,12 @@ module.exports = {
       })
     });
   },
-  search: (target, callback) => {
+  search: (target, userId, callback) => {
     const sql = `SELECT g.id AS group_id, g.name, no_of_members, g.created_at AS
-    date, creator, u.name as creator_name FROM groups AS g JOIN users AS u ON
-    creator = u.id WHERE g.name LIKE '%${target}%' OR u.name like '%${target}%'`;
+    date, creator, u.name as creator_name, (SELECT COUNT(*) FROM group_members
+    WHERE group_id = g.id AND user_id = ${userId}) as member FROM groups AS g
+    JOIN users AS u ON creator = u.id WHERE creator != ${userId} AND
+    (g.name LIKE '%${target}%' OR u.name like '%${target}%')`;
     db.query(sql, (err, res) => {
       if(err) console.log(err);
       callback(res);
