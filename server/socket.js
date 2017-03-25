@@ -3,6 +3,8 @@ const socketServer = express();
 const http = require('http').Server(socketServer);
 const io = require('socket.io')(http);
 const messageDB = require('./models/message-model');
+const notes = require('./models/note-model');
+
 
 io.on('connection', (socket) => {
   console.log('user connected');
@@ -17,7 +19,12 @@ io.on('connection', (socket) => {
 
   socket.on('leaveConversation', (messageRoomId) => {
     socket.leave(messageRoomId);
-  })
+  });
+
+  socket.on('shareNote', (groupId, noteId, note) => {
+    notes.share(groupId, noteId);
+    //io.to(`gr${groupId}`).emit('receiveNote', note);
+  });
 
   socket.on('sendMessage', (messageRoomId, message) => {
     messageDB.saveMessage(message);

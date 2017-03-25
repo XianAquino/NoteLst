@@ -30,8 +30,11 @@ class Note extends Component {
   }
 
   share() {
-    if (this.state.value) {
-      console.log('share', this.state.value);
+    const groupId = this.state.value;
+    const {socket, id} = this.props;
+    if (groupId) {
+      socket.emit('shareNote', groupId, id);
+      this.showShareForm();
     }
   }
 
