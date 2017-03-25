@@ -21,6 +21,7 @@ const SearchGroups = ({groups, userId}) => {
               noOfMembers={group.no_of_members}
               createdBy={group.creator_name}
               creatorId={group.creator}
+              nonMember={true}
             />
           )
         }
