@@ -25,7 +25,7 @@ class Group extends Component {
 
   joinGroup() {
     const { id, name, dateCreated, createdBy, noOfMembers,
-            creatorId, actions } = this.props;
+            creatorId, actions, userId } = this.props;
     const newGroup = {
       id,
       name,
@@ -35,6 +35,7 @@ class Group extends Component {
       creator_name: createdBy,
       no_of_members: noOfMembers + 1
     }
+    groupRequest.joinGroup(id, userId);
     actions.addGroup(newGroup);
     actions.removeSearchedGroup(id);
   }

@@ -21,6 +21,10 @@ module.exports = {
       res.json({groupId: insertId});
     });
   },
+  join: (req, res) => {
+    groups.join(req.params);
+    res.send('joined');
+  },
   getGroup: (req, res) => {
     res.send('test')
   },

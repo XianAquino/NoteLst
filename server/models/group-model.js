@@ -35,6 +35,17 @@ module.exports = {
       callback(res);
     });
   },
+  join: (params) => {
+    const { group_id, user_id } = params;
+    const groupSQL = 'UPDATE groups SET no_of_members = no_of_members + 1 WHERE id = ?';
+    const memberSQL = 'INSERT INTO group_members SET ?';
+    db.query(groupSQL, group_id, (err, res) => {
+      if(err) console.log(err);
+      db.query(memberSQL, {group_id, user_id}, (err, res) => {
+        if(err) console.log(err);
+      });
+    });
+  },
   deleteGroup: (groupId) => {
     db.query('DELETE FROM groups WHERE id = ?', groupId, (err, res) => {
       if(err) console.log(err);
