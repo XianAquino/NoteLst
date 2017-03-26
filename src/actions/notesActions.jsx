@@ -12,6 +12,13 @@ export const addNote = (note) => {
   };
 };
 
+export const updateNote = (noteId) => {
+  return {
+    type: 'UPDATE_NOTE',
+    payload: noteId
+  };
+};
+
 export const deleteNote = (noteId) => {
   return {
     type: 'DELETE_NOTE',

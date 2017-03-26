@@ -22,6 +22,10 @@ class NotesContainer extends Component {
     deleteNote(noteId);
   }
 
+  updateShareCount(noteId) {
+    this.props.actions.updateNote(noteId);
+  }
+
   render() {
     const { notes } = this.props;
     return (
@@ -33,7 +37,9 @@ class NotesContainer extends Component {
               key={i}
               title={note.title}
               id={note.id}
+              shared={note.shared}
               remove={this.remove.bind(this)}
+              updateShareCount={this.updateShareCount.bind(this)}
             />
           )
         }

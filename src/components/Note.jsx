@@ -14,7 +14,7 @@ class Note extends Component {
     super(props);
     this.state = {
       openShare: false,
-      value: 0
+      value: 0,
     }
     this.showShareForm = this.showShareForm.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -31,19 +31,20 @@ class Note extends Component {
 
   share() {
     const groupId = this.state.value;
-    const {socket, id} = this.props;
+    const {socket, id, updateShareCount} = this.props;
     if (groupId) {
       socket.emit('shareNote', groupId, id);
+      updateShareCount(id);
       this.showShareForm();
     }
   }
 
   render() {
-    const { title, id, remove, groups } = this.props
+    const { title, id, remove, groups, shared } = this.props
     return(
       <div>
         <li>
-          <Link to={`/notes/${id}`}>{title}</Link>
+          <Link to={`/notes/${id}`}>{title}</Link><p>{shared}</p>
           <button onClick={() => { remove(id) }}>X</button>
           <button onClick={this.showShareForm}>Share</button>
           {
@@ -80,7 +81,8 @@ Note.propTypes = {
   id: PropTypes.number,
   remove: PropTypes.func,
   groups: PropTypes.array,
-  socket: PropTypes.object
+  socket: PropTypes.object,
+  updateShareCount: PropTypes.func
 }
 
 const mapStateToProps = (state) => ({
