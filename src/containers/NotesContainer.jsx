@@ -8,6 +8,7 @@ import deleteNote from '../util/deleteNote';
 
 
 class NotesContainer extends Component {
+
   componentWillMount() {
     const { userId, actions } = this.props;
     getNotes(userId, (response) => {
@@ -21,6 +22,10 @@ class NotesContainer extends Component {
     deleteNote(noteId);
   }
 
+  updateShareCount(noteId) {
+    this.props.actions.updateNote(noteId);
+  }
+
   render() {
     const { notes } = this.props;
     return (
@@ -28,7 +33,14 @@ class NotesContainer extends Component {
         <ul>
         {
           notes.map((note, i) =>
-            <Note key={i} title={note.title} id={note.id} remove={this.remove.bind(this)}/>
+            <Note
+              key={i}
+              title={note.title}
+              id={note.id}
+              shared={note.shared}
+              remove={this.remove.bind(this)}
+              updateShareCount={this.updateShareCount.bind(this)}
+            />
           )
         }
         </ul>
@@ -40,13 +52,15 @@ class NotesContainer extends Component {
 NotesContainer.propTypes = {
   userId: React.PropTypes.number,
   notes: React.PropTypes.array,
-  actions: React.PropTypes.object
+  actions: React.PropTypes.object,
 };
 
-const mapStateToProps = (state) => ({ notes: state.notes });
+const mapStateToProps = (state) => ({
+  notes: state.notes,
+});
 
-const mapDispatchToProps = (dispatch) => (
-  { actions: bindActionCreators(notesActions, dispatch ) }
-)
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(notesActions, dispatch )
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(NotesContainer);

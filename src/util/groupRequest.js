@@ -21,6 +21,16 @@ const groupRequest = {
       .then(response => console.log(response.data))
       .catch(err => console.log("Error:", err));
   },
+  getGroup: (groupId, callback) => {
+    axios.get(`/api/groups/${groupId}`)
+      .then(response => callback(response.data))
+      .catch(err => console.log("Error:", err));
+  },
+  getMembers: (groupId, callback) => {
+    axios.get(`/api/groups/${groupId}/members`)
+      .then(response => callback(response.data))
+      .catch(err => console.log("Error:", err));
+  },
   deleteGroup: (groupId) => {
     axios.delete(`/api/groups/${groupId}`)
       .then(response => console.log(response))

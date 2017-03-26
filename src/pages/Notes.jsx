@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import * as notesActions from '../actions/notesActions';
-import NotesContainer from '../components/NotesContainer';
+import NotesContainer from '../containers/NotesContainer';
 
 
 class Notes extends Component {

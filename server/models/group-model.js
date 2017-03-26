@@ -48,6 +48,23 @@ module.exports = {
       });
     });
   },
+  getGroup: (groupId, callback) => {
+    const sql =`SELECT g.id, g.name, no_of_members, u.id AS adminId,
+      u.name AS admin, u.username AS adminUserName FROM groups AS g
+      JOIN users AS u ON creator = u.id WHERE g.id = ${groupId}`;
+    db.query(sql, (err, res) => {
+      if(err) console.log(err);
+      callback(res[0]);
+    });
+  },
+  getMembers: (groupId, callback) => {
+    const sql = `SELECT user_id, users.name, users.username FROM
+      group_members JOIN users ON user_id = users.id WHERE group_id = ${groupId}`;
+    db.query(sql, (err, res) => {
+      if(err) console.log(err);
+      callback(res);
+    });
+  },
   deleteGroup: (groupId) => {
     db.query('DELETE FROM groups WHERE id = ?', groupId, (err, res) => {
       if(err) console.log(err);
