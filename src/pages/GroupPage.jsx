@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import GroupNotes from '../containers/GroupNotes';
+import Members from '../components/Members';
 import groupRequest from '../util/groupRequest';
 import * as currentGroupActions from '../actions/currentGroupActions';
 import { connect } from 'react-redux';
@@ -20,16 +21,24 @@ class GroupPage extends Component {
 
   render() {
     const { groupId, currentGroup, currentGroupMembers } = this.props;
+    const { id, name, no_of_members, adminId, admin, adminUserName } = currentGroup;
     return(
       <div className='container-fluid'>
         <div className='row'>
           <aside className='side-bar col-md-3 col-lg-3 hidden-sm hidden-xs'>
+            <Members
+              noOfMembers={no_of_members}
+              adminId={adminId}
+              admin={admin}
+              adminUserName={adminUserName}
+              members={currentGroupMembers}
+            />
           </aside>
           <div>
             <div className='current-group-bar'>
-              <p>{currentGroup.name}</p>
+              <p>{name}</p>
             </div>
-            <GroupNotes groupId={currentGroup.id}/>
+            <GroupNotes groupId={id}/>
           </div>
         </div>
       </div>
