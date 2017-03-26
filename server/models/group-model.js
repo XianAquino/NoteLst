@@ -51,7 +51,7 @@ module.exports = {
   getGroup: (groupId, callback) => {
     db.query('SELECT * FROM groups WHERE id = ?', groupId, (err, res) => {
       if(err) console.log(err);
-      callback(res);
+      callback(res[0]);
     })
   },
   deleteGroup: (groupId) => {
