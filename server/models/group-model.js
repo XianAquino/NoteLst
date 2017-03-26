@@ -48,6 +48,12 @@ module.exports = {
       });
     });
   },
+  getGroup: (groupId, callback) => {
+    db.query('SELECT * FROM groups WHERE id = ?', groupId, (err, res) => {
+      if(err) console.log(err);
+      callback(res);
+    })
+  },
   deleteGroup: (groupId) => {
     db.query('DELETE FROM groups WHERE id = ?', groupId, (err, res) => {
       if(err) console.log(err);
