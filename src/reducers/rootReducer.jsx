@@ -13,6 +13,7 @@ import tasksByWeek from './tasksByWeekReducer.jsx';
 import groups from './groupsReducer.jsx';
 import searchedGroups from './searchedGroupsReducer.jsx';
 import currentGroup from './currentGroupReducer.jsx';
+import currentGroupMembers from './currentGroupMembersReducer.jsx';
 
 const rootReducer = combineReducers({
   login,
@@ -28,7 +29,8 @@ const rootReducer = combineReducers({
   tasksByWeek,
   groups,
   searchedGroups,
-  currentGroup
+  currentGroup,
+  currentGroupMembers
 });
 
 export default rootReducer;

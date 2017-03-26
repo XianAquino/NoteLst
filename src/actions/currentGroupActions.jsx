@@ -4,3 +4,10 @@ export const loadGroupInfo = (group) => {
     payload: group
   };
 };
+
+export const loadGroupMembers = (members) => {
+  return {
+    type: 'LOAD_MEMBERS',
+    payload: members
+  };
+};

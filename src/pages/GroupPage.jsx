@@ -13,13 +13,13 @@ class GroupPage extends Component {
     getGroup(params.groupId, (info) => {
       actions.loadGroupInfo(info);
       getMembers(params.groupId, (members) => {
-        console.log(members);
+        actions.loadGroupMembers(members);
       })
     });
   }
 
   render() {
-    const { groupId, currentGroup } = this.props;
+    const { groupId, currentGroup, currentGroupMembers } = this.props;
     return(
       <div className='container-fluid'>
         <div className='row'>
@@ -40,11 +40,13 @@ class GroupPage extends Component {
 GroupPage.proptypes = {
   params: PropTypes.object,
   actions: PropTypes.object,
-  currentGroup: PropTypes.object
+  currentGroup: PropTypes.object,
+  currentGroupMembers: PropTypes.array
 };
 
 const mapStateToProps = (state) => ({
-  currentGroup: state.currentGroup
+  currentGroup: state.currentGroup,
+  currentGroupMembers: state.currentGroupMembers
 });
 
 const mapDispatchToProps = (dispatch) => ({
