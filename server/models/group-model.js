@@ -54,6 +54,14 @@ module.exports = {
       callback(res[0]);
     })
   },
+  getMembers: (groupId, callback) => {
+    const sql = `SELECT user_id, users.name FROM group_members JOIN users ON
+      user_id = users.id WHERE group_id = ${groupId}`;
+    db.query(sql, (err, res) => {
+      if(err) console.log(err);
+      callback(res);
+    });
+  },
   deleteGroup: (groupId) => {
     db.query('DELETE FROM groups WHERE id = ?', groupId, (err, res) => {
       if(err) console.log(err);

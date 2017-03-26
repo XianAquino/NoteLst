@@ -26,9 +26,15 @@ module.exports = {
     res.send('joined');
   },
   getGroup: (req, res) => {
-    const groupId = req.params.group_id
+    const groupId = req.params.group_id;
     groups.getGroup(groupId, (info) => {
       res.json(info);
+    });
+  },
+  getMembers: (req, res) => {
+    const groupId = req.params.group_id;
+    groups.getMembers(groupId, (members) => {
+      res.json(members);
     });
   },
   updateGroup: (req, res) => {

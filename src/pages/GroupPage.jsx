@@ -9,8 +9,12 @@ class GroupPage extends Component {
 
   componentWillMount() {
     const { params, actions } = this.props
-    groupRequest.getGroup(params.groupId, (info) => {
+    const { getGroup, getMembers } = groupRequest;
+    getGroup(params.groupId, (info) => {
       actions.loadGroupInfo(info);
+      getMembers(params.groupId, (members) => {
+        console.log(members);
+      })
     });
   }
 
