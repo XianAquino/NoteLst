@@ -7,6 +7,11 @@ import Post from '../components/Post';
 
 class Posts extends Component {
 
+  constructor(props){
+    super(props);
+    this.like = this.like.bind(this);
+  }
+
   componentWillMount() {
     const { groupId, actions, socket } = this.props;
     socket.emit('enterGroup', groupId);
@@ -16,10 +21,19 @@ class Posts extends Component {
     socket.on('receiveNote', (post) => {
       actions.addPost(post);
     })
+    socket.on('updatePostLikes', (postId, currentLikes) => {
+      actions.updatePost(postId, {likes: currentLikes});
+    })
   }
 
   componentWillUnmount() {
-    delete this.props.socket.json._callbacks.$receiveNote
+    delete this.props.socket.json._callbacks.$receiveNote;
+    delete this.props.socket.json._callbacks.$updatePostLikes;
+  }
+
+  like(postId, currentLikes) {
+    const { socket, groupId } = this.props;
+    socket.emit('likePost', groupId, postId, currentLikes);
   }
 
   render() {
@@ -38,6 +52,7 @@ class Posts extends Component {
                 userAvatar={post.image}
                 postedBy={post.name}
                 postedAt={post.time_posted}
+                like={this.like}
               />
             )
           }

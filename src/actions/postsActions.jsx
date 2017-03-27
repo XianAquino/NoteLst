@@ -11,3 +11,11 @@ export const addPost = (post) => {
     payload: post
   };
 };
+
+export const updatePost = (postId, property) => {
+  return{
+    type: 'UPDATE_POST',
+    payload: property,
+    targetPost: postId,
+  };
+};

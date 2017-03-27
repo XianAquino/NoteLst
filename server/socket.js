@@ -32,6 +32,10 @@ io.on('connection', (socket) => {
     });
   });
 
+  socket.on('likePost', (groupId, postId, likes) => {
+    io.to(`gr${groupId}`).emit('updatePostLikes', postId, likes);
+  });
+
   socket.on('sendMessage', (messageRoomId, message) => {
     messageDB.saveMessage(message);
     io.emit('updateContacts');

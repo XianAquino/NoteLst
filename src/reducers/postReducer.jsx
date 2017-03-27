@@ -4,6 +4,11 @@ const postReducer = (state = [], action) => {
       return action.payload;
     case 'ADD_POST':
       return [action.payload, ...state];
+    case 'UPDATE_POST':
+      return state.map(post =>
+        post.postId !== action.targetPost ? post
+        : Object.assign(post, action.payload)
+      )
     default:
       return state;
   }
