@@ -68,7 +68,8 @@ module.exports = {
   getPosts: (groupId, callback) => {
     const sql = `SELECT gn.id as postId, group_id, time_posted, likes, title, u.name,
       u.image FROM group_notes AS gn JOIN notes AS n ON gn.note_id = n.id
-      JOIN users AS u ON n.user_id = u.id WHERE group_id = ${groupId}`;
+      JOIN users AS u ON n.user_id = u.id WHERE group_id = ${groupId}
+      ORDER BY time_posted DESC`;
     db.query(sql, (err, res) => {
       if(err) console.log(err);
       callback(res);
