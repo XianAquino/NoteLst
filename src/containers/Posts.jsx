@@ -14,7 +14,7 @@ class Posts extends Component {
       actions.loadPosts(posts);
     });
     socket.on('receiveNote', (post) => {
-      console.log("recieve post", post);
+      actions.addPost(post);
     })
   }
 

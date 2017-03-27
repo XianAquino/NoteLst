@@ -4,3 +4,10 @@ export const loadPosts = (posts) => {
     payload: posts
   };
 };
+
+export const addPost = (post) => {
+  return{
+    type: 'ADD_POST',
+    payload: post
+  };
+};
