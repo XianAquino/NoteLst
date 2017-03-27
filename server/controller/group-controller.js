@@ -37,6 +37,12 @@ module.exports = {
       res.json(members);
     });
   },
+  getPosts: (req, res) => {
+    const groupId = req.params.group_id;
+    groups.getPosts(groupId, (post) => {
+      res.json(post);
+    });
+  },
   updateGroup: (req, res) => {
     res.send('test')
   },

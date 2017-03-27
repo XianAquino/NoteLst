@@ -20,7 +20,7 @@ class GroupPage extends Component {
   }
 
   render() {
-    const { groupId, currentGroup, currentGroupMembers } = this.props;
+    const { groupId, currentGroup, currentGroupMembers, params } = this.props;
     const { id, name, no_of_members, adminId, admin, adminUserName } = currentGroup;
     return(
       <div className='container-fluid'>
@@ -38,7 +38,7 @@ class GroupPage extends Component {
             <div className='current-group-bar'>
               <p>{name}</p>
             </div>
-            <GroupNotes groupId={id}/>
+            <GroupNotes groupId={params.groupId}/>
           </div>
         </div>
       </div>

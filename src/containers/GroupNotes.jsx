@@ -1,9 +1,19 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
+import groupRequest from '../util/groupRequest';
 
-const GroupNotes = ({groupId}) => {
-  return (
-    <div>{groupId}</div>
-  )
+class GroupNotes extends Component {
+
+  componentWillMount() {
+    groupRequest.getPosts(this.props.groupId, (posts) => {
+      console.log("post", posts);
+    })
+  }
+
+  render() {
+    return (
+      <div>{this.props.groupId}</div>
+    )
+  }
 }
 
 GroupNotes.proptypes={

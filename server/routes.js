@@ -36,9 +36,10 @@ router.get('/contacts/:username', messsages.getContacts);
 router.get('/groups', groups.get);
 router.post('/groups', groups.create);
 router.get('/groups/:group_id', groups.getGroup);
-router.get('/groups/:group_id/members', groups.getMembers);
-router.post('/groups/:group_id/join/:user_id', groups.join);
 router.put('/groups/:group_id', groups.updateGroup);
 router.delete('/groups/:group_id', groups.deleteGroup);
+router.get('/groups/:group_id/members', groups.getMembers);
+router.get('/groups/:group_id/posts', groups.getPosts);
+router.post('/groups/:group_id/join/:user_id', groups.join);
 
 module.exports = router;
