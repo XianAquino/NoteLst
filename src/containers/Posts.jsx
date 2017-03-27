@@ -8,10 +8,14 @@ import Post from '../components/Post';
 class Posts extends Component {
 
   componentWillMount() {
-    const { groupId, actions } = this.props;
+    const { groupId, actions, socket } = this.props;
+    socket.emit('enterGroup', groupId);
     groupRequest.getPosts(groupId, (posts) => {
       actions.loadPosts(posts);
     });
+    socket.on('receiveNote', (post) => {
+      console.log("recieve post", post);
+    })
   }
 
   render() {
@@ -46,7 +50,8 @@ Posts.proptypes = {
 };
 
 const mapStateToProps = (state) => ({
-  posts: state.posts
+  posts: state.posts,
+  socket: state.socket
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -29,11 +29,23 @@ class Note extends Component {
     this.setState({value});
   }
 
+  newPost() {
+    const { title, image, name } = this.props;
+    return {
+      title,
+      image,
+      name,
+      group_id: this.state.value,
+      likes: 0,
+      time_posted: new Date()
+    };
+  }
+
   share() {
     const groupId = this.state.value;
-    const {socket, id, updateShareCount} = this.props;
+    const { socket, id, updateShareCount } = this.props;
     if (groupId) {
-      socket.emit('shareNote', groupId, id);
+      socket.emit('shareNote', groupId, id, this.newPost());
       updateShareCount(id);
       this.showShareForm();
     }
@@ -82,12 +94,16 @@ Note.propTypes = {
   remove: PropTypes.func,
   groups: PropTypes.array,
   socket: PropTypes.object,
-  updateShareCount: PropTypes.func
+  updateShareCount: PropTypes.func,
+  name: PropTypes.string,
+  image: PropTypes.string
 }
 
 const mapStateToProps = (state) => ({
   groups: state.groups,
-  socket: state.socket
+  socket: state.socket,
+  name: state.userInfo.name,
+  image: state.userInfo.image
 });
 
 export default connect(mapStateToProps)(Note);

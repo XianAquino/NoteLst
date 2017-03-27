@@ -21,9 +21,15 @@ io.on('connection', (socket) => {
     socket.leave(messageRoomId);
   });
 
-  socket.on('shareNote', (groupId, noteId, note) => {
-    notes.share(groupId, noteId);
-    //io.to(`gr${groupId}`).emit('receiveNote', note);
+  socket.on('enterGroup', (groupId) => {
+    socket.join(`gr${groupId}`);
+  });
+
+  socket.on('shareNote', (groupId, noteId, post) => {
+    notes.share(groupId, noteId, (postId) => {
+      post.postId = postId;
+      io.to(`gr${groupId}`).emit('receiveNote', post);
+    });
   });
 
   socket.on('sendMessage', (messageRoomId, message) => {
