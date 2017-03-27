@@ -18,6 +18,10 @@ class Posts extends Component {
     })
   }
 
+  componentWillUnmount() {
+    delete this.props.socket.json._callbacks.$receiveNote
+  }
+
   render() {
     const { posts } = this.props;
     return (
