@@ -75,6 +75,16 @@ module.exports = {
       callback(res);
     });
   },
+  likePost: (params) => {
+    const postSQL = `UPDATE group_notes SET likes = likes + 1 WHERE id = ${params.post_id}`;
+    const likeSQL = `INSERT INTO likes SET ?`;
+    db.query(postSQL, (err, res) => {
+      if(err) console.log(err);
+      db.query(likeSQL, params, (err, res) => {
+        if(err) console.log(err);
+      });
+    });
+  },
   deleteGroup: (groupId) => {
     db.query('DELETE FROM groups WHERE id = ?', groupId, (err, res) => {
       if(err) console.log(err);

@@ -4,6 +4,7 @@ const http = require('http').Server(socketServer);
 const io = require('socket.io')(http);
 const messageDB = require('./models/message-model');
 const notes = require('./models/note-model');
+const groups = require('./models/group-model');
 
 
 io.on('connection', (socket) => {
@@ -25,14 +26,15 @@ io.on('connection', (socket) => {
     socket.join(`gr${groupId}`);
   });
 
-  socket.on('shareNote', (groupId, noteId, post) => {
+  socket.on('shareNote', (groupId, noteId,  post) => {
     notes.share(groupId, noteId, (postId) => {
       post.postId = postId;
       io.to(`gr${groupId}`).emit('receiveNote', post);
     });
   });
 
-  socket.on('likePost', (groupId, postId, likes) => {
+  socket.on('likePost', (groupId, postId, userId, likes) => {
+    groups.likePost({post_id: postId, user_id: userId});
     io.to(`gr${groupId}`).emit('updatePostLikes', postId, likes);
   });
 

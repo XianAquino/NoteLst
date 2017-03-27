@@ -32,8 +32,8 @@ class Posts extends Component {
   }
 
   like(postId, currentLikes) {
-    const { socket, groupId } = this.props;
-    socket.emit('likePost', groupId, postId, currentLikes);
+    const { socket, groupId,userId } = this.props;
+    socket.emit('likePost', groupId, postId, userId, currentLikes);
   }
 
   render() {
@@ -65,12 +65,14 @@ class Posts extends Component {
 Posts.proptypes = {
   groupId: PropTypes.number,
   actions: PropTypes.object,
-  posts: PropTypes.array
+  posts: PropTypes.array,
+  userId: PropTypes.number
 };
 
 const mapStateToProps = (state) => ({
   posts: state.posts,
-  socket: state.socket
+  socket: state.socket,
+  userId: state.userInfo.id
 });
 
 const mapDispatchToProps = (dispatch) => ({
