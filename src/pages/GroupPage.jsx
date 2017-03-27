@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import GroupNotes from '../containers/GroupNotes';
+import Posts from '../containers/Posts';
 import Members from '../components/Members';
 import groupRequest from '../util/groupRequest';
 import * as currentGroupActions from '../actions/currentGroupActions';
@@ -20,7 +20,7 @@ class GroupPage extends Component {
   }
 
   render() {
-    const { groupId, currentGroup, currentGroupMembers } = this.props;
+    const { groupId, currentGroup, currentGroupMembers, params } = this.props;
     const { id, name, no_of_members, adminId, admin, adminUserName } = currentGroup;
     return(
       <div className='container-fluid'>
@@ -38,7 +38,7 @@ class GroupPage extends Component {
             <div className='current-group-bar'>
               <p>{name}</p>
             </div>
-            <GroupNotes groupId={id}/>
+            <Posts groupId={params.groupId}/>
           </div>
         </div>
       </div>

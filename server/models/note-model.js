@@ -25,12 +25,13 @@ module.exports = {
       console.log(res);
     })
   },
-  share: (groupId, noteId) => {
+  share: (groupId, noteId, callback) => {
     db.query('UPDATE notes SET shared = shared + 1 WHERE id = ?', noteId, (err, res) => {
       if(err)throw err;
       const values = {group_id: groupId, note_id: noteId};
       db.query('INSERT INTO group_notes SET ?', values, (err, res) => {
         if(err)throw err;
+        callback(res.insertId);
       })
     })
   },

@@ -31,6 +31,11 @@ const groupRequest = {
       .then(response => callback(response.data))
       .catch(err => console.log("Error:", err));
   },
+  getPosts: (groupId, callback) => {
+    axios.get(`/api/groups/${groupId}/posts`)
+      .then(response => callback(response.data))
+      .catch(err => console.log("Error:", err));
+  },
   deleteGroup: (groupId) => {
     axios.delete(`/api/groups/${groupId}`)
       .then(response => console.log(response))
