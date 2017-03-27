@@ -3,8 +3,9 @@ import groupRequest from '../util/groupRequest';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as postsActions from '../actions/postsActions';
+import Post from '../components/Post';
 
-class GroupNotes extends Component {
+class Posts extends Component {
 
   componentWillMount() {
     const { groupId, actions } = this.props;
@@ -14,14 +15,31 @@ class GroupNotes extends Component {
   }
 
   render() {
-    console.log("render posts", this.props.posts);
+    const { posts } = this.props;
     return (
-      <div>{this.props.groupId}</div>
+      <div>
+        test
+        <ul>
+          {
+            posts.map((post, i) =>
+              <Post
+                key={i}
+                id={post.postId}
+                likes={post.likes}
+                title={post.title}
+                userAvatar={post.image}
+                postedBy={post.name}
+                postedAt={post.time_posted}
+              />
+            )
+          }
+        </ul>
+      </div>
     )
   }
 }
 
-GroupNotes.proptypes = {
+Posts.proptypes = {
   groupId: PropTypes.number,
   actions: PropTypes.object,
   posts: PropTypes.array
@@ -35,4 +53,4 @@ const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(postsActions, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(GroupNotes);
+export default connect(mapStateToProps, mapDispatchToProps)(Posts);
