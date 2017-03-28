@@ -7,6 +7,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 class GroupPage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchMember: ''
+    }
+    this.handleInput = this.handleInput.bind(this);
+  }
 
   componentWillMount() {
     const { params, actions } = this.props
@@ -19,20 +26,32 @@ class GroupPage extends Component {
     });
   }
 
+  handleInput(event) {
+    this.setState({searchMember: event.target.value});
+  }
+
   render() {
     const { groupId, currentGroup, currentGroupMembers, params, userId } = this.props;
     const { id, name, no_of_members, adminId, admin, adminUserName } = currentGroup;
+    const target = this.state.searchMember.toLowerCase();
+    const members = !target ? currentGroupMembers
+      : currentGroupMembers.filter( member => member.name.toLowerCase().includes(target));
     if (userId) {
       return(
         <div className='container-fluid'>
           <div className='row'>
             <aside className='side-bar col-md-3 col-lg-3 hidden-sm hidden-xs'>
+              <input
+                type='text'
+                onChange={this.handleInput}
+                placeholder='Enter member name'
+              />
               <Members
                 noOfMembers={no_of_members}
                 adminId={adminId}
                 admin={admin}
                 adminUserName={adminUserName}
-                members={currentGroupMembers}
+                members={members}
               />
             </aside>
             <div>
