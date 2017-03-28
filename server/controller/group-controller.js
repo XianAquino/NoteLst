@@ -38,8 +38,9 @@ module.exports = {
     });
   },
   getPosts: (req, res) => {
+    const userId = req.query.likeBy;
     const groupId = req.params.group_id;
-    groups.getPosts(groupId, (post) => {
+    groups.getPosts(groupId, userId, (post) => {
       res.json(post);
     });
   },

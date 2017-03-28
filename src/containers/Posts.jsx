@@ -13,9 +13,10 @@ class Posts extends Component {
   }
 
   componentWillMount() {
-    const { groupId, actions, socket } = this.props;
+    const { groupId, actions, socket, userId } = this.props;
     socket.emit('enterGroup', groupId);
-    groupRequest.getPosts(groupId, (posts) => {
+    groupRequest.getPosts(groupId, userId, (posts) => {
+      console.log('userId', userId);
       actions.loadPosts(posts);
     });
     socket.on('receiveNote', (post) => {
@@ -32,7 +33,7 @@ class Posts extends Component {
   }
 
   like(postId, currentLikes) {
-    const { socket, groupId,userId } = this.props;
+    const { socket, groupId, userId } = this.props;
     socket.emit('likePost', groupId, postId, userId, currentLikes);
   }
 
@@ -53,6 +54,7 @@ class Posts extends Component {
                 postedBy={post.name}
                 postedAt={post.time_posted}
                 like={this.like}
+                liked={post.liked}
               />
             )
           }
@@ -71,8 +73,7 @@ Posts.proptypes = {
 
 const mapStateToProps = (state) => ({
   posts: state.posts,
-  socket: state.socket,
-  userId: state.userInfo.id
+  socket: state.socket
 });
 
 const mapDispatchToProps = (dispatch) => ({

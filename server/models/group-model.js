@@ -65,11 +65,12 @@ module.exports = {
       callback(res);
     });
   },
-  getPosts: (groupId, callback) => {
-    const sql = `SELECT gn.id as postId, group_id, time_posted, likes, title, u.name,
-      u.image FROM group_notes AS gn JOIN notes AS n ON gn.note_id = n.id
-      JOIN users AS u ON n.user_id = u.id WHERE group_id = ${groupId}
-      ORDER BY time_posted DESC`;
+  getPosts: (groupId, userId, callback) => {
+    const sql = `SELECT gn.id as postId, group_id, time_posted, likes, title,
+      u.name, u.image, (SELECT COUNT(*) FROM likes WHERE post_id = gn.id AND
+      user_id = ${userId}) AS liked FROM group_notes AS gn JOIN notes AS n ON
+      gn.note_id = n.id JOIN users AS u ON n.user_id = u.id WHERE
+      group_id = ${groupId} ORDER BY time_posted DESC`;
     db.query(sql, (err, res) => {
       if(err) console.log(err);
       callback(res);
