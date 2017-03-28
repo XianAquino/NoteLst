@@ -27,7 +27,7 @@ class Group extends Component {
   newGroup() {
     const { id, name, dateCreated, createdBy, noOfMembers, creatorId} = this.props;
     return {
-      id,
+      group_id: id,
       name,
       creator: creatorId,
       date: dateCreated,

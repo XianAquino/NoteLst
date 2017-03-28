@@ -28,7 +28,7 @@ class CreateGroup extends Component {
     }
     groupRequest.createGroup(params, (response) => {
       const newGroup = {
-        id: response.groupId,
+        group_id: response.groupId,
         name: params.name,
         creator: userId,
         date: new Date().toISOString(),
