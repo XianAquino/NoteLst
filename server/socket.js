@@ -33,9 +33,19 @@ io.on('connection', (socket) => {
     });
   });
 
-  socket.on('likePost', (groupId, postId, userId, likes) => {
-    groups.likePost({post_id: postId, user_id: userId});
-    io.to(`gr${groupId}`).emit('updatePostLikes', postId, likes);
+  socket.on('likePost', (groupId, postId, userId, likes, condition) => {
+    let likeStatus = {
+      likes,
+      postedBy: userId
+    }
+    if (condition === 'like') {
+      groups.likePost({post_id: postId, user_id: userId});
+      likeStatus.liked = 1;
+    } else {
+      groups.unlikePost({post_id: postId, user_id: userId});
+      likeStatus.liked = 0;
+    }
+    io.to(`gr${groupId}`).emit('updatePostLikes', postId, likeStatus);
   });
 
   socket.on('sendMessage', (messageRoomId, message) => {

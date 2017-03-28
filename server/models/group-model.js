@@ -86,6 +86,16 @@ module.exports = {
       });
     });
   },
+  unlikePost: (params) => {
+    const postSQL = `UPDATE group_notes SET likes = likes - 1 WHERE id = ${params.post_id}`;
+    const unlikeSQL = `DELETE FROM likes WHERE user_id = ?`;
+    db.query(postSQL, (err, res) => {
+      if(err) console.log(err);
+      db.query(unlikeSQL, params.user_id, (err, res) => {
+        if(err) console.log(err);
+      });
+    });
+  },
   deleteGroup: (groupId) => {
     db.query('DELETE FROM groups WHERE id = ?', groupId, (err, res) => {
       if(err) console.log(err);

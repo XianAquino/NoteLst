@@ -16,15 +16,17 @@ class Posts extends Component {
     const { groupId, actions, socket, userId } = this.props;
     socket.emit('enterGroup', groupId);
     groupRequest.getPosts(groupId, userId, (posts) => {
-      console.log('userId', userId);
       actions.loadPosts(posts);
     });
     socket.on('receiveNote', (post) => {
       actions.addPost(post);
-    })
-    socket.on('updatePostLikes', (postId, currentLikes) => {
-      actions.updatePost(postId, {likes: currentLikes});
-    })
+    });
+    socket.on('updatePostLikes', (postId, likeStatus) => {
+      const {likes, postedBy, liked} = likeStatus;
+      let likeUpdate = {likes};
+      if (userId === postedBy) likeUpdate.liked = liked;
+      actions.updatePost(postId, likeUpdate);
+    });
   }
 
   componentWillUnmount() {
@@ -32,9 +34,9 @@ class Posts extends Component {
     delete this.props.socket.json._callbacks.$updatePostLikes;
   }
 
-  like(postId, currentLikes) {
+  like(postId, currentLikes, condition) {
     const { socket, groupId, userId } = this.props;
-    socket.emit('likePost', groupId, postId, userId, currentLikes);
+    socket.emit('likePost', groupId, postId, userId, currentLikes, condition);
   }
 
   render() {

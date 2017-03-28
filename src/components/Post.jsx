@@ -8,8 +8,8 @@ const Post = ({id, likes, title, userAvatar, postedBy, postedAt, like, liked}) =
       <p>{title}</p>
       <p>likes: <span>{likes}</span></p>
       {
-        liked ? <button onClick={() => {like(id, (likes - 1))}}>Unlike</button>
-          : <button onClick={() => {like(id, (likes + 1))}}>Like</button>
+        liked ? <button onClick={() => {like(id, (likes - 1), 'unlike')}}>Unlike</button>
+          : <button onClick={() => {like(id, (likes + 1), 'like')}}>Like</button>
       }
     </li>
   );
