@@ -40,7 +40,7 @@ class Posts extends Component {
   }
 
   render() {
-    const { posts } = this.props;
+    const { posts, userId } = this.props;
     return (
       <div>
         test
@@ -49,10 +49,12 @@ class Posts extends Component {
             posts.map((post, i) =>
               <Post
                 key={i}
+                userId={userId}
                 id={post.postId}
                 likes={post.likes}
                 title={post.title}
                 userAvatar={post.image}
+                postedById={post.postedById}
                 postedBy={post.name}
                 postedAt={post.time_posted}
                 like={this.like}
