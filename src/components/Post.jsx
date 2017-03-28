@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 
-const Post = ({id, likes, title, userAvatar, postedById, postedBy, postedAt, like, liked, userId}) => {
+const Post = ({id, noteId, likes, title, userAvatar, postedById,
+  postedBy, postedAt, like, liked, userId, deletePost}) => {
   return(
     <li>
       <p>{userAvatar}</p><span>{postedBy}</span>
@@ -9,7 +10,7 @@ const Post = ({id, likes, title, userAvatar, postedById, postedBy, postedAt, lik
       <p>likes: <span>{likes}</span></p>
       {
         userId !== postedById ? null
-          : <button>Delete</button>
+          : <button onClick={() => {deletePost(id, noteId)}}>Delete</button>
       }
       {
         liked ? <button onClick={() => {like(id, (likes - 1), 'unlike')}}>Unlike</button>
@@ -29,7 +30,8 @@ Post.proptypes = {
   postedAt: PropTypes.instanceOf(Date),
   likes: PropTypes.func,
   liked: PropTypes.number,
-  userId: PropTypes.number
+  userId: PropTypes.number,
+  deletePost: PropTypes.func
 }
 
 export default Post;

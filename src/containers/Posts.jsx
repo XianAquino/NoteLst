@@ -10,6 +10,7 @@ class Posts extends Component {
   constructor(props){
     super(props);
     this.like = this.like.bind(this);
+    this.deletePost = this.deletePost.bind(this);
   }
 
   componentWillMount() {
@@ -27,11 +28,15 @@ class Posts extends Component {
       if (userId === postedBy) likeUpdate.liked = liked;
       actions.updatePost(postId, likeUpdate);
     });
+    socket.on('deletedPost', (postId) => {
+      actions.deletePost(postId);
+    })
   }
 
   componentWillUnmount() {
     delete this.props.socket.json._callbacks.$receiveNote;
     delete this.props.socket.json._callbacks.$updatePostLikes;
+    delete this.props.socket.json._callbacks.$deletedPost;
   }
 
   like(postId, currentLikes, condition) {
@@ -39,11 +44,15 @@ class Posts extends Component {
     socket.emit('likePost', groupId, postId, userId, currentLikes, condition);
   }
 
+  deletePost(postId, noteId) {
+    const { socket, groupId } = this.props;
+    socket.emit('deletePost', groupId, postId, noteId);
+  }
+
   render() {
     const { posts, userId } = this.props;
     return (
       <div>
-        test
         <ul>
           {
             posts.map((post, i) =>
@@ -51,14 +60,16 @@ class Posts extends Component {
                 key={i}
                 userId={userId}
                 id={post.postId}
+                noteId={post.note_id}
                 likes={post.likes}
+                like={this.like}
+                liked={post.liked}
                 title={post.title}
                 userAvatar={post.image}
                 postedById={post.postedById}
                 postedBy={post.name}
                 postedAt={post.time_posted}
-                like={this.like}
-                liked={post.liked}
+                deletePost={this.deletePost}
               />
             )
           }

@@ -48,6 +48,11 @@ io.on('connection', (socket) => {
     io.to(`gr${groupId}`).emit('updatePostLikes', postId, likeStatus);
   });
 
+  socket.on('deletePost', (groupId, postId, noteId) => {
+    posts.deletePost(postId, noteId);
+    io.to(`gr${groupId}`).emit('deletedPost', postId);
+  });
+
   socket.on('sendMessage', (messageRoomId, message) => {
     messageDB.saveMessage(message);
     io.emit('updateContacts');

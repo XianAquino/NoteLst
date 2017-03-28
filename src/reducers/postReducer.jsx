@@ -8,7 +8,9 @@ const postReducer = (state = [], action) => {
       return state.map(post =>
         post.postId !== action.targetPost ? post
         : Object.assign(post, action.payload)
-      )
+      );
+    case 'DELETE_POST':
+      return state.filter(post => post.postId !== action.payload);
     default:
       return state;
   }

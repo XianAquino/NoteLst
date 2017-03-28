@@ -19,3 +19,10 @@ export const updatePost = (postId, property) => {
     targetPost: postId,
   };
 };
+
+export const deletePost = (postId) => {
+  return{
+    type: 'DELETE_POST',
+    payload: postId,
+  };
+};
