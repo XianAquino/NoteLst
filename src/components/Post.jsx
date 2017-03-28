@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 
 const Post = ({id, noteId, likes, title, userAvatar, postedById,
   postedBy, postedAt, like, liked, userId, deletePost}) => {
@@ -6,7 +7,7 @@ const Post = ({id, noteId, likes, title, userAvatar, postedById,
     <li>
       <p>{userAvatar}</p><span>{postedBy}</span>
       <p>{postedAt}</p>
-      <p>{title}</p>
+      <Link to={`/notes/${noteId}`}>{title}</Link>
       <p>likes: <span>{likes}</span></p>
       {
         userId !== postedById ? null
