@@ -31,7 +31,7 @@ class GroupPage extends Component {
   }
 
   render() {
-    const { groupId, currentGroup, currentGroupMembers, params, userId } = this.props;
+    const { groupId, currentGroup, currentGroupMembers, params, userId, username } = this.props;
     const { id, name, no_of_members, adminId, admin, adminUserName } = currentGroup;
     const target = this.state.searchMember.toLowerCase();
     const members = !target ? currentGroupMembers
@@ -52,6 +52,7 @@ class GroupPage extends Component {
                 admin={admin}
                 adminUserName={adminUserName}
                 members={members}
+                username={username}
               />
             </aside>
             <div>
@@ -76,13 +77,15 @@ GroupPage.proptypes = {
   actions: PropTypes.object,
   currentGroup: PropTypes.object,
   currentGroupMembers: PropTypes.array,
-  userId: PropTypes.number
+  userId: PropTypes.number,
+  username: PropTypes.string
 };
 
 const mapStateToProps = (state) => ({
   currentGroup: state.currentGroup,
   currentGroupMembers: state.currentGroupMembers,
-  userId: state.userInfo.id
+  userId: state.userInfo.id,
+  username: state.userInfo.username
 });
 
 const mapDispatchToProps = (dispatch) => ({

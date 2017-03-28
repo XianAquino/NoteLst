@@ -1,17 +1,32 @@
 import React, { PropTypes } from 'react';
+import createConversationId from '../util/createConversationId';
+import { browserHistory } from 'react-router';
 
-const Member = ({id, username, name}) => {
+const chat = (user1, user2) => {
+  createConversationId(user1, user2, (conversationId) => {
+    browserHistory.push(`/messages/${conversationId}`);
+  });
+}
+
+const Member = ({id, username, memberUsername, memberName}) => {
+  const chatButton = (
+    username === memberUsername ? null
+    : <button onClick={()=>{chat(username, memberUsername)}}>chat</button>
+  );
+
   return(
     <div>
-      <p>{name}</p>
+      <p>{memberName}</p>
+      {chatButton}
     </div>
-  )
+  );
 };
 
 Member.propTypes = {
   id: PropTypes.number,
-  username: PropTypes.string,
-  name: PropTypes.string
+  memberUsername: PropTypes.string,
+  memberName: PropTypes.string,
+  username: PropTypes.string
 };
 
 export default Member;
