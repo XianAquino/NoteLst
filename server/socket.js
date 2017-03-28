@@ -5,7 +5,7 @@ const io = require('socket.io')(http);
 const messageDB = require('./models/message-model');
 const notes = require('./models/note-model');
 const groups = require('./models/group-model');
-
+const posts = require('./models/post-model');
 
 io.on('connection', (socket) => {
   console.log('user connected');
@@ -39,10 +39,10 @@ io.on('connection', (socket) => {
       postedBy: userId
     }
     if (condition === 'like') {
-      groups.likePost({post_id: postId, user_id: userId});
+      posts.likePost({post_id: postId, user_id: userId});
       likeStatus.liked = 1;
     } else {
-      groups.unlikePost({post_id: postId, user_id: userId});
+      posts.unlikePost({post_id: postId, user_id: userId});
       likeStatus.liked = 0;
     }
     io.to(`gr${groupId}`).emit('updatePostLikes', postId, likeStatus);

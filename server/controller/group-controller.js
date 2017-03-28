@@ -1,4 +1,5 @@
 const groups = require('../models/group-model');
+const posts = require('../models/post-model');
 
 module.exports = {
   get: (req, res) => {
@@ -40,7 +41,7 @@ module.exports = {
   getPosts: (req, res) => {
     const userId = req.query.likeBy;
     const groupId = req.params.group_id;
-    groups.getPosts(groupId, userId, (post) => {
+    posts.getPosts(groupId, userId, (post) => {
       res.json(post);
     });
   },
