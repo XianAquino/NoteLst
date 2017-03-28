@@ -16,11 +16,6 @@ const groupRequest = {
       .then(response => callback(response.data))
       .catch(err => console.log("Error:", err));
   },
-  joinGroup: (groupId, userId) => {
-    axios.post(`/api/groups/${groupId}/join/${userId}`)
-      .then(response => console.log(response.data))
-      .catch(err => console.log("Error:", err));
-  },
   getGroup: (groupId, callback) => {
     axios.get(`/api/groups/${groupId}`)
       .then(response => callback(response.data))

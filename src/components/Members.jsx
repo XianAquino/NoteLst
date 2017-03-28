@@ -22,7 +22,7 @@ const Members = ({username, noOfMembers, members, adminId, admin, adminUserName}
           members.map((member,i) =>
           <Member
             key={i}
-            id={member.user_id}
+            id={member.userId}
             memberName={member.name}
             memberUsername={member.username}
             username={username}

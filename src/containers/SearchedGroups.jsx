@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import Group from '../components/Group';
 
-const SearchGroups = ({groups, userId}) => {
+const SearchGroups = ({groups, user}) => {
   if (!groups.length) {
     return (
       <p>no match found</p>
@@ -15,7 +15,7 @@ const SearchGroups = ({groups, userId}) => {
             <Group
               key={i}
               id={group.group_id}
-              userId={userId}
+              user={user}
               name={group.name}
               dateCreated={group.date}
               noOfMembers={group.no_of_members}
@@ -32,7 +32,7 @@ const SearchGroups = ({groups, userId}) => {
 
 SearchGroups.propTypes = {
   groups: PropTypes.array,
-  userId: PropTypes.number
+  user: PropTypes.object
 }
 
 export default SearchGroups;

@@ -37,13 +37,12 @@ module.exports = {
       callback(res);
     });
   },
-  join: (params) => {
-    const { group_id, user_id } = params;
+  join: (groupId, userId) => {
     const groupSQL = 'UPDATE groups SET no_of_members = no_of_members + 1 WHERE id = ?';
     const memberSQL = 'INSERT INTO group_members SET ?';
-    db.query(groupSQL, group_id, (err, res) => {
+    db.query(groupSQL, groupId, (err, res) => {
       if(err) console.log(err);
-      db.query(memberSQL, {group_id, user_id}, (err, res) => {
+      db.query(memberSQL, {group_id: groupId, user_id: userId}, (err, res) => {
         if(err) console.log(err);
       });
     });
@@ -58,7 +57,7 @@ module.exports = {
     });
   },
   getMembers: (groupId, callback) => {
-    const sql = `SELECT user_id, users.name, users.username FROM
+    const sql = `SELECT user_id AS userId, users.name, users.username FROM
       group_members JOIN users ON user_id = users.id WHERE group_id = ${groupId}`;
     db.query(sql, (err, res) => {
       if(err) console.log(err);

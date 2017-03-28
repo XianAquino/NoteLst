@@ -16,14 +16,23 @@ class GroupPage extends Component {
   }
 
   componentWillMount() {
-    const { params, actions } = this.props
+    const { params, actions, socket } = this.props;
     const { getGroup, getMembers } = groupRequest;
-    getGroup(params.groupId, (info) => {
+    const { groupId } = params;
+    getGroup(groupId, (info) => {
       actions.loadGroupInfo(info);
-      getMembers(params.groupId, (members) => {
+      getMembers(groupId, (members) => {
         actions.loadGroupMembers(members);
       })
     });
+    socket.emit('enterGroup', groupId);
+    socket.on('addNewMember', (groupId, user) => {
+      actions.addNewMember(user);
+    });
+  }
+
+  componentWillUnmount() {
+    delete this.props.socket.json._callbacks.$addNewMember;
   }
 
   handleInput(event) {
@@ -78,14 +87,16 @@ GroupPage.proptypes = {
   currentGroup: PropTypes.object,
   currentGroupMembers: PropTypes.array,
   userId: PropTypes.number,
-  username: PropTypes.string
+  username: PropTypes.string,
+  socket: PropTypes.object
 };
 
 const mapStateToProps = (state) => ({
   currentGroup: state.currentGroup,
   currentGroupMembers: state.currentGroupMembers,
   userId: state.userInfo.id,
-  username: state.userInfo.username
+  username: state.userInfo.username,
+  socket: state.socket
 });
 
 const mapDispatchToProps = (dispatch) => ({

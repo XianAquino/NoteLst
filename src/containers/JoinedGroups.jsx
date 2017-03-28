@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import Group from '../components/Group';
 
-const JoinedGroups = ({groups, userId}) => {
+const JoinedGroups = ({groups, user}) => {
   return(
     <div className='groups'>
       <ul>
@@ -10,7 +10,7 @@ const JoinedGroups = ({groups, userId}) => {
             <Group
               key={i}
               id={group.group_id}
-              userId={userId}
+              user={user}
               name={group.name}
               dateCreated={group.date}
               noOfMembers={group.no_of_members}
@@ -27,7 +27,7 @@ const JoinedGroups = ({groups, userId}) => {
 
 JoinedGroups.propTypes = {
   groups: PropTypes.array,
-  userId: PropTypes.number
+  user: PropTypes.object
 };
 
 export default JoinedGroups;
