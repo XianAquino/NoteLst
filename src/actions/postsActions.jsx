@@ -11,3 +11,18 @@ export const addPost = (post) => {
     payload: post
   };
 };
+
+export const updatePost = (postId, property) => {
+  return{
+    type: 'UPDATE_POST',
+    payload: property,
+    targetPost: postId,
+  };
+};
+
+export const deletePost = (postId) => {
+  return{
+    type: 'DELETE_POST',
+    payload: postId,
+  };
+};

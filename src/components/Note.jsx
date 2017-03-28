@@ -30,8 +30,9 @@ class Note extends Component {
   }
 
   newPost() {
-    const { title, image, name } = this.props;
+    const { id, title, image, name } = this.props;
     return {
+      note_id: id,
       title,
       image,
       name,

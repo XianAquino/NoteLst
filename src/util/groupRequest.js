@@ -31,8 +31,8 @@ const groupRequest = {
       .then(response => callback(response.data))
       .catch(err => console.log("Error:", err));
   },
-  getPosts: (groupId, callback) => {
-    axios.get(`/api/groups/${groupId}/posts`)
+  getPosts: (groupId, userId, callback) => {
+    axios.get(`/api/groups/${groupId}/posts?likeBy=${userId}`)
       .then(response => callback(response.data))
       .catch(err => console.log("Error:", err));
   },
