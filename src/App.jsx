@@ -13,6 +13,10 @@ import Conversation from './components/Conversation.jsx';
 import NoUserSelected from './components/NoUserSelected.jsx';
 import GroupsPage from './pages/GroupsPage.jsx';
 import GroupPage from './pages/GroupPage.jsx';
+import Settings from './pages/Settings.jsx';
+import General from './components/General.jsx';
+import Account from './components/Account.jsx';
+import Avatar from './components/Avatar.jsx';
 
 import './css/app.css';
 
@@ -29,6 +33,11 @@ const App = () => {
           </Route>
           <Route path='groups' component={GroupsPage}/>
           <Route path='groups/:groupId' component={GroupPage}/>
+          <Route path='settings' component={Settings}>
+            <IndexRoute component={General}/>
+            <Route path='avatar' component={Avatar}/>
+            <Route path='account' component={Account}/>
+          </Route>
         </Route>
         <Route path='/login' component={Login} />
         <Route path='/signup' component={SignUp} />
