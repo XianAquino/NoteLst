@@ -81,12 +81,12 @@ module.exports = {
   },
   update: (req, res) => {
     const id = req.params.user_id;
-    users.update(id,req.body);
-    res.send("Updated!");
+    users.update(id, req.body);
+    res.send('Updated');
   },
   delete: (req, res) => {
     const id = req.params.user_id;
     users.delete(id);
-    res.send("Deleted!");
+    res.send('Deleted');
   }
 }

@@ -31,7 +31,6 @@ module.exports =  {
   update: (id, values) => {
     db.query('UPDATE users SET ? WHERE ?', [values, {id: id}], (err, res) => {
       if(err)console.log("Error",err);
-      console.log("result",res);
     });
   },
 
