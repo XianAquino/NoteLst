@@ -4,6 +4,10 @@ const uuid = require('uuid/v1');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const salt = bcrypt.genSaltSync(saltRounds);
+const cloudinary = require('cloudinary');
+const config = require('../config.js')
+cloudinary.config(config.cloudinary);
+const formidable = require('formidable');
 
 module.exports = {
   get: (req, res) => {
@@ -54,7 +58,8 @@ module.exports = {
           id: info.id,
           username: info.username,
           name: info.name,
-          email: info.email
+          email: info.email,
+          image: info.image
         });
         const sessionId = uuid();
         createSession(req, res, sessionId, userInfo);
@@ -99,6 +104,18 @@ module.exports = {
       } else {
         res.send('incorrect');
       }
+    });
+  },
+  changeAvatar: (req, res) => {
+    const id = req.params.user_id;
+    var newForm = formidable.IncomingForm();
+    newForm.keepExtensions = true;
+    newForm.parse(req, (err, fields, file) => {
+      cloudinary.uploader.upload(file.image.path, (result) => {
+        const newImage = {image: result.url};
+        users.update(id, newImage);
+        res.redirect('/settings');
+      });
     });
   }
 }

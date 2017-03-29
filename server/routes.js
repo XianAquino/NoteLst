@@ -14,6 +14,7 @@ router.get('/users', users.get);
 router.get('/users/:username', users.getUser);
 router.put('/users/:user_id', users.update);
 router.post('/users/:user_id/changePwd', users.changePwd);
+router.post('/users/:user_id/changeAvatar', users.changeAvatar);
 router.delete('/users/:user_id', users.delete);
 
 router.get('/users/:user_id/todos', todos.get);

@@ -10,6 +10,10 @@ const Settings = ({user}) => {
   const {id, username, image, name, email} = user;
   return (
     <div className='settings'>
+      <Avatar
+        id={id}
+        image={image}
+      />
       <General
         id={id}
         username={username}
