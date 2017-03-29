@@ -11,3 +11,10 @@ export const loadGroupMembers = (members) => {
     payload: members
   };
 };
+
+export const addNewMember = (user) => {
+  return {
+    type: 'ADD_MEMBER',
+    payload: user
+  };
+};

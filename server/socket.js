@@ -26,6 +26,11 @@ io.on('connection', (socket) => {
     socket.join(`gr${groupId}`);
   });
 
+  socket.on('newMember', (groupId, user) => {
+    groups.join(groupId, user.userId);
+    io.to(`gr${groupId}`).emit('addNewMember', groupId, user);
+  })
+
   socket.on('shareNote', (groupId, noteId,  post) => {
     notes.share(groupId, noteId, (postId) => {
       post.postId = postId;

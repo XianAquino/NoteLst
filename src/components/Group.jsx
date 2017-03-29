@@ -19,32 +19,44 @@ class Group extends Component {
     groupRequest.deleteGroup(id);
     actions.deleteGroup(id);
   }
+
   enter() {
     browserHistory.push(`/groups/${this.props.id}`);
   }
 
-  joinGroup() {
-    const { id, name, dateCreated, createdBy, noOfMembers,
-            creatorId, actions, userId } = this.props;
-    const newGroup = {
-      id,
+  newGroup() {
+    const { id, name, dateCreated, createdBy, noOfMembers, creatorId} = this.props;
+    return {
+      group_id: id,
       name,
       creator: creatorId,
       date: dateCreated,
       date_joined: new Date().toISOString(),
       creator_name: createdBy,
       no_of_members: noOfMembers + 1
-    }
-    groupRequest.joinGroup(id, userId);
-    actions.addGroup(newGroup);
+    };
+  }
+
+  newMember() {
+    const { id, name, username }  = this.props.user;
+    return {
+      userId: id,
+      name,
+      username
+    };
+  }
+
+  joinGroup() {
+    const { id, actions, socket } = this.props;
+    socket.emit('newMember', id, this.newMember());
+    actions.addGroup(this.newGroup());
     actions.removeSearchedGroup(id);
   }
 
   render() {
-    const { id, name, dateCreated, noOfMembers, userId,
+    const { id, name, dateCreated, noOfMembers, user,
       createdBy, creatorId, dateJoined, nonMember } = this.props;
-
-    if (userId !== creatorId) {
+    if (user.id !== creatorId) {
       return(
         <li>
           <p>Group {name}</p>
@@ -79,14 +91,19 @@ Group.propTypes = {
   noOfMembers: PropTypes.number,
   createdBy: PropTypes.string,
   creatorId: PropTypes.number,
-  userId: PropTypes.number,
+  user: PropTypes.object,
   dateJoined: PropTypes.string,
   actions: PropTypes.object,
-  nonMember: PropTypes.bool
+  nonMember: PropTypes.bool,
+  socket: PropTypes.object
 };
+
+const mapStateToProps = (state) => ({
+  socket: state.socket
+})
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(Object.assign(groupActions, searchedGroupsActions), dispatch)
 })
 
-export default connect(null, mapDispatchToProps)(Group);
+export default connect(mapStateToProps, mapDispatchToProps)(Group);

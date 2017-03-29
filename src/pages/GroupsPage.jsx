@@ -3,15 +3,15 @@ import CreateGroup from '../components/CreateGroup';
 import Groups from '../components/Groups';
 import { connect } from 'react-redux';
 
-const GroupsPage = ({userId}) => {
-  if (userId) {
+const GroupsPage = ({userInfo}) => {
+  if (userInfo.id) {
     return(
       <div className='container-fluid'>
         <div className='row'>
           <aside className='side-bar col-md-3 col-lg-3 hidden-sm hidden-xs'>
             <CreateGroup/>
           </aside>
-          <Groups userId={userId}/>
+          <Groups user={userInfo}/>
         </div>
       </div>
     )
@@ -20,11 +20,11 @@ const GroupsPage = ({userId}) => {
 };
 
 GroupsPage.propTypes = {
-  userId: PropTypes.number
+  userInfo: PropTypes.object
 };
 
 const mapStateToProps = (state) => ({
-  userId: state.userInfo.id
+  userInfo: state.userInfo
 });
 
 export default connect(mapStateToProps)(GroupsPage);

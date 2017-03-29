@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import Member from '../components/Member';
 
-const Members = ({noOfMembers, members, adminId, admin, adminUserName}) => {
+const Members = ({username, noOfMembers, members, adminId, admin, adminUserName}) => {
   return(
     <div>
       <div>
@@ -11,8 +11,9 @@ const Members = ({noOfMembers, members, adminId, admin, adminUserName}) => {
         <span>Admin:</span>
         <Member
           id={adminId}
-          name={admin}
-          username={adminUserName}
+          memberName={admin}
+          memberUsername={adminUserName}
+          username={username}
         />
       </div>
       <div>
@@ -21,9 +22,10 @@ const Members = ({noOfMembers, members, adminId, admin, adminUserName}) => {
           members.map((member,i) =>
           <Member
             key={i}
-            id={member.user_id}
-            name={member.name}
-            username={member.username}
+            id={member.userId}
+            memberName={member.name}
+            memberUsername={member.username}
+            username={username}
           />
           )
         }
@@ -38,7 +40,8 @@ Member.proptypes = {
   adminId: PropTypes.number,
   admin: PropTypes.string,
   adminUserName: PropTypes.string,
-  noOfMembers: PropTypes.number
+  noOfMembers: PropTypes.number,
+  username: PropTypes.string
 }
 
 export default Members;

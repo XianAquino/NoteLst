@@ -19,16 +19,16 @@ class Groups extends Component{
   }
 
   componentWillMount() {
-    const {userId, actions} = this.props;
-    groupRequest.joinedGroups(userId, (groups) => {
+    const {user, actions} = this.props;
+    groupRequest.joinedGroups(user.id, (groups) => {
       actions.loadGroups(groups);
     });
   }
 
   searchGroup(event) {
-    const {userId, actions} = this.props;
+    const {user, actions} = this.props;
     this.setState({targetGroup: event.target.value}, () => {
-        debounceSearch(this.state.targetGroup, userId, (groups) => {
+        debounceSearch(this.state.targetGroup, user.id, (groups) => {
           actions.loadSearchedGroups(groups);
         });
       }
@@ -36,7 +36,7 @@ class Groups extends Component{
   }
 
   render() {
-    const { groups, searchedGroups, userId } = this.props;
+    const { groups, searchedGroups, user } = this.props;
     const { targetGroup } = this.state;
     if(groups.length) {
       return (
@@ -49,8 +49,8 @@ class Groups extends Component{
             </div>
             <div className='row'>
               {
-                targetGroup ? <SearchedGroups groups={searchedGroups} userId={userId}/>
-                  : <JoinedGroups groups={groups} userId={userId}/>
+                targetGroup ? <SearchedGroups groups={searchedGroups} user={user}/>
+                  : <JoinedGroups groups={groups} user={user}/>
               }
             </div>
           </div>
@@ -62,7 +62,7 @@ class Groups extends Component{
 }
 
 Groups.propTypes = {
-  userId: PropTypes.number,
+  user: PropTypes.object,
   groups: PropTypes.array,
   searchedGroups: PropTypes.array
 };
