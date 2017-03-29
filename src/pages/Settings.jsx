@@ -16,6 +16,11 @@ const Settings = ({user}) => {
         name={name}
         email={email}
       />
+      <hr/>
+      <Account
+        id={id}
+        username={username}
+      />
     </div>
   );
 };

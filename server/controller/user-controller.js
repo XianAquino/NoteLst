@@ -3,6 +3,7 @@ const createSession = require('../util/createSession.js');
 const uuid = require('uuid/v1');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const salt = bcrypt.genSaltSync(saltRounds);
 
 module.exports = {
   get: (req, res) => {
@@ -17,7 +18,6 @@ module.exports = {
   },
   create: (req, res) => {
     let params = req.body;
-    const salt = bcrypt.genSaltSync(saltRounds);
     const hashPwd = bcrypt.hashSync(params.pwd, salt);
     params.pwd = hashPwd;
     users.createUser(params, (err, response) => {
@@ -88,5 +88,17 @@ module.exports = {
     const id = req.params.user_id;
     users.delete(id);
     res.send('Deleted');
+  },
+  changePwd: (req, res) => {
+    const id = req.params.user_id;
+    const {oldPwd, newPwd, username} = req.body;
+    users.getUser(username, (err, info) => {
+      if(bcrypt.compareSync(oldPwd, info.pwd)){
+        users.update(id, {pwd: bcrypt.hashSync(newPwd, salt)});
+        res.send('success');
+      } else {
+        res.send('incorrect');
+      }
+    });
   }
 }
