@@ -109,12 +109,13 @@ module.exports = {
   changeAvatar: (req, res) => {
     const id = req.params.user_id;
     var newForm = formidable.IncomingForm();
+    const resize = { width: 300, crop: 'scale' }
     newForm.keepExtensions = true;
     newForm.parse(req, (err, fields, file) => {
-      cloudinary.uploader.upload(file.image.path, (result) => {
-        const newImage = {image: result.url};
-        users.update(id, newImage);
-        res.redirect('/settings');
+    cloudinary.v2.uploader.upload(file.image.path, resize, (error, result) => {
+      const newImage = {image: result.url};
+      users.update(id, newImage);
+      res.redirect('/settings');
       });
     });
   }
