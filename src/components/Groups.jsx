@@ -56,7 +56,7 @@ class Groups extends Component{
                 </div>
               </ToolbarGroup>
             </Toolbar>
-            <div className='row'>
+            <div className='row content-list'>
               {
                 targetGroup ? <SearchedGroups groups={searchedGroups} user={user}/>
                   : <JoinedGroups groups={groups} user={user}/>

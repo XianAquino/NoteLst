@@ -34,7 +34,7 @@ class Tasks extends Component {
   render() {
     const { tasks } = this.props;
     return(
-      <div className='tasks'>
+      <div className='tasks content-list'>
         {
           tasks.map((task, i) =>
             <Task
