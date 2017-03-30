@@ -6,11 +6,27 @@ import * as taskActions from '../actions/taskActions.jsx';
 
 import TaskForm from '../components/TaskForm';
 import Task from '../components/Tasks';
-import { RaisedButton, DatePicker } from 'material-ui';
+import { RaisedButton, DatePicker, Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui';
 import ProgressMeter from '../components/ProgressMeter';
 import TaskChart from '../components/TaskChart';
 
 import '../css/dashboard.css';
+
+const DateTimeFormat = global.Intl.DateTimeFormat;
+const style = {
+  toolbar: {
+    backgroundColor: '#008A7D',
+  },
+  toolbarTitle: {
+    color: '#FFF'
+  },
+  toolbarSeparator: {
+    backgroundColor: '#FFF'
+  },
+  date: {
+    width:'110px'
+  }
+};
 
 class Dashboard extends Component {
   constructor(props) {
@@ -42,8 +58,8 @@ class Dashboard extends Component {
     });
   }
 
-  toggleTaskForm(toggle) {
-    this.setState({showForm: toggle});
+  toggleTaskForm() {
+    this.setState({showForm: !this.state.showForm});
   }
 
   handleInputChange(event, value) {
@@ -61,27 +77,33 @@ class Dashboard extends Component {
               <ProgressMeter/>
               <TaskChart userId = {userInfo.id}/>
             </aside>
-            <div className='col-xs-12 col-sm-12 col-md-9 col-lg-9'>
+            <div className='main-container col-xs-12 col-sm-12 col-md-9 col-lg-9'>
               <div className='task-container container-fluid'>
-                <div className='row task-options'>
-                  <label>Date</label>
-                  <DatePicker
-                    id='task-date-picker'
-                    value={this.state.date}
-                    style={{float: 'left'}}
-                    onChange={this.handleInputChange}
-                  />
-                </div>
+                <Toolbar style={style.toolbar}>
+                  <ToolbarGroup>
+                    <ToolbarTitle style={style.toolbarTitle} text='Date'/>
+                    <DatePicker
+                      style={style.date}
+                      id='task-date-picker'
+                      value={this.state.date}
+                      underlineShow={false}
+                      onChange={this.handleInputChange}
+                      formatDate={new DateTimeFormat('en-US', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric',
+                      }).format}
+                    />
+                    <ToolbarSeparator style={style.toolbarSeparator}/>
+                    <RaisedButton
+                      backgroundColor='#175057'
+                      labelColor='#FFF'
+                      label='Add'
+                      onTouchTap={this.toggleTaskForm}
+                    />
+                  </ToolbarGroup>
+                </Toolbar>
                 <div className='row'>
-                  <div className='task-header'>
-                    <h2>Tasks
-                      <span>
-                        <i className='material-icons'
-                          onClick={() => (this.toggleTaskForm(true))}
-                        >note_add</i>
-                      </span>
-                    </h2>
-                  </div>
                   <Task
                     selectedDate={this.state.date}
                     userId={userInfo.id}

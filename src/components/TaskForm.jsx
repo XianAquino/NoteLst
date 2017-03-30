@@ -98,7 +98,7 @@ class TaskForm extends Component {
             />
           <br/>
           <RaisedButton onClick={this.handleSubmit}
-            backgroundColor='#3F51B5'
+            backgroundColor='#008A7D'
             label='Create'
             labelColor='#FFF'
             icon={<i className="material-icons">add_box</i>}

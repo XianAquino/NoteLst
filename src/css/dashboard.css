@@ -1,5 +1,6 @@
 .task-container {
   width: 100%;
+  padding: 0;
   text-align: center;
 }
 
@@ -12,10 +13,6 @@
   position: absolute;
 }
 
-#task-date-picker {
-  font-size: 3em;
-}
-
 .task {
   margin:5px 0;
   text-align: left;
@@ -23,28 +20,8 @@
 
 .tasks {
   height: 80vh;
-  overflow-y: scroll;
-}
-
-.task-options {
-  margin: auto;
-  text-align: left;
-}
-
-.task-options label {
-  margin:8px;
-  float:left;
-  font-size: 1.6em
-}
-
-.task-header i {
-  font-size: 0.9em;
-  color: #3F51B5;
-}
-
-.task-header i:hover {
-  font-size: 0.9em;
-  color: #263238;
+  overflow-y: auto;
+  padding: 10px 0;
 }
 
 /*--------------------Side bar----------------------*/
@@ -59,14 +36,18 @@
 }
 
 .task-chart {
-  color: #3F51B5;
+  color: #455A64;
   text-align: center;
 }
 
 .progress-meter {
-  background-color: #3F51B5;
   text-align: center;
   color: #FFF;
+  background: #3F51B5;
+  background: -webkit-linear-gradient(left top, #2CC7DE, #3F51B5);
+  background: -o-linear-gradient(bottom right, #2CC7DE, #3F51B5);
+  background: -moz-linear-gradient(bottom right, #2CC7DE, #3F51B5);
+  background: linear-gradient(to bottom right, #2CC7DE, #3F51B5);
 }
 
 .meter {
