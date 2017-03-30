@@ -1,0 +1,9 @@
+.group-search {
+  width: 100%;
+}
+
+@media only screen and (max-width: 420px) {
+  .group-search {
+    width: 86vw;
+  }
+}
