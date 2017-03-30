@@ -11,9 +11,13 @@
 
 /*-----------------Chat Box Container-------------------*/
 .conversation {
-  margin-top: 10px;
-  height: 90vh;
+  height: 100vh;
   padding-bottom: 5px;
+}
+.contact-name {
+  font-size: 1.4em;
+  color: #008A7D;
+  vertical-align: middle;
 }
 
 .messages {
@@ -21,6 +25,7 @@
   height: 62vh;
   overflow-y: scroll;
   overflow-x: hidden;
+  background-color: #ecf3f9;
 }
 
 .messages ul {
@@ -29,7 +34,7 @@
 }
 
 .message {
-    background-color: #fffae6;
+    background: #B9ECF4;
     border-radius: 5px;
     box-shadow: 0 0 6px #B2B2B2;
     position: relative;
@@ -42,7 +47,7 @@
 }
 
 .message::before {
-  background-color: #fffae6;
+  background: #B9ECF4;
   content: '\00a0';
   display: block;
   height: 16px;
@@ -57,15 +62,15 @@
 }
 
 .sent {
-  background-color: #3F51B5;
-  text-align: right;
+  background: #008A7D;
   color: #FFF;
+  text-align: right;
   margin: 20px 45px 10px 20px;
   float: right;
 }
 
 .sent::before {
-  background-color: #3F51B5;
+  background-color: #008A7D;
   box-shadow: 2px -2px 2px 0 rgba( 178, 178, 178, .4 );
   right: -9px;
 }
@@ -76,8 +81,11 @@
 }
 
 /*-----------------Send Message Container-------------------*/
+.send-message {
+  height: auto;
+}
+
 .send-message-field {
-  height: 20vh;
   width: 80%;
 }
 
@@ -86,12 +94,40 @@
 }
 
 /*----------------Side Bar --------------------------------*/
-
-.search-user-container {
-  text-align: center;
+.search-container {
+  text-align: left;
+  background-color: #008A7D;
+  padding:12px 0;
+  font-size: 1.2em;
 }
 
-@media only screen and (max-width: 767px) {
+.search-field {
+  background-color: #FFF;
+  width: 94%;
+  position: relative;
+  margin: auto;
+  border: none;
+  padding: 3px 6px;
+}
+
+.search-field input {
+  border: none;
+}
+
+.search-field input:focus {
+  outline-offset: 0;
+  outline: none;
+}
+
+.search-field i {
+  vertical-align: middle;
+  color: #AAA;
+}
+
+@media only screen and (max-width: 768px) {
+  .messages {
+    height: 56vh;
+  }
   .conversation {
     height: 98vh;
   }
