@@ -23,3 +23,29 @@
 .current-group-header p {
   margin: 20px;
 }
+
+/*-----------------Post------------------*/
+
+.post {
+  margin: 10px 0;
+}
+
+.post-header i {
+  padding: 8px 6px 0;
+  color: #ecf3f9;
+  float: right;
+}
+
+.post-header i:focus, .post-header i:hover {
+  color: #C62828;
+}
+
+.post-content {
+  padding: 10px;
+}
+.post-content p {
+  font-size: 0.9em;
+}
+.post-content a {
+  font-size: 1.2em;
+}
