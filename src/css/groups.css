@@ -52,6 +52,15 @@
   float: right;
 }
 
+/*--------------Side Bar-------------------*/
+.create-group h2 {
+  color: #008A7D;
+  padding: 11px;
+}
+.create-group {
+  text-align: center
+}
+
 @media only screen and (max-width: 420px) {
 
   .group-search {
