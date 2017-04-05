@@ -49,3 +49,25 @@
 .post-content a {
   font-size: 1.2em;
 }
+
+/*-------------------Sidebar----------------*/
+
+.group-members h2{
+  margin: 10px 20px;
+  color: #008A7D;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.group-admin h2{
+  color: #175057;
+}
+.chat-icon {
+  vertical-align: middle;
+  float: right;
+  color: #2CC7DE;
+}
+
+.chat-icon:hover, .chat-icon:focus {
+  color: #175057;
+}

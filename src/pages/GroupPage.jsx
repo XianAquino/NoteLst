@@ -42,7 +42,7 @@ class GroupPage extends Component {
 
   render() {
     const { groupId, currentGroup, currentGroupMembers, params, userId, username } = this.props;
-    const { id, name, no_of_members, adminId, admin, adminUserName } = currentGroup;
+    const { id, name, no_of_members, adminId, admin, adminUserName, adminAvatar } = currentGroup;
     const target = this.state.searchMember.toLowerCase();
     const members = !target ? currentGroupMembers
       : currentGroupMembers.filter( member => member.name.toLowerCase().includes(target));
@@ -51,15 +51,20 @@ class GroupPage extends Component {
         <div className='container-fluid'>
           <div className='row'>
             <aside className='side-bar col-md-3 col-lg-3 hidden-sm hidden-xs'>
-              <input
-                type='text'
-                onChange={this.handleInput}
-                placeholder='Enter member name'
-              />
+              <div className='search-container'>
+                <div className='search-field'>
+                  <i className="material-icons">search</i>
+                  <input
+                    placeholder='Search member'
+                    onChange={this.handleInput}
+                  />
+                </div>
+              </div>
               <Members
                 adminId={adminId}
                 admin={admin}
                 adminUserName={adminUserName}
+                adminAvatar={adminAvatar}
                 members={members}
                 username={username}
               />
