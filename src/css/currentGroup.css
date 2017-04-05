@@ -1,0 +1,25 @@
+.current-group-scroll {
+  overflow-y: auto;
+  height: 86vh;
+}
+/*------------------ Header ----------------*/
+.current-group-header {
+  background:
+    radial-gradient(rgba(255,255,255,0) 0, rgba(255,255,255,.15) 30%, rgba(255,255,255,.3) 32%, rgba(255,255,255,0) 33%) 0 -80px,
+    radial-gradient(rgba(255,255,255,0) 0, rgba(255,255,255,.2) 11%, rgba(255,255,255,.4) 13%, rgba(255,255,255,0) 14%) -120px -220px,
+    radial-gradient(rgba(255,255,255,0) 0, rgba(255,255,255,.2) 11%, rgba(255,255,255,.4) 13%, rgba(255,255,255,0) 14%) 130px 370px,
+    linear-gradient(to bottom left, #2CC7DE, #175057);
+  background-size: 470px 470px, 520px 520px, 530px 530px, 100% 100%;
+  background-color: #008A7D;
+  height: 140px;
+  color: white;
+}
+
+.current-group-header h1 {
+  position: relative;
+  padding: 20px 20px 40px;
+}
+
+.current-group-header p {
+  margin: 20px;
+}

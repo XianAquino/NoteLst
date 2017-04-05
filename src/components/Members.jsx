@@ -1,12 +1,9 @@
 import React, { PropTypes } from 'react';
 import Member from '../components/Member';
 
-const Members = ({username, noOfMembers, members, adminId, admin, adminUserName}) => {
+const Members = ({username, members, adminId, admin, adminUserName}) => {
   return(
     <div>
-      <div>
-        <p>Members: </p><span>{noOfMembers}</span>
-      </div>
       <div>
         <span>Admin:</span>
         <Member
@@ -40,7 +37,6 @@ Member.proptypes = {
   adminId: PropTypes.number,
   admin: PropTypes.string,
   adminUserName: PropTypes.string,
-  noOfMembers: PropTypes.number,
   username: PropTypes.string
 }
 

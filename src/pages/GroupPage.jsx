@@ -5,6 +5,7 @@ import groupRequest from '../util/groupRequest';
 import * as currentGroupActions from '../actions/currentGroupActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import '../css/currentGroup.css';
 
 class GroupPage extends Component {
   constructor(props) {
@@ -56,7 +57,6 @@ class GroupPage extends Component {
                 placeholder='Enter member name'
               />
               <Members
-                noOfMembers={no_of_members}
                 adminId={adminId}
                 admin={admin}
                 adminUserName={adminUserName}
@@ -64,9 +64,10 @@ class GroupPage extends Component {
                 username={username}
               />
             </aside>
-            <div>
-              <div className='current-group-bar'>
-                <p>{name}</p>
+            <div className='main-container current-group-scroll col-xs-12 col-sm-12 col-md-9 col-lg-9'>
+              <div className='current-group-header'>
+                <h1>{name}</h1>
+                <p>No of Members: <span>{no_of_members}</span></p>
               </div>
               <Posts
                 userId={userId}
