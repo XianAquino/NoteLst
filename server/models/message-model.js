@@ -27,10 +27,10 @@ module.exports = {
 
   getContacts: (username, callback) => {
     const queryStatement = `SELECT * FROM
-      (SELECT user2 AS username, name, updated_at FROM conversations JOIN
+      (SELECT user2 AS username, name, image, updated_at FROM conversations JOIN
       users ON username = user2 WHERE user1 = ${username} AND no_of_msgs > 0
-      UNION SELECT user1 AS username, name, updated_at FROM conversations JOIN users
-      ON username = user1 WHERE user2 = ${username} AND no_of_msgs > 0)
+      UNION SELECT user1 AS username, name, image, updated_at FROM conversations
+      JOIN users ON username = user1 WHERE user2 = ${username} AND no_of_msgs > 0)
       as contacts ORDER BY updated_at DESC` ;
     db.query(queryStatement, (err, res) => {
       if (err) console.log(err);

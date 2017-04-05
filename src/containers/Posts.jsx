@@ -52,8 +52,8 @@ class Posts extends Component {
   render() {
     const { posts, userId } = this.props;
     return (
-      <div>
-        <ul>
+      <div className='container-fluid'>
+        <ul className='row'>
           {
             posts.map((post, i) =>
               <Post

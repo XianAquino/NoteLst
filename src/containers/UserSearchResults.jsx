@@ -1,7 +1,8 @@
 import React from 'react';
 import User from '../components/User';
 import List from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
+import { Divider, Subheader } from 'material-ui';
+
 
 const UserSearchResults = ({users, sender, search, clearResult}) => {
   if (!users.length) {
@@ -12,7 +13,8 @@ const UserSearchResults = ({users, sender, search, clearResult}) => {
 
   return(
     <List>
-      <Subheader>Search result</Subheader>
+      <Subheader>Search results</Subheader>
+      <Divider/>
       {
         users.map((user, i) =>
           <User
@@ -20,6 +22,7 @@ const UserSearchResults = ({users, sender, search, clearResult}) => {
             clearResult={clearResult}
             key={i}
             username={user.username}
+            image={user.image}
             name={user.name}
             sender={sender}
           />

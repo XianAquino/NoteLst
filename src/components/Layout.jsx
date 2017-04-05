@@ -6,16 +6,15 @@ import * as messagesActions from '../actions/messagesActions.jsx';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { MuiThemeProvider, getMuiTheme } from 'material-ui/styles';
-import { blueGrey900, teal300 } from 'material-ui/styles/colors';
 
 import checkAuth from '../util/checkAuth';
 import Navbar from '../components/Navbar';
 
 const muiTheme = getMuiTheme({
   palette: {
-    primary1Color: blueGrey900,
-    primary2Color: blueGrey900,
-    pickerHeaderColor: teal300
+    primary1Color: '#175057',
+    primary2Color: '#175057',
+    pickerHeaderColor: '#008A7D',
   }
 })
 

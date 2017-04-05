@@ -1,0 +1,69 @@
+
+
+/*------------Group Tool Bar-----------------*/
+.group-search {
+  width: 100%;
+}
+
+/*--------------Group Container--------------*/
+
+.groups h3 {
+  margin: 0;
+  color: #FFF;
+  background: #175057;
+  background: -webkit-linear-gradient(right top, #2CC7DE, #175057);
+  background: -o-linear-gradient(bottom left, #2CC7DE, #175057);
+  background: -moz-linear-gradient(bottom left, #2CC7DE, #175057);
+  background: linear-gradient(to bottom left, #2CC7DE, #175057);
+  padding: 10px;
+}
+
+.groups {
+  color: #455A64;
+}
+.groups li{
+  margin: 10px 0;
+}
+.groups span {
+  color: #008A7D;
+}
+
+.group-body {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 1.2em;
+}
+
+.group-footer {
+  padding: 10px;
+  overflow: hidden;
+  font-size: 1em;
+}
+
+.group-footer p {
+  display: inline;
+}
+
+.action-btn  {
+  float: right;
+}
+
+.member-action-btn  {
+  float: right;
+}
+
+/*--------------Side Bar-------------------*/
+.create-group h2 {
+  color: #008A7D;
+  padding: 11px;
+}
+.create-group {
+  text-align: center
+}
+
+@media only screen and (max-width: 420px) {
+
+  .group-search {
+    width: 86vw;
+  }
+}

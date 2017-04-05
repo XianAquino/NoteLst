@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import * as contactsActions from '../actions/contactsActions';
 import Contact from '../components/User';
 import List from 'material-ui/List';
-import Subheader from 'material-ui/Subheader';
+import { Divider, Subheader } from 'material-ui';
 
 class Contacts extends Component {
 
@@ -31,6 +31,7 @@ class Contacts extends Component {
       <div className='Contacts'>
         <List>
           <Subheader>Recent chats</Subheader>
+          <Divider/>
           {
             contacts.map((user, i) =>
               <Contact
@@ -39,6 +40,7 @@ class Contacts extends Component {
                 username={user.username}
                 name={user.name}
                 sender={username}
+                image={user.image}
               />
             )
           }
