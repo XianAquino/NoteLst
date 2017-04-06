@@ -1,14 +1,10 @@
 .settings-container {
   max-width: 1028px;
   margin: 0 auto;
+  color: #455A64;
 }
 
 /*-------------Avatar setting------------------*/
-.avatar-settings {
-  margin: 0 auto;
-  text-align: center;
-}
-
 .avatar-settings {
   margin: 0 auto;
   text-align: center;
@@ -76,4 +72,21 @@
   font-size: 0.8em;
   display: block;
   margin-bottom: 4px;
+}
+
+/*-------------------General Settings ------------------------*/
+.general-settings {
+  margin: 20px auto;
+  text-align: center;
+  font-size: 1.4em;
+}
+
+.general-settings p {
+  padding: 10px 10px 4px;
+  text-align: left;
+  color: #455A64;
+}
+
+.general-settings span {
+  color: #008A7D;
 }
