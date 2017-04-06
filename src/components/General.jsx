@@ -31,8 +31,7 @@ class General extends Component {
     const {id, username, name, email} = this.props;
     if (id) {
       return(
-        <div>
-          <h2>General</h2>
+        <div className='col-xs-12 col-sm-8 col-md-8 col-lg-8'>
           <p>{username}</p>
           <input
             onChange={this.handleInputChange}
