@@ -5,26 +5,35 @@ import userRequests from '../util/userRequests';
 import General from '../components/General';
 import Account from '../components/Account';
 import Avatar from '../components/Avatar';
+import { Divider } from 'material-ui';
+import '../css/settings.css';
 
 const Settings = ({user}) => {
   const {id, username, image, name, email} = user;
   return (
-    <div className='settings'>
-      <Avatar
-        id={id}
-        image={image}
-      />
-      <General
-        id={id}
-        username={username}
-        name={name}
-        email={email}
-      />
-      <hr/>
-      <Account
-        id={id}
-        username={username}
-      />
+    <div className='scroll-wrapper'>
+      <div className='settings-container'>
+        <h1>Settings</h1>
+        <Divider/>
+        <div className='container-fluid'>
+          <div className='row'>
+            <Avatar
+              id={id}
+              image={image}
+            />
+            <General
+              id={id}
+              username={username}
+              name={name}
+              email={email}
+            />
+          </div>
+        </div>
+        <Account
+          id={id}
+          username={username}
+        />
+      </div>
     </div>
   );
 };
