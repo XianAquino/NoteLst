@@ -1,8 +1,19 @@
+.scroll-wrapper {
+  width: auto;
+  overflow-y: auto;
+  height: 90vh;
+}
+
 .settings-container {
   max-width: 1028px;
   margin: 0 auto;
   color: #455A64;
 }
+
+.settings-container h1 {
+  padding: 8px;
+}
+
 
 /*-------------Avatar setting------------------*/
 .avatar-settings {
@@ -89,4 +100,9 @@
 
 .general-settings span {
   color: #008A7D;
+}
+
+/*-----------------Password Setting ----------------------------*/
+.pwd-btns {
+  float: right;
 }

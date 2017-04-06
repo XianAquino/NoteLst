@@ -67,7 +67,7 @@ class General extends Component {
             <br/>
             <RaisedButton
               onTouchTap={this.saveChanges}
-              backgroundColor='#175057'
+              backgroundColor='#008A7D'
               labelColor='#FFF'
               label='Save Changes'
               style={muiStyle.saveBtn}

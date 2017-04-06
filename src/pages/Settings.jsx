@@ -11,27 +11,29 @@ import '../css/settings.css';
 const Settings = ({user}) => {
   const {id, username, image, name, email} = user;
   return (
-    <div className='settings-container'>
-      <h1>Settings</h1>
-      <Divider/>
-      <div className='container-fluid'>
-        <div className='row'>
-          <Avatar
-            id={id}
-            image={image}
-          />
-          <General
-            id={id}
-            username={username}
-            name={name}
-            email={email}
-          />
+    <div className='scroll-wrapper'>
+      <div className='settings-container'>
+        <h1>Settings</h1>
+        <Divider/>
+        <div className='container-fluid'>
+          <div className='row'>
+            <Avatar
+              id={id}
+              image={image}
+            />
+            <General
+              id={id}
+              username={username}
+              name={name}
+              email={email}
+            />
+          </div>
         </div>
+        <Account
+          id={id}
+          username={username}
+        />
       </div>
-      <Account
-        id={id}
-        username={username}
-      />
     </div>
   );
 };

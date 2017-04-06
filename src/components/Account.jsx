@@ -1,5 +1,21 @@
 import React, {Component, PropTypes} from 'react';
 import userRequests from '../util/userRequests';
+import {Divider, Paper, TextField, RaisedButton} from 'material-ui';
+import {orange500, blue500} from 'material-ui/styles/colors';
+
+const muiStyle = {
+  container: {
+    margin: '15px',
+    textAlign: 'center',
+    overflow: 'hidden'
+  },
+  hintText: {
+    color: '#008A7D',
+  },
+  button: {
+    margin: '14px 14px 14px 0'
+  }
+};
 
 class Account extends Component {
   constructor(props) {
@@ -74,34 +90,57 @@ class Account extends Component {
     const {oldPwd, newPwd, confirmationPwd, showPassword, message} = this.state;
     const inputType = showPassword ? 'text' : 'password';
     const pwdBtnText = showPassword ? 'Hide Password' : 'Show Password';
-    const warningMessage = message ? <span>{message}</span> : null;
+    const warningMessage = message ? <span className='warning-msg'>{message}</span> : null;
     return(
-      <div>
-        <h2>Change Password</h2>
-        <input
-          type='password'
-          name='oldPwd'
-          placeholder='enter old password'
-          defaultValue={oldPwd}
-          onChange={this.handleInputChange}
-        /><br/>
-        <input
-          type={inputType}
-          name='newPwd'
-          placeholder='enter new password'
-          defaultValue={newPwd}
-          onChange={this.handleInputChange}
-        /><br/>
-        <input
-          type={inputType}
-          name='confirmationPwd'
-          placeholder='confirm new password'
-          defaultValue={confirmationPwd}
-          onChange={this.handleInputChange}
-        /><br/>
-        {warningMessage}
-        <button onClick={this.displayPwd}>{pwdBtnText}</button>
-        <button onClick={this.changePwd}>Change</button>
+      <div className='password-setting'>
+        <h1>Change Password</h1>
+        <Divider/>
+        <Paper style={muiStyle.container}>
+          <TextField
+            type='password'
+            name='oldPwd'
+            hintText='Enter old password'
+            floatingLabelText='Old Password'
+            onChange={this.handleInputChange}
+            floatingLabelStyle={muiStyle.hintText}
+          />
+          <br/>
+          <TextField
+            type={inputType}
+            name='newPwd'
+            hintText='Enter new password'
+            floatingLabelText='New Password'
+            onChange={this.handleInputChange}
+            floatingLabelStyle={muiStyle.hintText}
+          />
+          <br/>
+          <TextField
+            type={inputType}
+            name='confirmationPwd'
+            hintText='confirm new password'
+            floatingLabelText='Confirm new password'
+            onChange={this.handleInputChange}
+            floatingLabelStyle={muiStyle.hintText}
+          />
+          <br/>
+          {warningMessage}
+          <div className='pwd-btns'>
+            <RaisedButton
+              label={pwdBtnText}
+              onTouchTap={this.displayPwd}
+              backgroundColor='#FFF'
+              labelColor='#455A64'
+              style={muiStyle.button}
+            />
+            <RaisedButton
+              label='change'
+              onTouchTap={this.changePwd}
+              backgroundColor='#008A7D'
+              labelColor='#FFF'
+              style={muiStyle.button}
+            />
+          </div>
+        </Paper>
       </div>
     );
   }
