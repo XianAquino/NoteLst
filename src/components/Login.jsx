@@ -4,7 +4,6 @@ import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as loginActions from '../actions/loginActions.jsx';
-import * as userInfoActions from '../actions/userInfoActions.jsx';
 import { Paper, TextField, RaisedButton } from 'material-ui';
 
 const muiStyle = {
@@ -27,10 +26,6 @@ class Login extends Component {
     }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.signUpRedirect = this.signUpRedirect.bind(this);
-  }
-  signUpRedirect() {
-    browserHistory.push('/auth/signup');
   }
 
   handleInputChange (event) {
@@ -39,27 +34,17 @@ class Login extends Component {
       [target.name]: target.value
     });
   }
+
   handleSubmit (event) {
-    login(this.state,(response)=>{
-      const userInfo = response.data;
-      if (userInfo.userExist === false) {
-        this.props.actions.updateLoginStatus({
-          userExist: false,
-          passwordMatch: true
-        });
-      } else if (userInfo.passwordMatch === false) {
-        this.props.actions.updateLoginStatus({
-          passwordMatch: false,
-          userExist: true
-        });
+    const {checkCorrectPwd, userExist} = this.props.actions;
+    login(this.state, (response) => {
+      console.log(response)
+      if (response.data === 'incorrect username') {
+        userExist(false)
+      } else if(response.data === 'incorrect password') {
+        checkCorrectPwd(false)
       } else {
-        this.props.actions.updateLoginStatus({
-          isLoggedIn: true,
-          passwordMatch: true,
-          userExist: true,
-        });
-        this.props.actions.updateUserInfo(userInfo);
-        browserHistory.push('/');
+        browserHistory.push('/')
       }
     });
     event.preventDefault();
@@ -113,12 +98,8 @@ Login.propTypes = {
 
 const mapStateToProps = (state) => ({login: state.login});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    actions: bindActionCreators(
-      Object.assign({}, loginActions, userInfoActions),
-      dispatch
-    )
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(loginActions, dispatch)
+})
+
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

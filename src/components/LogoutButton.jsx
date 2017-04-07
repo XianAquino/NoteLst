@@ -16,7 +16,6 @@ class LogoutButton extends Component {
   logout() {
     const { actions } = this.props;
     logout(response => {
-      actions.updateLoginStatus(response.data);
       actions.removeSocket();
       browserHistory.push('/auth/login');
     });
@@ -35,7 +34,7 @@ class LogoutButton extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators(Object.assign(loginActions, socketActions), dispatch)
+    actions: bindActionCreators(socketActions, dispatch)
   };
 };
 

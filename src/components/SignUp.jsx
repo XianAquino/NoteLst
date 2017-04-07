@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import signUp from '../util/signUp.js';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
-import * as loginActions from '../actions/loginActions.jsx';
 import * as signUpActions from '../actions/signUpActions.jsx';
-import * as userInfoActions from '../actions/userInfoActions.jsx';
 import { TextField, RaisedButton } from 'material-ui';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
@@ -156,13 +154,17 @@ class SignUp extends Component {
   }
 };
 
+SignUp.propTypes = {
+  signUp: PropTypes.object,
+  action: PropTypes.object
+}
+
 const mapStateToProps = (state) => ({
-  login: state.login,
   signUp: state.signUp
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators({...signUpActions, ...loginActions, ...userInfoActions}, dispatch)
+  actions: bindActionCreators(signUpActions, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

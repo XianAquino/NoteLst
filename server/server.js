@@ -19,10 +19,13 @@ const app = new WebpackDevServer(webpack(config), {
   proxy: {"/socket": `http://localhost:${socketPort}`},
 });
 
+const oneWeek = 604800000;
+
 app.use(session({
   secret: 'notes secret',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  maxAge: oneWeek
 }))
 
 app.use(parser.json());
