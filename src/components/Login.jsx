@@ -67,7 +67,7 @@ class Login extends Component {
 
   render () {
     return(
-      <div className='login-container'>
+      <div className='signin-form'>
         <h2>Sign in</h2>
         <TextField
           hintText='Enter Username'
@@ -99,7 +99,6 @@ class Login extends Component {
           backgroundColor='#008A7D'
           label='Sign in'
           labelColor='#FFF'
-          icon={<i className="material-icons">person</i>}
           style={muiStyle.button}
         />
       </div>

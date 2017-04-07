@@ -5,6 +5,18 @@ import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import * as loginActions from '../actions/loginActions.jsx';
 import * as userInfoActions from '../actions/userInfoActions.jsx';
+import { TextField, RaisedButton } from 'material-ui';
+
+const muiStyle = {
+  input: {
+    width: '300px',
+  },
+  button: {
+    margin: '25px 0',
+    width: '300px',
+    color: '#FFF'
+  }
+};
 
 class SignUp extends Component {
   constructor(props) {
@@ -13,7 +25,7 @@ class SignUp extends Component {
       username:'',
       pwd:'',
       email:'',
-      gender:''
+      name:''
     }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -41,21 +53,47 @@ class SignUp extends Component {
   }
   render () {
     return(
-      <div className='SignUp'>
-        <h1>Sign Up</h1>
-        <form>
-          <label>Username:</label>
-          <input name='username' type='text' onChange={this.handleInputChange}/>
-          <label>Password:</label>
-          <input name='pwd' type='text' onChange={this.handleInputChange}/>
-          <label>Email:</label>
-          <input name='email' type='text' onChange={this.handleInputChange}/>
-          <label>Name:</label>
-          <input name='name' type='text' onChange={this.handleInputChange}/>
-          <label>Gender:</label>
-          <input name='text' name='gender' onChange={this.handleInputChange}/>
-          <input type='submit' value='SignUp' onClick={this.handleSubmit}/>
-        </form>
+      <div className='signup-form'>
+        <h2>Sign Up</h2>
+        <TextField
+          name='username'
+          type='text'
+          onChange={this.handleInputChange}
+          hintText='Enter username'
+          floatingLabelText='Username'
+          style={muiStyle.input}
+        /><br/>
+        <TextField
+          name='pwd'
+          type='password'
+          onChange={this.handleInputChange}
+          hintText='Enter password'
+          floatingLabelText='Password'
+          style={muiStyle.input}
+        /><br/>
+        <TextField
+          name='email'
+          type='text'
+          onChange={this.handleInputChange}
+          hintText='Enter email'
+          floatingLabelText='Email'
+          style={muiStyle.input}
+        /><br/>
+        <TextField
+          name='name'
+          type='text'
+          onChange={this.handleInputChange}
+          hintText='Enter name'
+          floatingLabelText='Name'
+          style={muiStyle.input}
+        /><br/>
+        <RaisedButton
+          label='Sign Up'
+          backgroundColor='#008A7D'
+          labelColor='#FFF'
+          style={muiStyle.button}
+          onTouchTap={this.handleSubmit}
+        />
       </div>
     );
   }

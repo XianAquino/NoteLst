@@ -14,16 +14,16 @@
 }
 
 .auth-tabs {
-  background-color: '#FFF';
+  background-color: #FFF;
 }
 
 .auth-tabs h2{
+  color: #008A7D;
   padding: 25px 20px 20px;
 }
 
-.login-container {
+.signin-form, .signup-form {
   text-align: center;
-  color: #175057;
 }
 
 footer {
