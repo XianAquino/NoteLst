@@ -11,7 +11,33 @@
   background: -o-linear-gradient(bottom right, #2CC7DE, #3F51B5);
   background: -moz-linear-gradient(bottom right, #2CC7DE, #3F51B5);
   background: linear-gradient(to bottom right, #2CC7DE, #3F51B5);
+  text-align: center;
 }
+
+.notelst-description img{
+  width: 50%;
+  height: auto;
+}
+
+.short-desc {
+  text-align: left;
+  width: 64%;
+  color: #FFF;
+  font-size: 2em;
+  margin: 20px auto;
+}
+
+.short-desc p {
+  padding: 20px 0;
+}
+
+.notelst-description i {
+  color: #175057;
+  font-size: 2.1em;
+  margin-right: 20px;
+  vertical-align: middle;
+}
+/*----------------Sign up/Sign in------------------*/
 
 .auth-tabs {
   background-color: #FFF;
@@ -29,6 +55,13 @@
 footer {
   background-color: #175057;
   height: 20vh;
+}
+
+@media only screen and (max-width: 1380px) {
+  .short-desc {
+    width: 82%;
+    font-size: 1.8em;
+  }
 }
 
 @media only screen and (max-width: 767px) {

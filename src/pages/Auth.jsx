@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { AppBar, Tabs, Tab, TextField } from 'material-ui';
 import { MuiThemeProvider, getMuiTheme } from 'material-ui/styles';
 import { browserHistory } from 'react-router';
+import Description from '../components/Description';
 import '../css/auth.css';
 
 const authTheme = getMuiTheme({
@@ -48,9 +49,7 @@ class Auth extends Component {
         />
         <div className='auth-container container-fluid'>
           <div className='row'>
-            <div className='notelst-description col-md-6 col-lg-6 hidden-xs hidden-sm'>
-
-            </div>
+            <Description/>
             <div className='auth-tabs col-xs-12 col-sm-12 col-md-6 col-lg-6'>
               <Tabs initialSelectedIndex={this.state.tabIndex}>
                 <Tab
@@ -78,6 +77,10 @@ class Auth extends Component {
       </MuiThemeProvider>
     )
   }
+};
+
+Auth.propTypes = {
+  children: PropTypes.node
 };
 
 export default Auth;
