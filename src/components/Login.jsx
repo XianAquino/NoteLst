@@ -5,10 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as loginActions from '../actions/loginActions.jsx';
 import * as userInfoActions from '../actions/userInfoActions.jsx';
-import { MuiThemeProvider } from 'material-ui/styles';
 import { Paper, TextField, RaisedButton } from 'material-ui';
-
-import '../css/auth.css';
 
 const style = {
   button: {
@@ -30,7 +27,7 @@ class Login extends Component {
     this.signUpRedirect = this.signUpRedirect.bind(this);
   }
   signUpRedirect() {
-    browserHistory.push('/signup');
+    browserHistory.push('/auth/signup');
   }
 
   handleInputChange (event) {
@@ -67,56 +64,53 @@ class Login extends Component {
 
   render () {
     return(
-      <MuiThemeProvider>
-        <div className='login-container'>
-          <img className='img-responsive' src='/logo.png' alt='NoteLst'/>
-          <div className='login task-form'>
-            <Paper zDepth={2}>
-              <h2>Sign in</h2>
-              <TextField
-                hintText='Enter Username'
-                floatingLabelText='Username'
-                name='username'
-                type='text'
-                onChange={this.handleInputChange}
-              />
-              <br/>
-              {
-                this.props.login.userExist ? null : <span>username doesn't exist</span>
-              }
-              <br/>
-              <TextField
-                hintText='Enter Password'
-                floatingLabelText='password'
-                name='pwd'
-                type='password'
-                onChange={this.handleInputChange}
-              />
-              <br/>
-              {
-                this.props.login.passwordMatch ? null : <span>password didn't match</span>
-              }
-              <br/>
-              <RaisedButton onTouchTap={this.handleSubmit}
-                backgroundColor='#3F51B5'
-                label='Sign in'
-                labelColor='#FFF'
-                icon={<i className="material-icons">person</i>}
-                style={style.button}
-              />
-              <RaisedButton
-                backgroundColor='#263238'
-                onTouchTap={this.signUpRedirect}
-                labelColor='#FFF'
-                label='Sign up'
-                icon={<i className="material-icons">person_add</i>}
-                style={style.button}
-              />
-            </Paper>
-          </div>
-
+      <div className='login-container'>
+        <img className='img-responsive' src='/logo.png' alt='NoteLst'/>
+        <div className='login task-form'>
+          <Paper zDepth={2}>
+            <h2>Sign in</h2>
+            <TextField
+              hintText='Enter Username'
+              floatingLabelText='Username'
+              name='username'
+              type='text'
+              onChange={this.handleInputChange}
+            />
+            <br/>
+            {
+              this.props.login.userExist ? null : <span>username doesn't exist</span>
+            }
+            <br/>
+            <TextField
+              hintText='Enter Password'
+              floatingLabelText='password'
+              name='pwd'
+              type='password'
+              onChange={this.handleInputChange}
+            />
+            <br/>
+            {
+              this.props.login.passwordMatch ? null : <span>password didn't match</span>
+            }
+            <br/>
+            <RaisedButton onTouchTap={this.handleSubmit}
+              backgroundColor='#3F51B5'
+              label='Sign in'
+              labelColor='#FFF'
+              icon={<i className="material-icons">person</i>}
+              style={style.button}
+            />
+            <RaisedButton
+              backgroundColor='#263238'
+              onTouchTap={this.signUpRedirect}
+              labelColor='#FFF'
+              label='Sign up'
+              icon={<i className="material-icons">person_add</i>}
+              style={style.button}
+            />
+          </Paper>
         </div>
-      </MuiThemeProvider>
+      </div>
     );
   }
 };

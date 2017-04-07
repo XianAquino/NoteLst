@@ -18,7 +18,7 @@ class LogoutButton extends Component {
     logout(response => {
       actions.updateLoginStatus(response.data);
       actions.removeSocket();
-      browserHistory.push('/login');
+      browserHistory.push('/auth/login');
     });
   }
 

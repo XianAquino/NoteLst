@@ -16,7 +16,7 @@ const muiTheme = getMuiTheme({
     primary2Color: '#175057',
     pickerHeaderColor: '#008A7D',
   }
-})
+});
 
 class Layout extends Component {
   componentWillMount() {
@@ -25,13 +25,13 @@ class Layout extends Component {
       checkAuth((isAuthenticated) => {
         actions.updateLoginStatus({isLoggedIn: isAuthenticated})
         if (!isAuthenticated) {
-          browserHistory.push('/login');
+          browserHistory.push('/auth/login');
         } else {
           actions.initializeSocket();
         }
       })
     } else if ( isLoggedIn === false) {
-      browserHistory.push('/login');
+      browserHistory.push('/auth/login');
     } else {
       actions.initializeSocket();
     }
