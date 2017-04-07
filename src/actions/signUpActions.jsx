@@ -4,3 +4,10 @@ export const checkPassword = (pwd, confirmPwd) => ({
     passwordMatch: pwd === confirmPwd
   }
 });
+
+export const usernameValidity = (usernameExist) => ({
+  type: 'USERNAME_AVAILABILITY',
+  payload: {
+    usernameAvailable: usernameExist
+  }
+});

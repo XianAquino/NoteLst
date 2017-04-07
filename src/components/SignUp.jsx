@@ -48,24 +48,32 @@ class SignUp extends Component {
     });
   }
 
+  getSignUpInfo() {
+    const {username, pwd, email, name} = this.state;
+    return {
+      username,
+      pwd,
+      email,
+      name
+    }
+  }
+
   handleSubmit (event) {
-    signUp(this.state, (response) => {
-      const user = response.data;
-      const userInfo = {
-        id: user.id,
-        username: user.username,
-        email: user.email,
-        name: user.name
-      };
-      this.props.actions.updateLoginStatus({isLoggedIn: true});
-      this.props.actions.updateUserInfo(userInfo);
-      browserHistory.push('/');
+    const {usernameValidity} = this.props.actions
+    signUp(this.getSignUpInfo(), (response) => {
+      if(response.data === 'existing username') {
+        usernameValidity(false);
+      } else if (response.data === 'success') {
+        browserHistory.push('/');
+      }
     });
     event.preventDefault();
   }
+
   render () {
     const {signUp} = this.props;
     const pwdMatchWarning = signUp.passwordMatch ? <br/> : <span className='warning-msg'>Passwords don't match</span> ;
+    const usernameWarning = signUp.usernameAvailable ? <br/> : <span className='warning-msg'>Username is not available</span> ;
     return(
       <div className='signup-form'>
         <h2>Sign Up</h2>
@@ -76,7 +84,7 @@ class SignUp extends Component {
           hintText='Enter username'
           floatingLabelText='Username'
           style={muiStyle.input}
-        /><br/>
+        />{usernameWarning}
         <TextField
           name='pwd'
           type='password'

@@ -22,21 +22,20 @@ module.exports = {
   },
   create: (req, res) => {
     let params = req.body;
-    const hashPwd = bcrypt.hashSync(params.pwd, salt);
-    params.pwd = hashPwd;
-    users.createUser(params, (err, response) => {
-      if(response.insertId) {
-        const sessionId = uuid();
-        const userInfo = {
-          isLoggedIn: true,
-          id: response.insertId,
-          username: params.username,
-          email: params.email,
-          name: params.name
-        };
-        createSession(req, res, sessionId, userInfo);
+    users.getUser(params.username, (err, exist) =>{
+      if (exist) {
+        res.send('existing username')
+      } else {
+        const hashPwd = bcrypt.hashSync(params.pwd, salt);
+        params.pwd = hashPwd;
+        users.createUser(params, (err, response) => {
+          if(response.insertId) {
+            const sessionId = uuid();
+            createSession(req, res, sessionId, username);
+          }
+        });
       }
-    });
+    })
   },
   login: (req, res) => {
     const params = req.body;
