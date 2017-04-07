@@ -5,7 +5,7 @@ const AuthBar = () => {
     <div className='auth-bar'>
       <img
         className='auth-bar-logo'
-        src='/nav-logo.svg'
+        src='/images/nav-logo.svg'
         alt='notelst-logo-nav'
       />
     </div>
