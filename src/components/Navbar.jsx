@@ -67,7 +67,7 @@ class Navbar extends Component {
       >
         <img
           className='title'
-          src='/nav-logo.png'
+          src='/nav-logo.svg'
           alt='notelst-logo-nav'
           onClick={()=>(this.onClickMenu())}
         />
