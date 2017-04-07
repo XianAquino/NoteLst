@@ -1,8 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import { AppBar, Tabs, Tab, TextField } from 'material-ui';
+import { Tabs, Tab, TextField } from 'material-ui';
 import { MuiThemeProvider, getMuiTheme } from 'material-ui/styles';
 import { browserHistory } from 'react-router';
 import Description from '../components/Description';
+import AuthBar from '../components/AuthBar';
 import '../css/auth.css';
 
 const authTheme = getMuiTheme({
@@ -42,11 +43,7 @@ class Auth extends Component {
     return (
       <MuiThemeProvider muiTheme={authTheme}>
       <div>
-        <AppBar
-          style={loginAppBarStyle}
-          iconClassNameLeft='none'
-          zDepth={0}
-        />
+        <AuthBar/>
         <div className='auth-container container-fluid'>
           <div className='row'>
             <Description/>

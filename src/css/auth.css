@@ -1,3 +1,15 @@
+.auth-bar {
+  height: 64px;
+  background-color: #175057;
+  text-align: center;
+}
+
+.auth-bar-logo {
+  margin: 4px;
+  height: 56px;
+  display: none;
+}
+
 .notelst-description, .auth-tabs {
   margin: 0;
   padding: 0;
@@ -64,11 +76,14 @@ footer {
   }
 }
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 990px) {
   .notelst-description {
     display: none;
   }
   .auth-tabs {
     width: 100%;
+  }
+  .auth-bar-logo {
+    display: initial;
   }
 }
