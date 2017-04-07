@@ -1,22 +1,41 @@
-.login-container {
-  margin-top: 0;
-  padding-top: 20px;
-  background-color: #37474F;
-  background: -webkit-linear-gradient(left top, #37474F, #263238);
-  background: -o-linear-gradient(left top, #37474F, #263238);
-  background: -moz-linear-gradient(left top, #37474F, #263238);
-  background: linear-gradient(left top, #37474F, #263238);
-  height: 100vh;
-  max-height: 300vh;
-}
-.login {
-  margin: 0 auto;
-  z-index: 2;
+.notelst-description, .auth-tabs {
+  margin: 0;
+  padding: 0;
+  min-height: 80vh;
+  max-height: 150vh;
 }
 
-.login-container img {
-  z-index: 2;
-  width: 60%;
-  height: auto;
-  margin: auto;
+.notelst-description {
+  background: #3F51B5;
+  background: -webkit-linear-gradient(left top, #2CC7DE, #3F51B5);
+  background: -o-linear-gradient(bottom right, #2CC7DE, #3F51B5);
+  background: -moz-linear-gradient(bottom right, #2CC7DE, #3F51B5);
+  background: linear-gradient(to bottom right, #2CC7DE, #3F51B5);
+}
+
+.auth-tabs {
+  background-color: '#FFF';
+}
+
+.auth-tabs h2{
+  padding: 25px 20px 20px;
+}
+
+.login-container {
+  text-align: center;
+  color: #175057;
+}
+
+footer {
+  background-color: #175057;
+  height: 20vh;
+}
+
+@media only screen and (max-width: 767px) {
+  .notelst-description {
+    display: none;
+  }
+  .auth-tabs {
+    width: 100%;
+  }
 }

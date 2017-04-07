@@ -7,10 +7,13 @@ import * as loginActions from '../actions/loginActions.jsx';
 import * as userInfoActions from '../actions/userInfoActions.jsx';
 import { Paper, TextField, RaisedButton } from 'material-ui';
 
-const style = {
+const muiStyle = {
+  input: {
+    width: '300px'
+  },
   button: {
     margin: '5px 12px 10px',
-    width: '44%',
+    width: '300px',
     color: '#FFF'
   }
 };
@@ -65,51 +68,40 @@ class Login extends Component {
   render () {
     return(
       <div className='login-container'>
-        <img className='img-responsive' src='/logo.png' alt='NoteLst'/>
-        <div className='login task-form'>
-          <Paper zDepth={2}>
-            <h2>Sign in</h2>
-            <TextField
-              hintText='Enter Username'
-              floatingLabelText='Username'
-              name='username'
-              type='text'
-              onChange={this.handleInputChange}
-            />
-            <br/>
-            {
-              this.props.login.userExist ? null : <span>username doesn't exist</span>
-            }
-            <br/>
-            <TextField
-              hintText='Enter Password'
-              floatingLabelText='password'
-              name='pwd'
-              type='password'
-              onChange={this.handleInputChange}
-            />
-            <br/>
-            {
-              this.props.login.passwordMatch ? null : <span>password didn't match</span>
-            }
-            <br/>
-            <RaisedButton onTouchTap={this.handleSubmit}
-              backgroundColor='#3F51B5'
-              label='Sign in'
-              labelColor='#FFF'
-              icon={<i className="material-icons">person</i>}
-              style={style.button}
-            />
-            <RaisedButton
-              backgroundColor='#263238'
-              onTouchTap={this.signUpRedirect}
-              labelColor='#FFF'
-              label='Sign up'
-              icon={<i className="material-icons">person_add</i>}
-              style={style.button}
-            />
-          </Paper>
-        </div>
+        <h2>Sign in</h2>
+        <TextField
+          hintText='Enter Username'
+          floatingLabelText='Username'
+          name='username'
+          type='text'
+          style={muiStyle.input}
+          onChange={this.handleInputChange}
+        />
+        <br/>
+        {
+          this.props.login.userExist ? null : <span className='warning-msg'>username doesn't exist</span>
+        }
+        <br/>
+        <TextField
+          hintText='Enter Password'
+          floatingLabelText='password'
+          name='pwd'
+          type='password'
+          style={muiStyle.input}
+          onChange={this.handleInputChange}
+        />
+        <br/>
+        {
+          this.props.login.passwordMatch ? null : <span className='warning-msg'>password didn't match</span>
+        }
+        <br/>
+        <RaisedButton onTouchTap={this.handleSubmit}
+          backgroundColor='#008A7D'
+          label='Sign in'
+          labelColor='#FFF'
+          icon={<i className="material-icons">person</i>}
+          style={muiStyle.button}
+        />
       </div>
     );
   }
