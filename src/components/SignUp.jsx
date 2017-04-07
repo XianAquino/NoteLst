@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import * as loginActions from '../actions/loginActions.jsx';
+import * as signUpActions from '../actions/signUpActions.jsx';
 import * as userInfoActions from '../actions/userInfoActions.jsx';
 import { TextField, RaisedButton } from 'material-ui';
 
@@ -24,18 +25,29 @@ class SignUp extends Component {
     this.state = {
       username:'',
       pwd:'',
+      confirmPwd: '',
       email:'',
       name:''
     }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
+  passwordsOnKeyDown(inputField) {
+    // return true when a user types in the confirm password field
+    // or if he types in the password field and confirm password field is not empty
+    return (inputField === 'confirmPwd' || (inputField === 'pwd' && this.state.confirmPwd))
+  }
+
   handleInputChange (event) {
     const target = event.target;
-    this.setState({
-      [target.name]: target.value
+    const {checkPassword} = this.props.actions;
+    this.setState({[target.name]: target.value}, () => {
+      const {pwd, confirmPwd} = this.state;
+      if(this.passwordsOnKeyDown(target.name)) checkPassword(pwd, confirmPwd);
     });
   }
+
   handleSubmit (event) {
     signUp(this.state, (response) => {
       const user = response.data;
@@ -52,6 +64,8 @@ class SignUp extends Component {
     event.preventDefault();
   }
   render () {
+    const {signUp} = this.props;
+    const pwdMatchWarning = signUp.passwordMatch ? <br/> : <span className='warning-msg'>Passwords don't match</span> ;
     return(
       <div className='signup-form'>
         <h2>Sign Up</h2>
@@ -71,6 +85,14 @@ class SignUp extends Component {
           floatingLabelText='Password'
           style={muiStyle.input}
         /><br/>
+        <TextField
+          name='confirmPwd'
+          type='password'
+          onChange={this.handleInputChange}
+          hintText='Enter password'
+          floatingLabelText='Password'
+          style={muiStyle.input}
+        />{pwdMatchWarning}
         <TextField
           name='email'
           type='text'
@@ -93,21 +115,20 @@ class SignUp extends Component {
           labelColor='#FFF'
           style={muiStyle.button}
           onTouchTap={this.handleSubmit}
+          disabled={!signUp.passwordMatch}
         />
       </div>
     );
   }
 };
 
-const mapStateToProps = (state) => ({login: state.login});
+const mapStateToProps = (state) => ({
+  login: state.login,
+  signUp: state.signUp
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    actions: bindActionCreators(
-      Object.assign({}, loginActions, userInfoActions),
-      dispatch
-    )
-  };
-};
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators({...signUpActions, ...loginActions, ...userInfoActions}, dispatch)
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp);
