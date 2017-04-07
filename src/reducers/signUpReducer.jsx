@@ -7,9 +7,11 @@ const defaultState = {
 const signUpReducer = (state = defaultState, action) => {
   switch (action.type) {
     case 'PASSWORD_MATCH':
-      return {...defaultState, ...action.payload};
+      return {...state, ...{passwordMatch: action.payload}};
     case 'USERNAME_AVAILABILITY':
-      return {...defaultState, ...action.payload};
+      return {...defaultState, ...{usernameAvailable: action.payload}};
+    case 'SHOW_PASSWORD':
+      return {...state, ...{showPassword: action.payload}};
     default:
       return state;
   }

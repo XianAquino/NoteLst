@@ -7,15 +7,26 @@ import * as loginActions from '../actions/loginActions.jsx';
 import * as signUpActions from '../actions/signUpActions.jsx';
 import * as userInfoActions from '../actions/userInfoActions.jsx';
 import { TextField, RaisedButton } from 'material-ui';
+import IconButton from 'material-ui/IconButton';
+import FontIcon from 'material-ui/FontIcon';
 
 const muiStyle = {
   input: {
     width: '300px',
   },
+  inputPwd:{
+    width: '270px'
+  },
   button: {
     margin: '25px 0',
     width: '300px',
     color: '#FFF'
+  },
+  icon: {
+    verticalAlign: 'middle',
+    color: '#175057',
+    fontSize: '2.2em',
+    width: '30px'
   }
 };
 
@@ -31,6 +42,7 @@ class SignUp extends Component {
     }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.showPasswordText = this.showPasswordText.bind(this);
   }
 
   passwordsOnKeyDown(inputField) {
@@ -58,6 +70,15 @@ class SignUp extends Component {
     }
   }
 
+  showPasswordText() {
+    this.props.actions.showPassword(!this.props.signUp.showPassword);
+  }
+
+  inputFieldsEmtpy() {
+    const {username, pwd, confirmPwd, email} = this.state;
+    return !Boolean(username && pwd && confirmPwd && email);
+  }
+
   handleSubmit (event) {
     const {usernameValidity} = this.props.actions
     signUp(this.getSignUpInfo(), (response) => {
@@ -71,9 +92,10 @@ class SignUp extends Component {
   }
 
   render () {
-    const {signUp} = this.props;
-    const pwdMatchWarning = signUp.passwordMatch ? <br/> : <span className='warning-msg'>Passwords don't match</span> ;
-    const usernameWarning = signUp.usernameAvailable ? <br/> : <span className='warning-msg'>Username is not available</span> ;
+    const {passwordMatch, usernameAvailable, showPassword} = this.props.signUp;
+    const pwdMatchWarning = passwordMatch ? <br/> : <span className='warning-msg'>Passwords don't match</span> ;
+    const usernameWarning = usernameAvailable ? <br/> : <span className='warning-msg'>Username is not available</span> ;
+    const pwdInputType = showPassword ? 'text' : 'password';
     return(
       <div className='signup-form'>
         <h2>Sign Up</h2>
@@ -87,15 +109,19 @@ class SignUp extends Component {
         />{usernameWarning}
         <TextField
           name='pwd'
-          type='password'
+          type={pwdInputType}
           onChange={this.handleInputChange}
           hintText='Enter password'
           floatingLabelText='Password'
-          style={muiStyle.input}
-        /><br/>
+          style={muiStyle.inputPwd}
+        /><i
+          className='material-icons'
+          style={muiStyle.icon}
+          onClick={this.showPasswordText}
+          >pageview</i><br/>
         <TextField
           name='confirmPwd'
-          type='password'
+          type={pwdInputType}
           onChange={this.handleInputChange}
           hintText='Enter password'
           floatingLabelText='Password'
@@ -123,7 +149,7 @@ class SignUp extends Component {
           labelColor='#FFF'
           style={muiStyle.button}
           onTouchTap={this.handleSubmit}
-          disabled={!signUp.passwordMatch}
+          disabled={this.inputFieldsEmtpy() || !passwordMatch}
         />
       </div>
     );
