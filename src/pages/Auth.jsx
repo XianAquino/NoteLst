@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
-import { Tabs, Tab, TextField } from 'material-ui';
 import { MuiThemeProvider, getMuiTheme } from 'material-ui/styles';
 import { browserHistory } from 'react-router';
 import Description from '../components/Description';
 import AuthBar from '../components/AuthBar';
+import AuthTabs from '../components/AuthTabs';
 import '../css/auth.css';
 
 const authTheme = getMuiTheme({
@@ -47,24 +47,12 @@ class Auth extends Component {
         <div className='auth-container container-fluid'>
           <div className='row'>
             <Description/>
-            <div className='auth-tabs col-xs-12 col-sm-12 col-md-6 col-lg-6'>
-              <Tabs initialSelectedIndex={this.state.tabIndex}>
-                <Tab
-                  label='Sign In'
-                  icon={<i className="material-icons">person</i>}
-                  onActive={this.signIn}
-                >
-                {children}
-                </Tab>
-                <Tab
-                  label='Sign Up'
-                  icon={<i className="material-icons">person_add</i>}
-                  onActive={this.signUp}
-                >
-                {children}
-                </Tab>
-              </Tabs>
-            </div>
+            <AuthTabs
+              tabIndex={this.state.tabIndex}
+              signUp={this.signUp}
+              signIn={this.signIn}
+              children={children}
+            />
           </div>
         </div>
         <footer>
