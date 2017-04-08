@@ -44,29 +44,26 @@ class Groups extends Component{
   render() {
     const { groups, searchedGroups, user } = this.props;
     const { targetGroup } = this.state;
-    if(groups.length) {
-      return (
-        <div className='main-container col-xs-12 col-sm-12 col-md-9 col-lg-9'>
-          <div className='containers-fluid'>
-            <Toolbar style={toolbar}>
-              <ToolbarGroup>
-                <div className='search-field group-search'>
-                  <i className="material-icons">search</i>
-                  <input onChange={this.searchGroup} type='text' placeholder='Search Group'/>
-                </div>
-              </ToolbarGroup>
-            </Toolbar>
-            <div className='row content-list'>
-              {
-                targetGroup ? <SearchedGroups groups={searchedGroups} user={user}/>
-                  : <JoinedGroups groups={groups} user={user}/>
-              }
-            </div>
+    return (
+      <div className='main-container col-xs-12 col-sm-12 col-md-9 col-lg-9'>
+        <div className='containers-fluid'>
+          <Toolbar style={toolbar}>
+            <ToolbarGroup>
+              <div className='search-field group-search'>
+                <i className="material-icons">search</i>
+                <input onChange={this.searchGroup} type='text' placeholder='Search Group'/>
+              </div>
+            </ToolbarGroup>
+          </Toolbar>
+          <div className='row content-list'>
+            {
+              targetGroup ? <SearchedGroups groups={searchedGroups} user={user}/>
+                : <JoinedGroups groups={groups} user={user}/>
+            }
           </div>
         </div>
-      )
-    }
-    return null;
+      </div>
+    )
   }
 }
 
