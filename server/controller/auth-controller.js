@@ -57,6 +57,18 @@ module.exports = {
       res.json(userinfo);
     });
   },
+  changePwd: (req, res) => {
+    const id = req.params.user_id;
+    const {oldPwd, newPwd, username} = req.body;
+    users.getUser(username, (err, info) => {
+      if(bcrypt.compareSync(oldPwd, info.pwd)){
+        users.update(id, {pwd: bcrypt.hashSync(newPwd, salt)});
+        res.send('success');
+      } else {
+        res.send('incorrect');
+      }
+    });
+  },
   logout: (req, res) => {
     req.session.destroy( () => {
       res.json({ isLoggedIn: false });

@@ -11,11 +11,11 @@ router.post('/login', auth.login);
 router.get('/logout', auth.logout);
 router.get('/isAuthenticated', auth.checkAuth);
 router.get('/initialInfo', auth.getInitialInfo);
+router.post('/users/:user_id/changePwd', auth.changePwd);
 
 router.get('/users', users.get);
 router.get('/users/:username', users.getUser);
 router.put('/users/:user_id', users.update);
-router.post('/users/:user_id/changePwd', users.changePwd);
 router.post('/users/:user_id/changeAvatar', users.changeAvatar);
 router.delete('/users/:user_id', users.delete);
 

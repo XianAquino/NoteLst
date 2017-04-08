@@ -31,18 +31,6 @@ module.exports = {
     users.delete(id);
     res.send('Deleted');
   },
-  changePwd: (req, res) => {
-    const id = req.params.user_id;
-    const {oldPwd, newPwd, username} = req.body;
-    users.getUser(username, (err, info) => {
-      if(bcrypt.compareSync(oldPwd, info.pwd)){
-        users.update(id, {pwd: bcrypt.hashSync(newPwd, salt)});
-        res.send('success');
-      } else {
-        res.send('incorrect');
-      }
-    });
-  },
   changeAvatar: (req, res) => {
     const id = req.params.user_id;
     var newForm = formidable.IncomingForm();
