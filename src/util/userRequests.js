@@ -1,6 +1,10 @@
 import axios from 'axios';
 
 const request = {
+  getInfo: (callback) => {
+    axios.get('/api/initialInfo')
+    .then(response => callback(response.data));
+  },
   update: (userId, params) => {
     axios.put(`/api/users/${userId}`, params)
   },

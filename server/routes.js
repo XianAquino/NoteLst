@@ -4,11 +4,13 @@ var todos = require('./controller/todo-controller.js');
 var notes = require('./controller/note-controller.js');
 var messsages = require('./controller/message-controller.js');
 var groups = require('./controller/group-controller.js');
+var auth = require('./controller/auth-controller.js');
 
-router.post('/signUp', users.create);
-router.post('/login', users.login);
-router.get('/logout', users.logout);
-router.get('/isAuthenticated', users.checkAuth);
+router.post('/signUp', auth.signUp);
+router.post('/login', auth.login);
+router.get('/logout', auth.logout);
+router.get('/isAuthenticated', auth.checkAuth);
+router.get('/initialInfo', auth.getInitialInfo);
 
 router.get('/users', users.get);
 router.get('/users/:username', users.getUser);

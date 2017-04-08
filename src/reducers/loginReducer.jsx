@@ -1,13 +1,14 @@
 const defaultState = {
-  isLoggedIn: undefined,
   passwordMatch: true,
   userExist: true,
 }
 
 const loginReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case 'UPDATE_LOGIN_STATE':
-      return Object.assign({}, state, action.payload);
+    case 'CORRECT_PASSWORD':
+      return {...defaultState, ...{passwordMatch: action.payload}};
+    case 'USER_EXIST':
+      return {...defaultState, ...{userExist: action.payload}};
     default:
       return state;
   }

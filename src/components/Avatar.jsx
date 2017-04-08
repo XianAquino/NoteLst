@@ -35,7 +35,7 @@ class Avatar extends Component {
     const invalidImgWarning = invalidImg ? <span className='warning-msg'>Invalid image file</span> : null;
     return(
       <div className='avatar-settings col-xs-12 col-sm-4 col-md-4 col-lg-4'>
-        <img src={image} alt='avatar'/>
+        <img src={image || defaultImg} alt='avatar'/>
         <form method='post'
           encType='multipart/form-data'
           action={`/api/users/${id}/changeAvatar`}>

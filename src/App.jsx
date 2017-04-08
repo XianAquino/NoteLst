@@ -2,8 +2,8 @@ import React from 'react';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 import Dashboard from './pages/Dashboard.jsx';
-import Login from './pages/Login.jsx';
-import SignUp from './pages/SignUp.jsx';
+import Login from './components/Login.jsx';
+import SignUp from './components/SignUp.jsx';
 import NotFound from './pages/NotFound.jsx';
 import Notes from './pages/Notes.jsx';
 import NoteEditor from './pages/NoteEditor.jsx';
@@ -14,6 +14,7 @@ import NoUserSelected from './components/NoUserSelected.jsx';
 import GroupsPage from './pages/GroupsPage.jsx';
 import GroupPage from './pages/GroupPage.jsx';
 import Settings from './pages/Settings.jsx';
+import Auth from './pages/Auth.jsx';
 
 import './css/app.css';
 
@@ -32,8 +33,10 @@ const App = () => {
           <Route path='groups/:groupId' component={GroupPage}/>
           <Route path='settings' component={Settings}/>
         </Route>
-        <Route path='/login' component={Login} />
-        <Route path='/signup' component={SignUp} />
+        <Route path='/auth' component={Auth}>
+          <Route path='login' component={Login} />
+          <Route path='signup' component={SignUp} />
+        </Route>
         <Route path='/*' component={NotFound} />
     </Router>
   );
