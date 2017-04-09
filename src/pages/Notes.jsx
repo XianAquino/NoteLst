@@ -26,10 +26,16 @@ class Notes extends Component {
     const { params, userId } = this.props;
     if (userId) {
       return(
-        <div>
-          <h1>Notes</h1>
-          <button onClick={this.create}>Create Note</button>
-          <NotesContainer userId={userId} />
+        <div className='container-fluid'>
+          <div className='row'>
+            <aside className='side-bar col-md-3 col-lg-3 hidden-sm hidden-xs'>
+              <button onClick={this.create}>Create Note</button>
+            </aside>
+            <div className='col-xs-12 col-sm-12 col-md-9 col-lg-9'>
+              <h1>Notes</h1>
+              <NotesContainer userId={userId} />
+            </div>
+          </div>
         </div>
       )
     }
