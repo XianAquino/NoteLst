@@ -16,6 +16,7 @@ import currentGroup from './currentGroupReducer.jsx';
 import currentGroupMembers from './currentGroupMembersReducer.jsx';
 import signUp from './signUpReducer.jsx';
 import posts from './postReducer.jsx';
+import searchedNotes from './noteSearchReducer.jsx';
 
 const rootReducer = combineReducers({
   login,
@@ -34,7 +35,8 @@ const rootReducer = combineReducers({
   currentGroup,
   currentGroupMembers,
   posts,
-  signUp
+  signUp,
+  searchedNotes
 });
 
 export default rootReducer;

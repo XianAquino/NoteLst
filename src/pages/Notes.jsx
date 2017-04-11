@@ -5,12 +5,29 @@ import { browserHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
 import * as notesActions from '../actions/notesActions';
 import NotesContainer from '../containers/NotesContainer';
+import SearchedNotes from '../containers/SearchedNotes';
+import searchNotes from '../util/searchNotes';
+import _ from 'underscore';
 
+const debounceSearch = _.debounce(searchNotes, 500);
 
 class Notes extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      query: ''
+    }
     this.create = this.create.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  handleInputChange(event) {
+    const { actions, userId } = this.props;
+    this.setState({query: event.target.value}, () => {
+      debounceSearch(userId, this.state.query, (notes) => {
+        actions.searchNotes(notes);
+      });
+    });
   }
 
   create() {
@@ -23,12 +40,16 @@ class Notes extends Component {
   }
 
   render() {
-    const { params, userId } = this.props;
+    const { params, userId, searchedNotes } = this.props;
     if (userId) {
       return(
         <div className='container-fluid'>
           <div className='row'>
             <aside className='side-bar col-md-3 col-lg-3 hidden-sm hidden-xs'>
+              <input onChange={this.handleInputChange} placeholder='search notes'/>
+              {
+               this.state.query ? <SearchedNotes notes={searchedNotes}/> : null
+              }
               <button onClick={this.create}>Create Note</button>
             </aside>
             <div className='col-xs-12 col-sm-12 col-md-9 col-lg-9'>
@@ -49,15 +70,13 @@ Notes.propTypes = {
   actions: React.PropTypes.object
 };
 
-const mapStateToProps = (state) => {
-  return {
+const mapStateToProps = (state) => ({
     userId: state.userInfo.id,
-  };
-};
-const mapDispatchToProps = (dispatch) => {
-  return {
+    searchedNotes: state.searchedNotes
+});
+
+const mapDispatchToProps = (dispatch) =>  ({
     actions: bindActionCreators(notesActions, dispatch)
-  };
-};
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Notes);

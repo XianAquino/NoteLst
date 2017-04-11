@@ -25,3 +25,10 @@ export const deleteNote = (noteId) => {
     payload: noteId
   };
 };
+
+export const searchNotes = (notes) => {
+  return {
+    type: 'LOAD_NOTES_SEARCH_RESULTS',
+    payload: notes
+  };
+};
