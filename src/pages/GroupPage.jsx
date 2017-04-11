@@ -5,6 +5,7 @@ import groupRequest from '../util/groupRequest';
 import * as currentGroupActions from '../actions/currentGroupActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import '../css/currentGroup.css';
 
 class GroupPage extends Component {
   constructor(props) {
@@ -41,7 +42,7 @@ class GroupPage extends Component {
 
   render() {
     const { groupId, currentGroup, currentGroupMembers, params, userId, username } = this.props;
-    const { id, name, no_of_members, adminId, admin, adminUserName } = currentGroup;
+    const { id, name, no_of_members, adminId, admin, adminUserName, adminAvatar } = currentGroup;
     const target = this.state.searchMember.toLowerCase();
     const members = !target ? currentGroupMembers
       : currentGroupMembers.filter( member => member.name.toLowerCase().includes(target));
@@ -50,23 +51,28 @@ class GroupPage extends Component {
         <div className='container-fluid'>
           <div className='row'>
             <aside className='side-bar col-md-3 col-lg-3 hidden-sm hidden-xs'>
-              <input
-                type='text'
-                onChange={this.handleInput}
-                placeholder='Enter member name'
-              />
+              <div className='search-container'>
+                <div className='search-field'>
+                  <i className="material-icons">search</i>
+                  <input
+                    placeholder='Search member'
+                    onChange={this.handleInput}
+                  />
+                </div>
+              </div>
               <Members
-                noOfMembers={no_of_members}
                 adminId={adminId}
                 admin={admin}
                 adminUserName={adminUserName}
+                adminAvatar={adminAvatar}
                 members={members}
                 username={username}
               />
             </aside>
-            <div>
-              <div className='current-group-bar'>
-                <p>{name}</p>
+            <div className='main-container current-group-scroll col-xs-12 col-sm-12 col-md-9 col-lg-9'>
+              <div className='current-group-header'>
+                <h1>{name}</h1>
+                <p>No of Members: <span>{no_of_members}</span></p>
               </div>
               <Posts
                 userId={userId}

@@ -1,22 +1,89 @@
-.login-container {
-  margin-top: 0;
-  padding-top: 20px;
-  background-color: #37474F;
-  background: -webkit-linear-gradient(left top, #37474F, #263238);
-  background: -o-linear-gradient(left top, #37474F, #263238);
-  background: -moz-linear-gradient(left top, #37474F, #263238);
-  background: linear-gradient(left top, #37474F, #263238);
-  height: 100vh;
-  max-height: 300vh;
-}
-.login {
-  margin: 0 auto;
-  z-index: 2;
+.auth-bar {
+  height: 64px;
+  background-color: #175057;
+  text-align: center;
 }
 
-.login-container img {
-  z-index: 2;
-  width: 60%;
+.auth-bar-logo {
+  margin: 4px;
+  height: 56px;
+  display: none;
+}
+
+.notelst-description, .auth-tabs {
+  margin: 0;
+  padding: 0;
+  min-height: 80vh;
+  max-height: 150vh;
+}
+
+.notelst-description {
+  background: #3F51B5;
+  background: -webkit-linear-gradient(left top, #2CC7DE, #3F51B5);
+  background: -o-linear-gradient(bottom right, #2CC7DE, #3F51B5);
+  background: -moz-linear-gradient(bottom right, #2CC7DE, #3F51B5);
+  background: linear-gradient(to bottom right, #2CC7DE, #3F51B5);
+  text-align: center;
+}
+
+.notelst-description img{
+  width: 50%;
   height: auto;
-  margin: auto;
+}
+
+.short-desc {
+  text-align: left;
+  width: 64%;
+  color: #FFF;
+  font-size: 2em;
+  margin: 20px auto;
+}
+
+.short-desc p {
+  padding: 20px 0;
+}
+
+.notelst-description i {
+  color: #175057;
+  font-size: 2.1em;
+  margin-right: 20px;
+  vertical-align: middle;
+}
+/*----------------Sign up/Sign in------------------*/
+
+.auth-tabs {
+  background-color: #FFF;
+}
+
+.auth-tabs h2{
+  color: #008A7D;
+  padding: 25px 20px 20px;
+}
+
+.signin-form, .signup-form {
+  text-align: center;
+}
+
+footer {
+  background-color: #175057;
+  height: 20vh;
+}
+
+@media only screen and (max-width: 1380px) {
+  .short-desc {
+    width: 82%;
+    font-size: 1.8em;
+  }
+}
+
+@media only screen and (max-width: 990px) {
+  .notelst-description {
+    display: none;
+  }
+  .auth-tabs {
+    width: 100%;
+  }
+  .auth-bar-logo {
+    display: initial;
+  }
 }

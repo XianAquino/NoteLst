@@ -1,6 +1,13 @@
-export const updateLoginStatus = (loginStatus) => {
-  return {
-    type: 'UPDATE_LOGIN_STATE',
-    payload: loginStatus
-  };
-};
+export const checkCorrectPwd = (match) => (
+  {
+    type: 'CORRECT_PASSWORD',
+    payload: match
+  }
+);
+
+export const userExist = (exist) => (
+  {
+    type: 'USER_EXIST',
+    payload: exist
+  }
+);

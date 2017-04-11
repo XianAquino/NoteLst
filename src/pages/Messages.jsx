@@ -10,7 +10,7 @@ const Messages = ({children}) => {
         <aside className='side-bar col-md-3 col-lg-3 hidden-sm hidden-xs'>
           <UserSearch />
         </aside>
-        <div className='col-xs-12 col-sm-12 col-md-9 col-lg-9'>
+        <div className='main-container col-xs-12 col-sm-12 col-md-9 col-lg-9'>
           {children}
         </div>
       </div>

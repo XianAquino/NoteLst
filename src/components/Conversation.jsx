@@ -6,11 +6,16 @@ import * as socketActions from '../actions/socketActions';
 import getMessages from '../util/getMessages';
 import getParticipants from '../util/getParticipants';
 import { Paper, Divider, RaisedButton, TextField, Avatar } from 'material-ui';
-import Message from './Message';
+import Messages from '../containers/Messages';
 
-const messageField = {
-  width: '100%',
-  margin: '5% 1% 1% 1%'
+const style = {
+  messageField: {
+    width: '100%',
+    margin: '5% 1% 1% 1%'
+  },
+  sendBtn: {
+    color: '#FFF'
+  }
 };
 
 class Conversation extends Component {
@@ -84,28 +89,17 @@ class Conversation extends Component {
     const { contact, message } = this.state;
     return(
       <div>
-        <Paper className='conversation' zDepth={2} rounded={false}>
+        <Paper className='conversation' rounded={false}>
           <Avatar
             src='http://res.cloudinary.com/de7lidb1d/image/upload/c_crop,w_443/v1488676774/users/style_icons_product_human_best_do1.png'
             size={45}
             style={{margin: '2px'}}
-          /><span>{contact}</span>
+          /><span className='contact-name'>{contact}</span>
           <Divider/>
-          <div className='messages'>
-            <ul>
-            {
-              messages.map((content, i) =>
-                <Message
-                  key={i}
-                  message={content.message}
-                  sender={content.sender}
-                  date={content.created_at}
-                  userId={userId}
-                />
-              )
-            }
-            </ul>
-          </div>
+          <Messages
+            messages={messages}
+            userId={userId}
+          />
           <Divider/>
           <div className='send-message container-fluid'>
             <div className='row'>
@@ -119,13 +113,16 @@ class Conversation extends Component {
                   onChange={this.handleInput}
                   name='message'
                   value={message}
-                  style={messageField}
+                  style={style.messageField}
                 />
               </div>
               <div className='send-btn col-md-2 col-lg-2'>
                 <RaisedButton
-                  backgroundColor='#3F51B5'
+                  backgroundColor='#008A7D'
+                  labelPosition="before"
+                  icon={<i className="material-icons">send</i>}
                   labelColor='#FFF'
+                  style={style.sendBtn}
                   label='Send'
                   onClick={this.handleSubmit}
                 />

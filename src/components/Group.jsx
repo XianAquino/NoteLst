@@ -5,6 +5,8 @@ import * as searchedGroupsActions from '../actions/searchedGroupsActions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
+import { Paper, RaisedButton, Divider} from 'material-ui';
+import moment from 'moment';
 
 class Group extends Component {
   constructor(props) {
@@ -56,29 +58,68 @@ class Group extends Component {
   render() {
     const { id, name, dateCreated, noOfMembers, user,
       createdBy, creatorId, dateJoined, nonMember } = this.props;
+
+    let createdByDOM, groupFooter;
+
+    const joinBtn = (
+      <RaisedButton
+        backgroundColor='#175057'
+        labelColor='#FFF'
+        label='Join'
+        className='action-btn'
+        onTouchTap={this.joinGroup}
+      />);
+
     if (user.id !== creatorId) {
-      return(
-        <li>
-          <p>Group {name}</p>
-          <p>Created By: {createdBy} on<span>{dateCreated}</span></p>
-          <p>No. of members: {noOfMembers}</p>
-          {
-            nonMember ? <button onClick={this.joinGroup}>Join</button>
-            : <div>
-                <p>Joined: {dateJoined}</p>
-                <button onClick={this.enter}>Enter</button>
-              </div>
-          }
-        </li>
+      createdByDOM = (
+        <p>Created By: {createdBy} on <span>{moment(dateCreated).format('MMM Do YYYY')}</span></p>
       )
+      groupFooter = nonMember ? joinBtn
+                : (<div>
+                    <p>Joined: <span>{moment(dateJoined).startOf('day').fromNow()}</span></p>
+                    <RaisedButton
+                      backgroundColor='#008A7D'
+                      labelColor='#FFF'
+                      label='Enter'
+                      className='member-action-btn'
+                      onTouchTap={this.enter}
+                    />
+                  </div>)
+    } else {
+      createdByDOM = (
+        <p>Created on: <span>{moment(dateCreated).format('MMM Do YYYY')}</span></p>
+      );
+      groupFooter = (
+        <div className='action-btn'>
+          <RaisedButton
+            backgroundColor='#C62828'
+            labelColor='#FFF'
+            label='Delete'
+            onTouchTap={this.remove}
+            style={{marginRight: '10px'}}
+          />
+          <RaisedButton
+            backgroundColor='#008A7D'
+            labelColor='#FFF'
+            label='Enter'
+            onTouchTap={this.enter}
+          />
+        </div>
+      );
     }
     return(
-      <li>
-        <p>Group {name}</p>
-        <p>Created on:<span>{dateCreated}</span></p>
-        <p>No. of members: {noOfMembers}</p>
-        <button onClick={this.remove}>Delete</button>
-        <button onClick={this.enter}>Enter</button>
+      <li className='col-xs-12 col-sm-6 col-md-6 col-lg-6'>
+        <Paper>
+          <h3>Group: {name}</h3>
+          <div className='group-body'>
+            {createdByDOM}
+            <p>No. of members: <span>{noOfMembers}</span></p>
+          </div>
+          <Divider/>
+          <div className='group-footer'>
+            {groupFooter}
+          </div>
+        </Paper>
       </li>
     )
   }

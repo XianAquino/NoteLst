@@ -5,6 +5,17 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as groupActions from '../actions/groupActions';
 
+const muiStyle = {
+  input: {
+    width:'240px',
+    margin: '6px'
+  },
+  createBtn: {
+    width: '240px',
+    color: '#FFF'
+  }
+}
+
 class CreateGroup extends Component {
   constructor(props) {
     super(props);
@@ -42,22 +53,24 @@ class CreateGroup extends Component {
 
   render() {
     return(
-      <div>
+      <div className='create-group'>
         <h2>Create Groups</h2>
         <Divider/>
         <TextField
-          hintText={'Enter Name'}
-          floatingLabelText={'Name'}
+          hintText='Enter Name'
+          floatingLabelText='Group Name'
           onChange={this.handleInput}
           value={this.state.name}
+          style={muiStyle.input}
         />
         <br/>
         <RaisedButton
-          backgroundColor='#3F51B5'
+          backgroundColor='#175057'
           labelColor='#FFF'
           label='Create Group'
           icon={<i className="material-icons">group_add</i>}
           onClick={this.handleSubmit}
+          style={muiStyle.createBtn}
         />
       </div>
     )

@@ -6,8 +6,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import JoinedGroups from '../containers/JoinedGroups';
 import SearchedGroups from '../containers/SearchedGroups';
+import { Toolbar, ToolbarGroup } from 'material-ui';
 import _ from 'underscore';
 const debounceSearch = _.debounce(groupRequest.searchGroup, 300);
+
+import '../css/groups.css';
+const toolbar = {
+  backgroundColor: '#008A7D'
+};
 
 class Groups extends Component{
   constructor(props) {
@@ -38,26 +44,26 @@ class Groups extends Component{
   render() {
     const { groups, searchedGroups, user } = this.props;
     const { targetGroup } = this.state;
-    if(groups.length) {
-      return (
-        <div className='col-xs-12 col-sm-12 col-md-9 col-lg-9'>
-          <div className='containers-fluid'>
-            <div className='group-bar row'>
-              <div className='search'>
+    return (
+      <div className='main-container col-xs-12 col-sm-12 col-md-9 col-lg-9'>
+        <div className='containers-fluid'>
+          <Toolbar style={toolbar}>
+            <ToolbarGroup>
+              <div className='search-field group-search'>
+                <i className="material-icons">search</i>
                 <input onChange={this.searchGroup} type='text' placeholder='Search Group'/>
               </div>
-            </div>
-            <div className='row'>
-              {
-                targetGroup ? <SearchedGroups groups={searchedGroups} user={user}/>
-                  : <JoinedGroups groups={groups} user={user}/>
-              }
-            </div>
+            </ToolbarGroup>
+          </Toolbar>
+          <div className='row content-list'>
+            {
+              targetGroup ? <SearchedGroups groups={searchedGroups} user={user}/>
+                : <JoinedGroups groups={groups} user={user}/>
+            }
           </div>
         </div>
-      )
-    }
-    return null;
+      </div>
+    )
   }
 }
 

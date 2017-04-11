@@ -28,13 +28,14 @@ class User extends Component {
   }
 
   render() {
+    const defaultAvatar='http://res.cloudinary.com/de7lidb1d/image/upload/c_crop,w_443/v1488676774/users/style_icons_product_human_best_do1.png';
+    const {name, image} = this.props;
     return(
       <ListItem
-        value={this.props.value}
-        primaryText={this.props.name}
+        primaryText={name}
         leftAvatar={
           <Avatar
-            src='http://res.cloudinary.com/de7lidb1d/image/upload/c_crop,w_443/v1488676774/users/style_icons_product_human_best_do1.png'
+            src={image || defaultAvatar}
           />
         }
         onClick={this.startConversation}
@@ -51,7 +52,8 @@ User.propTypes = {
   currentConversationID: React.PropTypes.string,
   actions: React.PropTypes.object,
   clearResult: React.PropTypes.func,
-  search: React.PropTypes.bool
+  search: React.PropTypes.bool,
+  image: React.PropTypes.string
 };
 
 const mapStateToProps = (state) => ({

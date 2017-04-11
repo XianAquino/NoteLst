@@ -59,6 +59,7 @@ class Navbar extends Component {
 
   render() {
     const { userInfo } = this.props
+    const defaultAvatar = 'http://res.cloudinary.com/de7lidb1d/image/upload/c_crop,w_443/v1488676774/users/style_icons_product_human_best_do1.png';
     return(
       <div>
       <AppBar className='navbar'
@@ -66,7 +67,7 @@ class Navbar extends Component {
       >
         <img
           className='title'
-          src='/nav-logo.png'
+          src='/images/nav-logo.svg'
           alt='notelst-logo-nav'
           onClick={()=>(this.onClickMenu())}
         />
@@ -84,7 +85,7 @@ class Navbar extends Component {
         </Link>
         <div>
           <Avatar
-            src='http://res.cloudinary.com/de7lidb1d/image/upload/c_crop,w_443/v1488676774/users/style_icons_product_human_best_do1.png'
+            src={userInfo.image || defaultAvatar}
             size={45}
             style={{marginTop: '8px'}}
             onClick={this.handleTouchTap}

@@ -1,0 +1,108 @@
+.scroll-wrapper {
+  width: auto;
+  overflow-y: auto;
+  height: 90vh;
+}
+
+.settings-container {
+  max-width: 1028px;
+  margin: 0 auto;
+  color: #455A64;
+}
+
+.settings-container h1 {
+  padding: 8px;
+}
+
+
+/*-------------Avatar setting------------------*/
+.avatar-settings {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.avatar-settings img {
+  margin-top: 20px;
+  width: 200px;
+  height: 200px;
+}
+
+.upload-file {
+  font-size: 1em;
+  width: 200px;
+  margin: 4px 4px;
+}
+
+.input-file {
+    overflow: hidden;
+    position: relative;
+    margin:0 auto;
+    background: #008A7D;
+    width: 200px;
+    padding: 4px;
+    border-radius: 2px;
+}
+
+.input-file:hover,
+.input-file:focus,
+.upload-btn:hover,
+.upload-btn:focus
+ {
+  background-color: #175057;
+  color: #FFF;
+}
+
+.input-file span {
+  font-size: 1em;
+  color: #FFF;
+}
+
+.input-file input.upload {
+    position: absolute;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.upload-btn {
+  background-color: #FFF;
+  color: #008A7D;
+  font-size: 1em;
+  width: 200px;
+  border-style: none;
+  border-radius: 2px;
+  margin: 4px 4px;
+}
+
+.disable-upload {
+  background-color: #E5E5E5;
+  color: #A3A3A3;
+}
+
+.warning-msg {
+  color: #C62828;
+  font-size: 0.8em;
+  display: block;
+  margin-bottom: 4px;
+}
+
+/*-------------------General Settings ------------------------*/
+.general-settings {
+  margin: 20px auto;
+  text-align: center;
+  font-size: 1.4em;
+}
+
+.general-settings p {
+  padding: 10px 10px 4px;
+  text-align: left;
+  color: #455A64;
+}
+
+.general-settings span {
+  color: #008A7D;
+}
+
+/*-----------------Password Setting ----------------------------*/
+.pwd-btns {
+  float: right;
+}

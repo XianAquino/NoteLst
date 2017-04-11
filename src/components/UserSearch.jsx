@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Contacts from '../containers/Contacts';
 import UserSearchResults from '../containers/UserSearchResults';
-import { Divider, TextField } from 'material-ui';
 
 const searchUserDebounce = _.debounce(searchUser, 500);
 
@@ -45,15 +44,15 @@ class UserSearch extends Component {
     const { name } = this.state
     return(
       <div>
-        <div className='search-user-container'>
-          <TextField
-            hintText='Enter Name'
-            floatingLabelText='Search User'
-            value={name}
-            onChange={this.handleInputChange}
-          />
+        <div className='search-container'>
+          <div className='search-field'>
+            <i className="material-icons">search</i>
+            <input
+              placeholder={'Search User'}
+              onChange={this.handleInputChange}
+            />
+          </div>
         </div>
-        <Divider/>
         {
           !name ? <Contacts />
           : <UserSearchResults

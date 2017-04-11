@@ -4,11 +4,11 @@ var _ = require('underscore');
 module.exports =  {
   getUsers: (query, callback) => {
     if(_.isEmpty(query)){
-      db.query('SELECT username, name, status FROM users', (err, res) => {
+      db.query('SELECT username, name, image, status FROM users', (err, res) => {
         callback(res);
       });
     }else{
-      db.query(`SELECT username, name, status FROM users WHERE name LIKE '%${query.name}%'`,
+      db.query(`SELECT username, name, image, status FROM users WHERE name LIKE '%${query.name}%'`,
       (err, res) => {
         callback(res);
       });
@@ -17,7 +17,6 @@ module.exports =  {
 
   createUser: (params, callback) => {
     db.query('INSERT INTO users SET ?' , params, (err, res) => {
-      if(err)console.log("Error",err);
       callback(err, res);
     });
   },
@@ -31,7 +30,6 @@ module.exports =  {
   update: (id, values) => {
     db.query('UPDATE users SET ? WHERE ?', [values, {id: id}], (err, res) => {
       if(err)console.log("Error",err);
-      console.log("result",res);
     });
   },
 

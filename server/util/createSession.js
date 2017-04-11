@@ -1,6 +1,7 @@
-module.exports = createSession = (req, res, token, userInfo) => {
-  return req.session.regenerate(function () {
-   req.session.token = token;
-   res.json(userInfo);
- });
+module.exports = createSession = (req, res, token, username) => {
+  return req.session.regenerate(() => {
+    req.session.token = token;
+    req.session.username = username;
+    res.json('success');
+  });
 };

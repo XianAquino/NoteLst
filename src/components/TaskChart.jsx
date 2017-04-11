@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import getTasksByWeek from '../util/getTasksByWeek';
 import * as tasksByWeekActions from '../actions/tasksByWeekActions';
 import * as d3 from 'd3';
-const colorScale = d3.scaleOrdinal().range(['#3F51B5', '#B0BEC5']);
+const colorScale = d3.scaleOrdinal().range(['#008A7D', '#B0BEC5']);
 
 class TaskChart extends Component {
 

@@ -4,12 +4,15 @@ import { Divider, RaisedButton } from 'material-ui'
 import DeleteIcon from 'material-ui/svg-icons/action/delete'
 
 const Task = ({id, title, desc, date, remove, finish, updateTask}) => {
-  let updateButton
+  let updateButton,
+      cardStyle = {backgroundColor: '#FFF'};
+
   if (finish) {
+    cardStyle.backgroundColor = '#B2DFDB';
     updateButton = (
       <RaisedButton
-        backgroundColor='#00C853'
-        labelColor='#FFF'
+        backgroundColor='#FFF'
+        labelColor='#455A64'
         label='Revert'
         onTouchTap={() => (updateTask({
             finish: 0,
@@ -21,7 +24,7 @@ const Task = ({id, title, desc, date, remove, finish, updateTask}) => {
   } else {
     updateButton = (
       <RaisedButton
-        backgroundColor='#00C853'
+        backgroundColor='#008A7D'
         labelColor='#FFF'
         label='Done'
         onTouchTap={() => (updateTask({
@@ -35,7 +38,7 @@ const Task = ({id, title, desc, date, remove, finish, updateTask}) => {
 
   return(
     <div className='task col-xs-12 col-sm-12 col-md-6 col-lg-6'>
-      <Card>
+      <Card style={cardStyle}>
         <CardHeader title={title} />
         <Divider />
         <CardText>{desc}</CardText>

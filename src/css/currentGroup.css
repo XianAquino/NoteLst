@@ -1,0 +1,73 @@
+.current-group-scroll {
+  overflow-y: auto;
+  height: 86vh;
+}
+/*------------------ Header ----------------*/
+.current-group-header {
+  background:
+    radial-gradient(rgba(255,255,255,0) 0, rgba(255,255,255,.15) 30%, rgba(255,255,255,.3) 32%, rgba(255,255,255,0) 33%) 0 -80px,
+    radial-gradient(rgba(255,255,255,0) 0, rgba(255,255,255,.2) 11%, rgba(255,255,255,.4) 13%, rgba(255,255,255,0) 14%) -120px -220px,
+    radial-gradient(rgba(255,255,255,0) 0, rgba(255,255,255,.2) 11%, rgba(255,255,255,.4) 13%, rgba(255,255,255,0) 14%) 130px 370px,
+    linear-gradient(to bottom left, #2CC7DE, #175057);
+  background-size: 470px 470px, 520px 520px, 530px 530px, 100% 100%;
+  background-color: #008A7D;
+  height: 140px;
+  color: white;
+}
+
+.current-group-header h1 {
+  position: relative;
+  padding: 20px 20px 40px;
+}
+
+.current-group-header p {
+  margin: 20px;
+}
+
+/*-----------------Post------------------*/
+
+.post {
+  margin: 10px 0;
+}
+
+.post-header i {
+  padding: 8px 6px 0;
+  color: #ecf3f9;
+  float: right;
+}
+
+.post-header i:focus, .post-header i:hover {
+  color: #C62828;
+}
+
+.post-content {
+  padding: 10px;
+}
+.post-content p {
+  font-size: 0.9em;
+}
+.post-content a {
+  font-size: 1.2em;
+}
+
+/*-------------------Sidebar----------------*/
+
+.group-members h2{
+  margin: 10px 20px;
+  color: #008A7D;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.group-admin h2{
+  color: #175057;
+}
+.chat-icon {
+  vertical-align: middle;
+  float: right;
+  color: #2CC7DE;
+}
+
+.chat-icon:hover, .chat-icon:focus {
+  color: #175057;
+}
