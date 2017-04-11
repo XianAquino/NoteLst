@@ -4,9 +4,16 @@ const _ = require('underscore');
 module.exports = {
   get: (req, res) => {
     const user = req.params.user_id;
-    notes.getUserNotes(user,function(notes) {
-      res.json(notes);
-    });
+    const query = req.query;
+    if (query.target) {
+      notes.search(user, query.target, (notes) => {
+        res.json(notes);
+      });
+    } else {
+      notes.getUserNotes(user, (notes) => {
+        res.json(notes);
+      });
+    }
   },
   create: (req, res) => {
     const user = req.params.user_id;
