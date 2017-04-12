@@ -1,13 +1,15 @@
 import React, { PropTypes } from 'react';
+import { List, Subheader } from 'material-ui';
 import SearchedNote from '../components/SearchedNote';
 
 const SearchedNotes = ({notes}) => {
   if (!notes.length) {
-    return (<p>no match found</p>)
+    return (<Subheader>No Match Found</Subheader>)
   }
   return (
-    <div>
-      <ul>
+    <div className='search-list'>
+      <Subheader>Search Result:</Subheader>
+      <List>
         {
           notes.map((note, i) =>
             <SearchedNote
@@ -17,9 +19,8 @@ const SearchedNotes = ({notes}) => {
             />
           )
         }
-      </ul>
+      </List>
     </div>
-
   )
 };
 
