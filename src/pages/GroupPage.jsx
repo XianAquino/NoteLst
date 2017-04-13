@@ -69,7 +69,7 @@ class GroupPage extends Component {
                 username={username}
               />
             </aside>
-            <div className='main-container current-group-scroll col-xs-12 col-sm-12 col-md-9 col-lg-9'>
+            <div className='main-container container-scroll col-xs-12 col-sm-12 col-md-9 col-lg-9'>
               <div className='current-group-header'>
                 <h1>{name}</h1>
                 <p>No of Members: <span>{no_of_members}</span></p>

@@ -1,13 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import { DropDownMenu, MenuItem } from 'material-ui'
-
-const styles = {
-  customWidth: {
-    width: 200
-  }
-};
+import { Paper, Divider } from 'material-ui';
+import GroupsDropDownList from './GroupsDropDownList';
 
 class Note extends Component {
   constructor(props) {
@@ -55,36 +50,35 @@ class Note extends Component {
   render() {
     const { title, id, remove, groups, shared } = this.props
     return(
-      <div>
-        <li>
-          <Link to={`/notes/${id}`}>{title}</Link><p>{shared}</p>
-          <button onClick={() => { remove(id) }}>X</button>
-          <button onClick={this.showShareForm}>Share</button>
+      <li className='notes-box col-xs-12 col-sm-6 col-md-4 col-lg-3'>
+        <Paper>
+          <div className='note-header'>
+            <Link to={`/notes/${id}`}>{title}</Link>
+            <i
+              className='delete-icon material-icons'
+              onClick={() => { remove(id) }}
+              >cancel</i>
+          </div>
+          <Divider/>
+          <p>Shared: <span className='shared-count'>{shared} time(s)</span></p>
+          <div className='float-wrapper'>
+            <i
+              onClick={this.showShareForm}
+              className='material-icons'
+            >keyboard_arrow_down</i>
+          </div>
+          <Divider/>
           {
             !this.state.openShare ? null
-            : <div>
-                <DropDownMenu
-                  value={this.state.value}
-                  autoWidth={false}
-                  style={styles.customWidth}
-                  onChange={this.handleChange}
-                >
-                  <MenuItem value={0} primaryText={'Select'}/>
-                {
-                  groups.map((group, i) =>
-                    <MenuItem
-                      key={i}
-                      value={group.group_id}
-                      primaryText={group.name}
-                    />
-                  )
-                }
-                </DropDownMenu>
-                <button onClick={this.share}>Share</button>
-              </div>
+            : <GroupsDropDownList
+                value={this.state.value}
+                handleChange={this.handleChange}
+                groups={groups}
+                share={this.share}
+              />
             }
-        </li>
-      </div>
+        </Paper>
+      </li>
     )
   }
 };

@@ -12,7 +12,7 @@ const Notes = ({params, userId}) => {
           <aside className='side-bar col-md-3 col-lg-3 hidden-sm hidden-xs'>
             <NotesSideBar userId={userId}/>
           </aside>
-          <div className='col-xs-12 col-sm-12 col-md-9 col-lg-9'>
+          <div className='main-container -scroll col-xs-12 col-sm-12 col-md-9 col-lg-9'>
             <h1>Notes</h1>
             <NotesContainer userId={userId} />
           </div>

@@ -1,4 +1,4 @@
-.current-group-scroll {
+.container-scroll {
   overflow-y: auto;
   height: 86vh;
 }
@@ -32,7 +32,7 @@
 
 .post-header i {
   padding: 8px 6px 0;
-  color: #ecf3f9;
+  color: #ECF3FA;
   float: right;
 }
 

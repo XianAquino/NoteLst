@@ -29,8 +29,8 @@ class NotesContainer extends Component {
   render() {
     const { notes } = this.props;
     return (
-      <div>
-        <ul>
+      <div className='container-fluid'>
+      <ul className='row'>
         {
           notes.map((note, i) =>
             <Note
