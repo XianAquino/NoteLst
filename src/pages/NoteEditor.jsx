@@ -1,17 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Paper } from 'material-ui';
 import updateNote from '../util/updateNote';
 import getNote from '../util/getNote';
 import _ from 'underscore';
+import { Editor, EditorState } from 'draft-js';
 
 const debounceUpdate = _.debounce(updateNote,500);
+const muiStyle = {
+  paper: {
+    width: 800,
+    height: 1200,
+    margin: '10px auto',
+    padding: '20px'
+  }
+};
 
 class NoteEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
       title: '',
-      note: ''
+      editorState: EditorState.createEmpty()
     }
     this.handleInputChange = this.handleInputChange.bind(this);
   }
@@ -21,7 +31,6 @@ class NoteEditor extends Component {
     getNote(userId, params.noteId, (result) => {
       this.setState({
         title: result.title,
-        note: result.note
       });
     });
   }
@@ -29,9 +38,13 @@ class NoteEditor extends Component {
   handleInputChange(event) {
     const target = event.target;
     this.setState({ [target.name]: target.value }, () => {
-      debounceUpdate(this.props.params.noteId, this.state);
+      //debounceUpdate(this.props.params.noteId, this.state);
     });
   }
+
+  editorOnChange = (editorState) => (
+    this.setState({editorState})
+  )
 
   render() {
     const { note } = this.props;
@@ -42,11 +55,9 @@ class NoteEditor extends Component {
           name='title'
           value={this.state.title}
         />
-        <textarea
-          onChange={this.handleInputChange}
-          name='note'
-          value={this.state.note}
-        ></textarea>
+        <Paper style={muiStyle.paper}>
+          <Editor editorState={this.state.editorState} onChange={this.editorOnChange}/>
+        </Paper>
       </div>
     )
   }
