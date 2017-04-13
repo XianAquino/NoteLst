@@ -1,57 +1,35 @@
-import React, { Component } from 'react';
-import createNote from '../util/createNote';
+import React, {PropTypes} from 'react';
 import { connect } from 'react-redux';
-import { browserHistory } from 'react-router';
-import { bindActionCreators } from 'redux';
-import * as notesActions from '../actions/notesActions';
 import NotesContainer from '../containers/NotesContainer';
+import NotesSideBar from '../components/NotesSideBar';
+import '../css/notes.css';
 
-
-class Notes extends Component {
-  constructor(props) {
-    super(props);
-    this.create = this.create.bind(this);
-  }
-
-  create() {
-    const { userId, actions } = this.props;
-    createNote(userId, (response) => {
-      const noteId = response.insertId;
-      actions.addNote({id: noteId, title: undefined, note: undefined});
-      browserHistory.push(`/notes/${noteId}`);
-    });
-  }
-
-  render() {
-    const { params, userId } = this.props;
-    if (userId) {
-      return(
-        <div>
-          <h1>Notes</h1>
-          <button onClick={this.create}>Create Note</button>
-          <NotesContainer userId={userId} />
+const Notes = ({params, userId}) => {
+  if (userId) {
+    return(
+      <div className='container-fluid'>
+        <div className='row'>
+          <aside className='side-bar col-md-3 col-lg-3 hidden-sm hidden-xs'>
+            <NotesSideBar userId={userId}/>
+          </aside>
+          <div className='main-container -scroll col-xs-12 col-sm-12 col-md-9 col-lg-9'>
+            <h1>Notes</h1>
+            <NotesContainer userId={userId} />
+          </div>
         </div>
-      )
-    }
-    return null;
+      </div>
+    )
   }
+  return null;
 };
 
 Notes.propTypes = {
-  params: React.PropTypes.object,
-  userId: React.PropTypes.number,
-  actions: React.PropTypes.object
+  params: PropTypes.object,
+  userId: PropTypes.number,
 };
 
-const mapStateToProps = (state) => {
-  return {
-    userId: state.userInfo.id,
-  };
-};
-const mapDispatchToProps = (dispatch) => {
-  return {
-    actions: bindActionCreators(notesActions, dispatch)
-  };
-};
+const mapStateToProps = (state) => ({
+  userId: state.userInfo.id,
+});
 
-export default connect(mapStateToProps, mapDispatchToProps)(Notes);
+export default connect(mapStateToProps)(Notes);

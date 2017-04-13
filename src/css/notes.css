@@ -1,0 +1,52 @@
+/*-------Side Bar---------*/
+.notes-sidebar {
+  text-align: center;
+}
+
+.search-list {
+  text-align: left;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+/*----------Main Container----------*/
+
+.notes-box  {
+  margin:10px 0;
+  overflow: hidden;
+}
+.note-header {
+  overflow: hidden;
+}
+
+.note-header a {
+  font-size: 1.2em;
+  color: #175057;
+  margin: 10px;
+}
+.notes-box i {
+  color: #D7DFED;
+  float: right;
+  vertical-align: middle;
+}
+.notes-box i:hover,
+.notes-box i:focus {
+  color: #C62828;
+}
+.notes-box  p {
+  padding: 10px;
+}
+
+.shared-count {
+  color: #008A7D;
+}
+
+.float-wrapper {
+  overflow: hidden;
+}
+
+@media only screen and (max-width: 767) {
+  .search-list {
+    height: auto;
+  }
+}

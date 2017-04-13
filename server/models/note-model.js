@@ -19,6 +19,13 @@ module.exports = {
       callback(res[0]);
     })
   },
+  search: (userId, target, callback) => {
+    const sql = `SELECT * FROM notes WHERE user_id = ${userId} AND title LIKE '%${target}%'`;
+    db.query(sql, (err, res) => {
+      if(err) throw err;
+      callback(res);
+    });
+  },
   update: (id, values) => {
     db.query('UPDATE notes SET ? WHERE ?',[values, {id: id}], (err, res) => {
       if(err)throw err;
