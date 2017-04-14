@@ -4,7 +4,9 @@ import { Paper } from 'material-ui';
 import updateNote from '../util/updateNote';
 import getNote from '../util/getNote';
 import _ from 'underscore';
-import { Editor, EditorState } from 'draft-js';
+import { Editor, EditorState, RichUtils } from 'draft-js';
+import BlockStyleControls from '../components/BlockStyleControls';
+import InlineStyleControls from '../components/InlineStyleControls';
 
 const debounceUpdate = _.debounce(updateNote,500);
 const muiStyle = {
@@ -24,6 +26,11 @@ class NoteEditor extends Component {
       editorState: EditorState.createEmpty()
     }
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.onChange = (editorState) => this.setState({editorState});
+    this.toggleBlockType = this.toggleBlockType.bind(this);
+    this.toggleInlineStyle = this.toggleInlineStyle.bind(this);
+    this.onTab = this.onTab.bind(this);
+    this.handleKeyCommand = this.handleKeyCommand.bind(this);
   }
 
   componentWillMount() {
@@ -42,12 +49,32 @@ class NoteEditor extends Component {
     });
   }
 
-  editorOnChange = (editorState) => (
-    this.setState({editorState})
-  )
+  handleKeyCommand(command) {
+    const {editorState} = this.state;
+    const newState = RichUtils.handleKeyCommand(editorState, command);
+    if (newState) {
+      this.onChange(newState);
+      return true;
+    }
+    return false;
+  }
+
+  toggleBlockType(type) {
+    this.onChange(RichUtils.toggleBlockType(this.state.editorState, type));
+  }
+
+  toggleInlineStyle(style) {
+    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, style));
+  }
+
+  onTab(e) {
+    const maxDepth = 4;
+    this.onChange(RichUtils.onTab(e, this.state.editorState, maxDepth));
+  }
 
   render() {
     const { note } = this.props;
+    const { editorState } = this.state;
     return(
       <div>
         <input
@@ -55,8 +82,24 @@ class NoteEditor extends Component {
           name='title'
           value={this.state.title}
         />
-        <Paper style={muiStyle.paper}>
-          <Editor editorState={this.state.editorState} onChange={this.editorOnChange}/>
+      <div className='editor-controls'>
+          <BlockStyleControls
+            editorState={editorState}
+            onToggle={this.toggleBlockType}
+          />
+          <InlineStyleControls
+            editorState={editorState}
+            onToggle={this.toggleInlineStyle}
+          />
+      </div>
+      <Paper style={muiStyle.paper}>
+          <Editor
+            editorState={editorState}
+            onChange={this.onChange}
+            handleKeyCommand={this.handleKeyCommand}
+            onTab={this.onTab}
+            spellCheck={true}
+          />
         </Paper>
       </div>
     )
