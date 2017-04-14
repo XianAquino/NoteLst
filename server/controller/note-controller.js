@@ -29,7 +29,9 @@ module.exports = {
   },
   update: (req, res) => {
     const noteId = req.params.note_id;
-    notes.update(noteId, req.body);
+    let body = req.body;
+    if (body.note) body.note = JSON.stringify(body.note);
+    notes.update(noteId, body);
     res.send('Updated');
   },
   delete: (req, res) => {
