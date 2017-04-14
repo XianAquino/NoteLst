@@ -4,7 +4,7 @@ import { Paper } from 'material-ui';
 import updateNote from '../util/updateNote';
 import getNote from '../util/getNote';
 import _ from 'underscore';
-import { Editor, EditorState, RichUtils } from 'draft-js';
+import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
 import BlockStyleControls from '../components/BlockStyleControls';
 import InlineStyleControls from '../components/InlineStyleControls';
 
@@ -14,7 +14,7 @@ const muiStyle = {
     width: 800,
     height: 1200,
     margin: '10px auto',
-    padding: '20px'
+    padding: '50px'
   }
 };
 
@@ -32,6 +32,7 @@ class NoteEditor extends Component {
     this.toggleInlineStyle = this.toggleInlineStyle.bind(this);
     this.onTab = this.onTab.bind(this);
     this.handleKeyCommand = this.handleKeyCommand.bind(this);
+    this.onSave = this.onSave.bind(this);
   }
 
   componentWillMount() {
@@ -39,15 +40,18 @@ class NoteEditor extends Component {
     getNote(userId, params.noteId, (result) => {
       this.setState({
         title: result.title,
-        creator: result.user_id
+        creator: result.user_id,
       });
+      const existingNote = result.note;
+      if (existingNote) {
+        this.setState({editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(existingNote)))});
+      }
     });
   }
 
   handleInputChange(event) {
-    const target = event.target;
-    this.setState({ [target.name]: target.value }, () => {
-      //debounceUpdate(this.props.params.noteId, this.state);
+    this.setState({title: event.target.value}, () => {
+      debounceUpdate(this.props.params.noteId, {title: this.state.title});
     });
   }
 
@@ -72,6 +76,12 @@ class NoteEditor extends Component {
   onTab(e) {
     const maxDepth = 4;
     this.onChange(RichUtils.onTab(e, this.state.editorState, maxDepth));
+  }
+
+  onSave() {
+    const content = this.state.editorState.getCurrentContent();
+    const rawContent = convertToRaw(content);
+    updateNote(this.props.params.noteId, {note: rawContent});
   }
 
   render() {
@@ -107,6 +117,7 @@ class NoteEditor extends Component {
             editorState={editorState}
             onToggle={this.toggleInlineStyle}
           />
+          <button onClick={this.onSave}>Save</button>
       </div>
       <Paper style={muiStyle.paper}>
         <Editor
