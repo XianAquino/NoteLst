@@ -22,6 +22,7 @@ class NoteEditor extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      creator: null,
       title: '',
       editorState: EditorState.createEmpty()
     }
@@ -38,6 +39,7 @@ class NoteEditor extends Component {
     getNote(userId, params.noteId, (result) => {
       this.setState({
         title: result.title,
+        creator: result.user_id
       });
     });
   }
@@ -73,14 +75,28 @@ class NoteEditor extends Component {
   }
 
   render() {
-    const { note } = this.props;
-    const { editorState } = this.state;
+    const { note, userId } = this.props;
+    const { editorState, creator, title } = this.state;
+    // if the note is created by a different user, make it read-only
+    if(creator !== userId) {
+      return (
+        <div>
+          <h1>{title}</h1>
+          <Paper style={muiStyle.paper}>
+            <Editor
+              editorState={editorState}
+              readOnly={true}
+            />
+          </Paper>
+        </div>
+      )
+    }
     return(
       <div>
         <input
           onChange={this.handleInputChange}
           name='title'
-          value={this.state.title}
+          value={title}
         />
       <div className='editor-controls'>
           <BlockStyleControls
@@ -93,14 +109,14 @@ class NoteEditor extends Component {
           />
       </div>
       <Paper style={muiStyle.paper}>
-          <Editor
-            editorState={editorState}
-            onChange={this.onChange}
-            handleKeyCommand={this.handleKeyCommand}
-            onTab={this.onTab}
-            spellCheck={true}
-          />
-        </Paper>
+        <Editor
+          editorState={editorState}
+          onChange={this.onChange}
+          handleKeyCommand={this.handleKeyCommand}
+          onTab={this.onTab}
+          spellCheck={true}
+        />
+      </Paper>
       </div>
     )
   }
