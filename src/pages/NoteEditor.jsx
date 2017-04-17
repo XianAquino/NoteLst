@@ -1,20 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Paper } from 'material-ui';
+import { Paper, TextField, RaisedButton } from 'material-ui';
 import updateNote from '../util/updateNote';
 import getNote from '../util/getNote';
 import _ from 'underscore';
 import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
 import BlockStyleControls from '../components/BlockStyleControls';
 import InlineStyleControls from '../components/InlineStyleControls';
+import '../css/editor.css';
 
 const debounceUpdate = _.debounce(updateNote,500);
 const muiStyle = {
   paper: {
     width: 800,
-    height: 1200,
+    minHeight: 1200,
     margin: '10px auto',
     padding: '50px'
+  },
+  field: {
+    width: 152
+  },
+  input: {
+    color: '#FFF'
   }
 };
 
@@ -102,32 +109,46 @@ class NoteEditor extends Component {
       )
     }
     return(
-      <div>
-        <input
-          onChange={this.handleInputChange}
-          name='title'
-          value={title}
-        />
-      <div className='editor-controls'>
-          <BlockStyleControls
-            editorState={editorState}
-            onToggle={this.toggleBlockType}
-          />
-          <InlineStyleControls
-            editorState={editorState}
-            onToggle={this.toggleInlineStyle}
-          />
-          <button onClick={this.onSave}>Save</button>
+      <div className='notes-editor'>
+        <div className='notes-options'>
+          <div className='options-container'>
+            <div className='note-title'>
+              <label>Title: </label>
+              <TextField
+                onChange={this.handleInputChange}
+                hintText='Enter Title'
+                value={title}
+                style={muiStyle.field}
+                inputStyle={muiStyle.input}
+              />
+            </div>
+          <div className='editor-controls'>
+              <BlockStyleControls
+                editorState={editorState}
+                onToggle={this.toggleBlockType}
+              />
+              <InlineStyleControls
+                editorState={editorState}
+                onToggle={this.toggleInlineStyle}
+              />
+              <RaisedButton
+                onTouchTap={this.onSave}
+                label='Save'
+                backgroundColor='#175057'
+                labelColor='#FFF'
+              />
+          </div>
+        </div>
       </div>
-      <Paper style={muiStyle.paper}>
-        <Editor
-          editorState={editorState}
-          onChange={this.onChange}
-          handleKeyCommand={this.handleKeyCommand}
-          onTab={this.onTab}
-          spellCheck={true}
-        />
-      </Paper>
+        <Paper style={muiStyle.paper}>
+          <Editor
+            editorState={editorState}
+            onChange={this.onChange}
+            handleKeyCommand={this.handleKeyCommand}
+            onTab={this.onTab}
+            spellCheck={true}
+          />
+        </Paper>
       </div>
     )
   }
