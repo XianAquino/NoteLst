@@ -5,15 +5,16 @@ import updateNote from '../util/updateNote';
 import getNote from '../util/getNote';
 import _ from 'underscore';
 import { Editor, EditorState, RichUtils, convertToRaw, convertFromRaw } from 'draft-js';
-import BlockStyleControls from '../components/BlockStyleControls';
-import InlineStyleControls from '../components/InlineStyleControls';
+import EditorOptionsBar from '../components/EditorOptionsBar';
+import '../css/editor.css';
 
 const debounceUpdate = _.debounce(updateNote,500);
+
 const muiStyle = {
   paper: {
     width: 800,
-    height: 1200,
-    margin: '10px auto',
+    minHeight: 1200,
+    margin: '80px auto 10px',
     padding: '50px'
   }
 };
@@ -102,32 +103,24 @@ class NoteEditor extends Component {
       )
     }
     return(
-      <div>
-        <input
-          onChange={this.handleInputChange}
-          name='title'
-          value={title}
-        />
-      <div className='editor-controls'>
-          <BlockStyleControls
-            editorState={editorState}
-            onToggle={this.toggleBlockType}
-          />
-          <InlineStyleControls
-            editorState={editorState}
-            onToggle={this.toggleInlineStyle}
-          />
-          <button onClick={this.onSave}>Save</button>
-      </div>
-      <Paper style={muiStyle.paper}>
-        <Editor
+      <div className='notes-editor'>
+        <EditorOptionsBar
+          title={title}
+          handleInputChange={this.handleInputChange}
           editorState={editorState}
-          onChange={this.onChange}
-          handleKeyCommand={this.handleKeyCommand}
-          onTab={this.onTab}
-          spellCheck={true}
+          onSave={this.onSave}
+          toggleBlockType={this.toggleBlockType}
+          toggleInlineStyle={this.toggleInlineStyle}
         />
-      </Paper>
+        <Paper style={muiStyle.paper}>
+          <Editor
+            editorState={editorState}
+            onChange={this.onChange}
+            handleKeyCommand={this.handleKeyCommand}
+            onTab={this.onTab}
+            spellCheck={true}
+          />
+        </Paper>
       </div>
     )
   }
