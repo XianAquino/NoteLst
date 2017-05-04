@@ -16,9 +16,19 @@ module.exports = {
     }
   },
   getUser: (req, res) => {
-    const id = req.params.user_id;
-    users.getUser(id,function(err,info){
-      res.json(info);
+    users.getUser(req.params.username, (err, result) => {
+      if (err) {
+        res.sendStatus(500);
+      } else {
+        const userinfo = {
+          id: result.id,
+          username: result.username,
+          name: result.name,
+          email: result.email,
+          image: result.image,
+        };
+        res.json(userinfo);
+      }
     });
   },
   update: (req, res) => {

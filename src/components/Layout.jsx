@@ -1,15 +1,12 @@
 import React, { PropTypes, Component } from 'react';
 import { browserHistory } from 'react-router';
-import * as socketActions from '../actions/socketActions.jsx';
-import * as userInfoActions from '../actions/userInfoActions.jsx';
-
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { MuiThemeProvider, getMuiTheme } from 'material-ui/styles';
+import * as userInfoActions from '../actions/userInfoActions.jsx';
 
-import checkAuth from '../util/checkAuth';
-import userRequests from '../util/userRequests';
 import Navbar from '../components/Navbar';
+import Loading from './Loading';
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -23,33 +20,34 @@ const muiTheme = getMuiTheme({
 class Layout extends Component {
 
   componentWillMount() {
-    const {actions} = this.props;
-    checkAuth((isAuthenticated) => {
-      if (isAuthenticated) {
-        userRequests.getInfo((info) => {
-          actions.updateUserInfo(info);
-          actions.initializeSocket();
-        })
-      } else {
-        browserHistory.push('/auth/login');
-      }
-    });
+    this.props.actions.loadUser();
   }
 
-  render() {
+  initialLoad() {
     const { children, socket, userInfo } = this.props;
-    //check if the user is logged in and connected to socketServer
-    if(socket && userInfo.id) {
-      return(
-        <MuiThemeProvider muiTheme={muiTheme}>
+    if (userInfo.initialStateLoading) {
+      return <Loading />
+    } else {
+      // to prevent loading other data
+      if (userInfo.success) {
+        return (
           <div>
             <Navbar/>
             {children}
           </div>
-        </MuiThemeProvider>
-      );
+        );
+      } else {
+        return null
+      }
     }
-    return null;
+  }
+
+  render() {
+    return(
+      <MuiThemeProvider muiTheme={muiTheme}>
+        { this.initialLoad() }
+      </MuiThemeProvider>
+    );
   }
 };
 
@@ -66,7 +64,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators({...socketActions, ...userInfoActions}, dispatch)
+  actions: bindActionCreators(userInfoActions, dispatch)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Layout);
