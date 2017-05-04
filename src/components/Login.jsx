@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import login from '../util/login.js';
-import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as loginActions from '../actions/loginActions.jsx';
-import { Paper, TextField, RaisedButton } from 'material-ui';
+import { Paper, TextField, RaisedButton, CircularProgress } from 'material-ui';
 
 const muiStyle = {
   input: {
@@ -36,18 +34,30 @@ class Login extends Component {
   }
 
   handleSubmit (event) {
-    const {checkCorrectPwd, userExist} = this.props.actions;
-    login(this.state, (response) => {
-      console.log(response)
-      if (response.data === 'incorrect username') {
-        userExist(false)
-      } else if(response.data === 'incorrect password') {
-        checkCorrectPwd(false)
-      } else {
-        browserHistory.push('/')
-      }
-    });
     event.preventDefault();
+    this.props.actions.login(this.state);
+  }
+
+  displayUserError() {
+    const { error } = this.props.login;
+    return error === `username don't exist`
+      ? <span className='warning-msg'>{error}</span> : null
+  }
+
+  displayPasswordError() {
+    const { error } = this.props.login;
+    return error === 'incorrect password'
+      ? <span className='warning-msg'>{error}</span> : null
+  }
+
+  displayLoading() {
+    return this.props.login.loading ? <CircularProgress />
+      : <RaisedButton onTouchTap={this.handleSubmit}
+          backgroundColor='#008A7D'
+          label='Sign in'
+          labelColor='#FFF'
+          style={muiStyle.button}
+        />
   }
 
   render () {
@@ -63,9 +73,7 @@ class Login extends Component {
           onChange={this.handleInputChange}
         />
         <br/>
-        {
-          this.props.login.userExist ? null : <span className='warning-msg'>username doesn't exist</span>
-        }
+        { this.displayUserError() }
         <br/>
         <TextField
           hintText='Enter Password'
@@ -76,16 +84,9 @@ class Login extends Component {
           onChange={this.handleInputChange}
         />
         <br/>
-        {
-          this.props.login.passwordMatch ? null : <span className='warning-msg'>password didn't match</span>
-        }
+        { this.displayPasswordError() }
         <br/>
-        <RaisedButton onTouchTap={this.handleSubmit}
-          backgroundColor='#008A7D'
-          label='Sign in'
-          labelColor='#FFF'
-          style={muiStyle.button}
-        />
+        { this.displayLoading() }
       </div>
     );
   }
@@ -96,10 +97,10 @@ Login.propTypes = {
   actions: React.PropTypes.object
 }
 
-const mapStateToProps = (state) => ({login: state.login});
+const mapStateToProps = (state) => ({ login: state.login });
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators(loginActions, dispatch)
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

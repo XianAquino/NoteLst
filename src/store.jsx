@@ -7,7 +7,7 @@ import reduxThunk from 'redux-thunk';
 let store = createStore(
   rootReducer,
   applyMiddleware(
-    ReduxThunk,
+    reduxThunk,
     createLogger()
   ),
   // autoRehydrate()

@@ -18,9 +18,9 @@ module.exports = {
     const { username, pwd } = params;
     users.getUser(username, (err,info) => {
       if (!info) {
-        res.send('incorrect username');
+        res.status(401).send({ error: `username don't exist` });
       } else if (!bcrypt.compareSync(pwd, info.pwd)) {
-        res.send('incorrect password');
+        res.status(401).send({ error: 'incorrect password' });
       } else {
         const sessionId = uuid();
         createSession(req, res, sessionId, info.username);
