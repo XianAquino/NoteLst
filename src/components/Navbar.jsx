@@ -58,8 +58,10 @@ class Navbar extends Component {
   }
 
   render() {
-    const { userInfo } = this.props
+    const { username, image } = this.props.userInfo
     const defaultAvatar = 'http://res.cloudinary.com/de7lidb1d/image/upload/c_crop,w_443/v1488676774/users/style_icons_product_human_best_do1.png';
+    // return null to prevent sidebar to load when not logged in
+    if(!username) return null;
     return(
       <div>
       <AppBar className='navbar'
@@ -75,7 +77,7 @@ class Navbar extends Component {
           <i className="material-icons">mail</i>
           <span>Messages</span>
         </Link>
-        <Link to={`/${userInfo.username}/notes`}>
+        <Link to={`/${username}/notes`}>
           <i className="material-icons">note</i>
           <span>Notes</span>
           </Link>
@@ -85,7 +87,7 @@ class Navbar extends Component {
         </Link>
         <div>
           <Avatar
-            src={userInfo.image || defaultAvatar}
+            src={image || defaultAvatar}
             size={45}
             style={{marginTop: '8px'}}
             onClick={this.handleTouchTap}
@@ -101,7 +103,7 @@ class Navbar extends Component {
             onRequestClose={this.handleRequestClose} >
             <Menu>
               <MenuItem
-                primaryText={`Signed in as: ${userInfo.username}`}
+                primaryText={`Signed in as: ${username}`}
                 disabled={true}
                />
                <Divider />

@@ -1,0 +1,14 @@
+export const LOGIN_USER = 'LOGIN_USER';
+export const LOGIN_USER_FAIL = 'LOGIN_USER_FAIL';
+export const LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
+
+export const LOAD_USER = 'LOAD_USER';
+export const LOAD_USER_INFO = 'LOAD_USER_INFO';
+export const LOAD_USER_SUCCESS = 'LOAD_USER_SUCCESS';
+export const LOAD_USER_FAIL = 'LOAD_USER_FAIL';
+
+export const INITIALIZE_SOCKET = 'INITIALIZE_SOCKET';
+
+export const LOAD_USER_GROUPS = 'LOAD_USER_GROUPS';
+export const ADD_GROUP = 'ADD_GROUP';
+export const DELETE_GROUP ='DELETE_GROUP';

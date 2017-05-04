@@ -1,11 +1,12 @@
+import { INITIALIZE_SOCKET } from './types';
 import io from 'socket.io-client';
 
-export const initializeSocket = () => {
+export const initializeSocket = (dipatch) => {
   const socket = io();
-  return {
-    type: 'INITIALIZE_SOCKET',
+  dipatch({
+    type: INITIALIZE_SOCKET,
     payload: socket
-  };
+  });
 };
 
 export const removeSocket = () => {

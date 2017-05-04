@@ -1,14 +1,24 @@
+import {
+  LOGIN_USER,
+  LOGIN_USER_SUCCESS,
+  LOGIN_USER_FAIL,
+} from '../actions/types';
+
+
 const defaultState = {
-  passwordMatch: true,
-  userExist: true,
+  isLoggedIn: false,
+  loading: false,
+  error: '',
 }
 
 const loginReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case 'CORRECT_PASSWORD':
-      return {...defaultState, ...{passwordMatch: action.payload}};
-    case 'USER_EXIST':
-      return {...defaultState, ...{userExist: action.payload}};
+    case LOGIN_USER :
+      return { ...state, loading: true };
+    case LOGIN_USER_FAIL:
+      return { ...state, loading: false, error: action.payload }
+    case LOGIN_USER_SUCCESS:
+      return { ...defaultState, isLoggedIn: true };
     default:
       return state;
   }

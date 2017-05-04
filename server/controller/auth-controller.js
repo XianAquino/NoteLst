@@ -8,19 +8,20 @@ const salt = bcrypt.genSaltSync(saltRounds);
 module.exports = {
   checkAuth: (req, res) => {
     if (req.session.token) {
-      res.json({isAuthenticated: true});
+      res.json({ isAuthenticated: true });
     } else {
-      res.json({isAuthenticated: false});
+      res.json({ isAuthenticated: false });
     }
   },
   login: (req, res) => {
     const params = req.body;
     const { username, pwd } = params;
-    users.getUser(username, (err,info) => {
+    users.getUser(username, (err, info) => {
+      if(err) console.log("errrr");
       if (!info) {
-        res.send('incorrect username');
+        res.status(401).send({ error: `username don't exist` });
       } else if (!bcrypt.compareSync(pwd, info.pwd)) {
-        res.send('incorrect password');
+        res.status(401).send({ error: 'incorrect password' });
       } else {
         const sessionId = uuid();
         createSession(req, res, sessionId, info.username);
@@ -47,14 +48,18 @@ module.exports = {
   },
   getInitialInfo: (req, res) => {
     users.getUser(req.session.username, (err, result) => {
-      userinfo = {
-        id: result.id,
-        username: result.username,
-        name: result.name,
-        email: result.email,
-        image: result.image,
+      if (err) {
+        res.sendStatus(500);
+      } else {
+        const userinfo = {
+          id: result.id,
+          username: result.username,
+          name: result.name,
+          email: result.email,
+          image: result.image,
+        };
+        res.json(userinfo);
       }
-      res.json(userinfo);
     });
   },
   changePwd: (req, res) => {
