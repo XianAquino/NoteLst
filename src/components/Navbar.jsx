@@ -58,8 +58,9 @@ class Navbar extends Component {
   }
 
   render() {
-    const { username, image} = this.props.userInfo
+    const { username, image } = this.props.userInfo
     const defaultAvatar = 'http://res.cloudinary.com/de7lidb1d/image/upload/c_crop,w_443/v1488676774/users/style_icons_product_human_best_do1.png';
+    // return null to prevent sidebar to load when not logged in
     if(!username) return null;
     return(
       <div>
